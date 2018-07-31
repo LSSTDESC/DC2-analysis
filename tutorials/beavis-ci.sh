@@ -143,7 +143,7 @@ for notebook in $notebooks; do
     else
         echo "WARNING: could not find $notebook, setting build status to unknown."
         echo "$notebook: No such file in $branch branch" > $logfile
-        cp ../../../.badges/unknown.svg $svgfile
+        cp ../../../assets/badges/unknown.svg $svgfile
         continue
     fi
 
@@ -159,10 +159,10 @@ for notebook in $notebooks; do
     if [ -e $output ]; then
         outputs+=( $output )
         echo "SUCCESS: $output produced."
-        cp ../../../.badges/passing.svg $svgfile
+        cp ../../../assets/badges/passing.svg $svgfile
     else
         echo "WARNING: $output was not created, read the log in $logfile for details."
-        cp ../../../.badges/failing.svg $svgfile
+        cp ../../../assets/badges/failing.svg $svgfile
     fi
     
 done
