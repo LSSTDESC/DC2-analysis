@@ -86,14 +86,15 @@ if [ $no_push -eq 0 ]; then
   fi
 fi
 
-echo "Cloning the DC2_Repo into the .beavis workspace:"
+echo "Cloning the DC2-analysis into the .beavis workspace:"
 
 # Check out a fresh clone in a temporary hidden folder, over-writing
 # any previous edition:
 \rm -rf .beavis ; mkdir .beavis ; cd .beavis
-git clone git@github.com:LSSTDESC/DC2_Repo.git
-cd DC2_Repo/Notebooks
+git clone git@github.com:LSSTDESC/DC2-analysis.git
+cd DC2-analysis
 git checkout $branch
+cd tutorials
 
 if [ $html -gt 0 ]; then
     echo "Making static HTML pages from the master branch notebooks:"
@@ -107,7 +108,7 @@ else
     target="rendered"
 fi
 mkdir -p log
-webdir="https://github.com/LSSTDESC/DC2_Repo/tree/${branch}/Notebooks"
+webdir="https://github.com/LSSTDESC/DC2-analysis/tree/${branch}/tutorials"
 
 # Some notebooks have whitespace in their names - fix this first:
 for notebook in *.ipynb; do
@@ -177,12 +178,12 @@ else
     git branch -D $target >& /dev/null
     git checkout --orphan $target
     git rm -rf .
-    cd Notebooks
+    cd tutorials
     git add -f "${outputs[@]}"
     git add -f log
     git commit -m "pushed rendered notebooks and log files"
     git push -q -f \
-        https://${GITHUB_USERNAME}:${GITHUB_API_KEY}@github.com/LSSTDESC/DC2_Repo  $target
+        https://${GITHUB_USERNAME}:${GITHUB_API_KEY}@github.com/LSSTDESC/DC2-analysis  $target
     echo "Done!"
     git checkout master
 
