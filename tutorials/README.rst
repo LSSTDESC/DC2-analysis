@@ -17,30 +17,30 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
 
    * - Object catalog GCR Tutorial Part I: GCR access
      - Use the GCR for simple access to the object catalogs
-     - `ipynb <object_gcr_1_intro.ipynb>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/object_gcr_1_intro.nbconvert.ipynb>`_
+     - `ipynb <object_gcr_1_intro.ipynb>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_1_intro.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/object_gcr_1_intro.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/object_gcr_1_intro.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_1_intro.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_1_intro.log
 
      - `Francois Lanusse <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@EiffL>`_, `Javier Sanchez <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@fjaviersanchez>`_
 
 
    * - Object catalog GCR Tutorial Part II: Lensing Cuts
      - Use the GCR to access the object catalog and build a lensing sample similar to the HSC Y1 shape catalog
-     - `ipynb <object_gcr_2_lensing_cuts>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/object_gcr_2_lensing_cuts.nbconvert.ipynb>`_
+     - `ipynb <object_gcr_2_lensing_cuts>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_2_lensing_cuts.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/object_gcr_2_lensing_cuts.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/object_gcr_2_lensing_cuts.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_2_lensing_cuts.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_2_lensing_cuts.log
 
      - `Francois Lanusse <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@EiffL>`_, `Javier Sanchez <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@fjaviersanchez>`_
 
 
    * - Object catalog GCR Tutorial Part III: Guided Challenges
      - Use the GCR to access the object catalog and solve some typical data analysis problems
-     - `ipynb <object_gcr_3_challenges.ipynb>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/object_gcr_3_challenges.nbconvert.ipynb>`_
+     - `ipynb <object_gcr_3_challenges.ipynb>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_3_challenges.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/object_gcr_3_challenges.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/object_gcr_3_challenges.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_3_challenges.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_3_challenges.log
 
      - `Francois Lanusse <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@EiffL>`_, `Javier Sanchez <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@fjaviersanchez>`_
 
@@ -48,10 +48,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Object catalog with pandas, color-color stellar locus
      - Directly access the Run 1.1p object catalogs using pandas and explore the stellar locus
      - `ipynb <object_pandas_stellar_locus.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/object_pandas_stellar_locus.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_pandas_stellar_locus.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/object_pandas_stellar_locus.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/object_pandas_stellar_locus.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_pandas_stellar_locus.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_pandas_stellar_locus.log
 
      - `Michael Wood-Vasey <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@wmwv>`_
 
@@ -59,10 +59,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - DM DeepCoadd Catalog with Butler Access: lensing cuts
      - Use the Butler to build a lensing sample similar to the HSC Y1 shape catalog
      - `ipynb <dm_butler_lensing_cuts.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/dm_butler_lensing_cuts.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dm_butler_lensing_cuts.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/dm_butler_lensing_cuts.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/dm_butler_lensing_cuts.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_lensing_cuts.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_lensing_cuts.log
 
      - `Jim Chiang <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@jchiang87>`_
 
@@ -70,10 +70,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - DM Postage Stamps with Butler
      - Make some small cutout images and visualize them
      - `ipynb <dm_butler_postage_stamps.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/dm_butler_postage_stamps.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dm_butler_postage_stamps.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/dm_butler_postage_stamps.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/dm_butler_postage_stamps.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_postage_stamps.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_postage_stamps.log
 
      - `Michael Wood-Vasey <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@wmwv>`_
 
@@ -81,10 +81,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Plotting skymap in DM catalogs using Butler
      - Use the data butler to obtain information on the skyMap used in the coadd analyses performed by the DRP pipeline.
      - `ipynb <dm_butler_skymap.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/dm_butler_skymap.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dm_butler_skymap.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/dm_butler_skymap.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/dm_butler_skymap.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_skymap.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_skymap.log
 
      - `Jim Chiang <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@jchiang87>`_
 
@@ -92,10 +92,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Matching catalogs using the LSST Stack matching code
      - Spatial matching of objects using the DM Stack
      - `ipynb <matching_stack.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/matching_stack.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/matching_stack.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/matching_stack.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/matching_stack.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_stack.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_stack.log
 
      - `Jim Chiang <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@jchiang87>`_
 
@@ -103,10 +103,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Matching catalogs using FoF algorithm
      - Using the Friends-of-Friends algorithm to match the extragalactic, truth, and object catalogs
      - `ipynb <matching_fof.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/matching_fof.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/matching_fof.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/matching_fof.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/matching_fof.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_fof.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_fof.log
 
      - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_
 
@@ -114,10 +114,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Truth Catalog with GCG
      - Example of accessing DC2 truth catalog with GCR
      - `ipynb <truth_gcr_intro.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/truth_gcr_intro.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/truth_gcr_intro.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/truth_gcr_intro.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/truth_gcr_intro.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_intro.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_intro.log
 
      - `Scott Daniel <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@danielsf>`_
 
@@ -125,10 +125,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Extragalactic catalog with GCR: redshift distributions
      - Extract, plot and explore the differential number counts of galaxies
      - `ipynb <extragalactic_gcr_redshift_dist.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/extragalactic_gcr_redshift_dist.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_redshift_dist.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_redshift_dist.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_redshift_dist.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_redshift_dist.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_redshift_dist.log
 
      - `Eve Kovacs <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@evevkovacs>`_
 
@@ -136,10 +136,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Extragalactic catalog with GCR: Halo Occupation Distribution
      - Compute and plot the HOD for the extragalactic catalog
      - `ipynb <extragalactic_gcr_hod.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/extragalactic_gcr_hod.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_hod.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_hod.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_hod.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_hod.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_hod.log
 
      - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_
 
@@ -147,10 +147,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Extragalactic catalog with GCR: mass relations
      - Compute and plot the relations between halo mass and other quantities in the extragalactic catalog
      - `ipynb <extragalactic_gcr_mass_relations.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/extragalactic_gcr_mass_relations.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_mass_relations.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_mass_relations.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_mass_relations.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_mass_relations.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_mass_relations.log
 
      - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_
 
@@ -158,10 +158,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Extragalactic catalog with GCR: cluster colors
      - Access the extragalactic catalog with the GCR, and explore colors in galaxy clusters
      - `ipynb <extragalactic_gcr_cluster_colors.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/extragalactic_gcr_cluster_colors.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_cluster_colors.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_cluster_colors.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_cluster_colors.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_colors.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_colors.log
 
      - `Dan Korytov <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@dkorytov>`_
 
@@ -169,10 +169,10 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
    * - Extragalactic catalog with GCR: cluster members
      - Extract cluster member galaxies from the extragalactic catalog and plot them on the sky
      - `ipynb <extragalactic_gcr_cluster_members.ipynb>`_,
-       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/extragalactic_gcr_cluster_members.nbconvert.ipynb>`_
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_cluster_members.nbconvert.ipynb>`_
 
-       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_cluster_members.svg
-          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/Notebooks/log/extragalactic_gcr_cluster_members.log
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_members.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_members.log
 
      - `Dan Korytov <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@dkorytov>`_
 
