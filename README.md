@@ -4,7 +4,7 @@ The repository contains general analysis scripts for the DC2 simulated dataset. 
 
 # Links
 
-The [DC2-production repository](https://github.com/LSSTDESC/DC2-production) includes documents, discussion, and scripts related to the production and validation of DC2.  Please go there for more information.
+The [DC2-production repository](https://github.com/LSSTDESC/DC2-production) includes documents, discussion, and scripts related to the production and validation of DC2.  Please go there for more information about DC2.
 
 If you find some problem or have a question about tutorials and scripts in this repository, please ask by [opening an issue](https://github.com/LSSTDESC/DC2-analysis/issues).
 
