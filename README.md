@@ -10,7 +10,7 @@ If you find some problem or have a question about tutorials and scripts in this 
 
 # How to get involved
 
-In the [tutorials directory](https://github.com/LSSTDESC/DC2-analysis/tree/master/tutorials) you can find a set of well-documented tutorials that show how to access and use DC2 data in a variety of ways.  The [README](https://github.com/LSSTDESC/DC2-analysis/tree/master/tutorials/README.md) in that directory has a table describing the tutorials, and information about how to contribute new material.
+In the [tutorials directory](https://github.com/LSSTDESC/DC2-analysis/tree/master/tutorials) you can find a set of well-documented tutorials that show how to access and use DC2 data in a variety of ways.  The [README](https://github.com/LSSTDESC/DC2-analysis/tree/master/tutorials/README.rst) in that directory has a table describing the tutorials, and information about how to contribute new material.
 
 # Questions?
 
