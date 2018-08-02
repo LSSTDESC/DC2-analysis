@@ -8,7 +8,7 @@
 #   Enable occasional integration and testing. Like travis-ci but dumber.
 #
 # COMMENTS:
-#   Makes "rendered" versions of all the notebooks listed in the README.rst 
+#   Makes "rendered" versions of all the notebooks listed in the README.rst
 #   and deploys them to a "rendered" orphan branch, pushed to GitHub for web display.
 #
 # INPUTS:
@@ -19,6 +19,7 @@
 #   -u --username GITHUB_USERNAME, defaults to the environment variable
 #   -k --key      GITHUB_API_KEY, defaults to the environment variable
 #   -b --branch   Test the notebooks in a dev branch. Outputs still go to "rendered"
+#   -r --repo     Specify the repo name, default to LSSTDESC/DC2-analysis
 #   -n --no-push  Only run the notebooks, don't deploy the outputs
 #   --html        Make html outputs instead
 #
@@ -37,6 +38,9 @@ html=0
 all=0
 src="$0"
 branch='master'
+repo='LSSTDESC/DC2-analysis'
+jupyter='/usr/common/software/python/3.6-anaconda-4.4/bin/jupyter'
+badge_dir="$PWD/badges"
 
 while [ $# -gt 0 ]; do
     key="$1"
@@ -65,36 +69,42 @@ while [ $# -gt 0 ]; do
             shift
             branch="$1"
             ;;
+        -r|--repo)
+            shift
+            repo="$1"
+            ;;
     esac
     shift
 done
 
 if [ $HELP -gt 0 ]; then
-  more $src
-  exit 1
+    more $src
+    exit 1
 fi
 
 date
 echo "Welcome to beavis-ci: occasional integration and testing"
 
 if [ $no_push -eq 0 ]; then
-  if [ -z $GITHUB_USERNAME ] || [ -z $GITHUB_API_KEY ]; then
-      echo "No GITHUB_API_KEY and/or GITHUB_USERNAME set, giving up."
-      exit 1
-  else
-    echo "with deployment via GitHub token $GITHUB_API_KEY and username $GITHUB_USERNAME"
-  fi
+    if [ -z $GITHUB_USERNAME ] || [ -z $GITHUB_API_KEY ]; then
+        echo "No GITHUB_API_KEY and/or GITHUB_USERNAME set, giving up."
+        exit 1
+    else
+        echo "with deployment via GitHub token $GITHUB_API_KEY and username $GITHUB_USERNAME"
+    fi
 fi
 
-echo "Cloning the DC2-analysis into the .beavis workspace:"
+echo "Cloning ${repo} into the .beavis workspace:"
+
 
 # Check out a fresh clone in a temporary hidden folder, over-writing
 # any previous edition:
-\rm -rf .beavis ; mkdir .beavis ; cd .beavis
-git clone git@github.com:LSSTDESC/DC2-analysis.git
-cd DC2-analysis
+rm -rf .beavis ; mkdir .beavis ; cd .beavis
+git clone git@github.com:${repo}.git
+cd `basename $repo`
 git checkout $branch
-cd tutorials
+
+workingdir=`pwd`
 
 if [ $html -gt 0 ]; then
     echo "Making static HTML pages from the master branch notebooks:"
@@ -107,65 +117,43 @@ else
     ext="nbconvert.ipynb"
     target="rendered"
 fi
-mkdir -p log
-webdir="https://github.com/LSSTDESC/DC2-analysis/tree/${branch}/tutorials"
 
-# Some notebooks have whitespace in their names - fix this first:
-for notebook in *.ipynb; do
-    ipynbfile="$( echo "$notebook" | sed s/' '/'_'/g )"
-    if [ $ipynbfile != "$notebook" ]; then
-        mv -f "$notebook" $ipynbfile
-    fi
-done
-
-# Which notebooks to run? Either all of them, or the ones listed in README.rst:
-if [ $all -eq 0 ]; then
-    notebooks="$( grep '`ipynb' README.rst |& grep -v "No such file" | cut -d"<" -f2 | cut -d">" -f1 | sed s/'%20'/'_'/g | sed s/'%3A'/':'/g )" 
-fi
-# If README.rst is not present or empty of ipynb instances, default to running everything:
-if [ $all -gt 0 ] || [ ${#notebooks[0]} -eq 0 ]; then
-    notebooks="$( ls *.ipynb )"
-fi
-
+notebooks=`find . -path '*/.ipynb_checkpoints/*' -prune -o -name '*.ipynb' -print`
 echo "$notebooks"
 
 # Now loop over notebooks, running them one by one:
 declare -a outputs
+declare -a logs
 for notebook in $notebooks; do
 
-    # Rename files to make them easier to work with:
-    stem=$PWD/log/$notebook
-    logfile=${stem%.*}.log
-    svgfile=${stem%.*}.svg
+    filename=`basename $notebook`
+    filedir=`dirname $notebook`
+    filename_noext=${filename%.*}
 
-    # Check the notebook exists:
-    if [ -e "$notebook" ]; then
-        echo "Running nbconvert on $notebook ..."    
-    else
-        echo "WARNING: could not find $notebook, setting build status to unknown."
-        echo "$notebook: No such file in $branch branch" > $logfile
-        cp ../../../assets/badges/unknown.svg $svgfile
-        continue
-    fi
+    cd $workingdir
+    cd $filedir
+    mkdir -p log
+    logs+=( "$filedir/log" )
+
+    logfile="log/${filename_noext}.log"
+    svgfile="log/${filename_noext}.svg"
+    output="${filename_noext}.${ext}"
 
     # Run the notebook:
-    /usr/common/software/python/3.6-anaconda-4.4/bin/jupyter nbconvert \
-                      --ExecutePreprocessor.kernel_name=desc-stack \
-                      --ExecutePreprocessor.timeout=600 --to $outputformat \
-                      --execute $notebook &> $logfile
-    
-    # Set the build status according to the output:
-    output=${notebook%.*}.$ext
+    $jupyter nbconvert \
+        --ExecutePreprocessor.kernel_name=desc-stack \
+        --ExecutePreprocessor.timeout=600 --to $outputformat \
+        --execute $filename &> $logfile
 
     if [ -e $output ]; then
         outputs+=( $output )
         echo "SUCCESS: $output produced."
-        cp ../../../assets/badges/passing.svg $svgfile
+        cp $badge_dir/passing.svg $svgfile
     else
         echo "WARNING: $output was not created, read the log in $logfile for details."
-        cp ../../../assets/badges/failing.svg $svgfile
+        cp $badge_dir/failing.svg $svgfile
     fi
-    
+
 done
 
 if [ $no_push -gt 0 ]; then
@@ -174,16 +162,15 @@ if [ $no_push -gt 0 ]; then
 else
     echo "Attempting to push the rendered outputs to GitHub in an orphan branch..."
 
-    cd ../
+    cd $workingdir
     git branch -D $target >& /dev/null
     git checkout --orphan $target
     git rm -rf .
-    cd tutorials
     git add -f "${outputs[@]}"
-    git add -f log
+    git add -f "${logs[@]}"
     git commit -m "pushed rendered notebooks and log files"
     git push -q -f \
-        https://${GITHUB_USERNAME}:${GITHUB_API_KEY}@github.com/LSSTDESC/DC2-analysis  $target
+        https://${GITHUB_USERNAME}:${GITHUB_API_KEY}@github.com/${repo} $target
     echo "Done!"
     git checkout master
 
@@ -196,7 +183,7 @@ else
 fi
 
 echo "beavis-ci finished: view the results at "
-echo "   $webdir   "
+echo "    https://github.com/${repo}/tree/${target}/"
 
 cd ../../
 date
