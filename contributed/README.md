@@ -1,6 +1,6 @@
 # Contribute your analysis notebooks/code
 
-Here are the instruction to contribute your analysis notebooks/code to this repo.
+Here are the instructions to contribute your analysis notebooks/code to this repo.
 
 If you are an experienced git user, the TL;DR is:
 - Checkout a new branch.
@@ -42,8 +42,7 @@ Otherwise, here's a step-by-step guide:
     (planned) work. Use hyphens instead of spaces.
 
 5.  Add your work. If you already have a notebook that is ready to share,
-    you can simply copy it into
-    `contributed/`.
+    you can simply copy it into `contributed/`.
     ```bash
     cd ./contributed
     cp /path/to/your/awesome-notebook.ipynb ./
@@ -59,7 +58,7 @@ Otherwise, here's a step-by-step guide:
     modify it, you should first *copy* the tutorial notebook to `contributed/`.
     Then you can use jupyter-dev to work on your notebook
     ([DESC members can find instruction here](https://confluence.slac.stanford.edu/x/Xgg4Dg)).
-    When you can ready to commit, make sure you clear all output, hit the save button
+    When you are ready to commit, make sure you clear all output, hit the save button
     on the Jupyter interface, and then come back to command line to add and commit.
 
 7.  Commit and push to your forked repo
@@ -68,3 +67,13 @@ Otherwise, here's a step-by-step guide:
     ```
 
 8.  Head back to https://github.com/LSSTDESC/DC2-analysis to create a pull request.
+
+
+### Can I contribute my notebook as a tutorial notebook?
+
+Of course you can! The main distinction between a tutorial notebook and a
+contributed notebook is that the former needs to have pedagogical annotations.
+If you think your notebook can serve as a tutorial, simply put it under
+the subdirectory `tutorials/` instead of `contributed/` in Step 5.
+While we try to keep the review process for a contributed notebook minimal,
+there will be a more thorough review for tutorial notebooks.
