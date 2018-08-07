@@ -1,4 +1,4 @@
-DC2 Notebooks
+DC2 Tutorials
 =============
 
 This directory contains tutorial and demonstration notebooks convering how to access and use the DC2 datasets.
@@ -190,6 +190,9 @@ Both tutorial and demo notebooks are hugely useful resources - pull requests are
 * The "owner" of a notebook (that's you, as its contributor!) is responsible for accepting proposed modifications to it (by collaboration), and making sure that it does not go stale (by fixing issues posted about it).
 
 * Every tutorial notebook needs an owner/last verified header, a statement of its goals (learning objectives) in the first markdown cell, and enough explanatory markdown (with links to docs, papers etc) to make the notebook make sense.
+
+* Before August 2018, these tutorials were developed in the [DC2-production](https://github.com/LSSTDESC/DC2-production) repo.You can [follow this link](https://github.com/LSSTDESC/DC2-production/search?q=label%3ATutorial&type=Issues) to see issues and PRs that were related to these tutorials before they being moved here. 
+
 
 Semi-continuous Integration
 ---------------------------
