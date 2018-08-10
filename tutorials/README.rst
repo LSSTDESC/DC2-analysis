@@ -1,4 +1,4 @@
-DC2 Notebooks
+DC2 Tutorials
 =============
 
 This directory contains tutorial and demonstration notebooks convering how to access and use the DC2 datasets.
@@ -27,7 +27,7 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
 
    * - Object catalog GCR Tutorial Part II: Lensing Cuts
      - Use the GCR to access the object catalog and build a lensing sample similar to the HSC Y1 shape catalog
-     - `ipynb <object_gcr_2_lensing_cuts>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_2_lensing_cuts.nbconvert.ipynb>`_
+     - `ipynb <object_gcr_2_lensing_cuts.ipynb>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_2_lensing_cuts.nbconvert.ipynb>`_
 
        .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_2_lensing_cuts.svg
           :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_2_lensing_cuts.log
@@ -191,8 +191,11 @@ Both tutorial and demo notebooks are hugely useful resources - pull requests are
 
 * Every tutorial notebook needs an owner/last verified header, a statement of its goals (learning objectives) in the first markdown cell, and enough explanatory markdown (with links to docs, papers etc) to make the notebook make sense.
 
+* Before August 2018, these tutorials were developed in the [DC2-production](https://github.com/LSSTDESC/DC2-production) repo.You can [follow this link](https://github.com/LSSTDESC/DC2-production/search?q=label%3ATutorial&type=Issues) to see issues and PRs that were related to these tutorials before they being moved here. 
+
+
 Semi-continuous Integration
 ---------------------------
-All the notebooks listed in the table above (and on the master branch) are run every 6 hours on Cori using the [`beavis-ci` script](beavis-ci.sh), which then pushes them to an orphan "rendered" branch so that the outputs can be viewed. (At present, it seems that DC2_Repo admin permissions are needed to execute this push, but in principle anyone could run this script.)
+All the notebooks listed in the table above (and on the master branch) are run every 6 hours on Cori using the [`beavis-ci` script](beavis-ci.sh), which then pushes them to an orphan "rendered" branch so that the outputs can be viewed. (At present, it seems that `DC2-analysis` admin permissions are needed to execute this push, but in principle anyone could run this script.)
 
     If the link to a rendered notebook yields a 404 error, please check the corresponding log file (by clicking on the "build:failing" badge) and issue the notebook's owner. If it looks like something has gone wron with the cron job (like, none of the notebook builds are passing, or the logs indicate some problem with the run environment, `issue @drphilmarshall <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@drphilmarshall>`_.
