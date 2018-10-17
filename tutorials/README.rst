@@ -115,7 +115,7 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
      - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_
 
 
-   * - Truth Catalog with GCG
+   * - Truth Catalog with GCR
      - Example of accessing DC2 truth catalog with GCR
      - `ipynb <truth_gcr_intro.ipynb>`_,
        `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/truth_gcr_intro.nbconvert.ipynb>`_
@@ -124,6 +124,18 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
           :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_intro.log
 
      - `Scott Daniel <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@danielsf>`_
+
+
+   * - Truth Catalog with GCR: variables and transients
+     - Example of accessing variables and transient objects in the truth catalog with GCR
+     - `ipynb <truth_gcr_variables.ipynb>`_,
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/truth_gcr_variables.nbconvert.ipynb>`_
+
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_variables.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_variables.log
+
+     - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_, 
+       `Scott Daniel <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@danielsf>`_
 
 
    * - Extragalactic catalog with GCR: redshift distributions
