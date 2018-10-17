@@ -46,7 +46,7 @@ Otherwise, here's a step-by-step guide:
     ```bash
     cd ./contributed
     cp /path/to/your/awesome-notebook.ipynb ./
-    jupyter nbconvert --clear-output awesome-notebook.ipynb # see note below
+    jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace awesome-notebook.ipynb # see note below
     git add awesome-notebook.ipynb
     git commit -m "add an awesome notebook"
     ```
