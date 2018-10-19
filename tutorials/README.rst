@@ -4,10 +4,27 @@ DC2 Tutorials
 This directory contains tutorial and demonstration notebooks convering how to access and use the DC2 datasets.
 See the index table below for links to the notebook code, and an auto-rendered view of the notebook with outputs.
 
-If you are unsure on exactly how to start to use these tutorials, you may want to look at 
-`this step-by-step guide on Confluence <https://confluence.slac.stanford.edu/x/Xgg4Dg>`_ *(DESC members only)*.
+Notes for Tutorial Users
+------------------------
 
-Notes on how to contribute more notebooks, and how the rendering is made, are at the bottom of the page.
+*(Notes for tutorial contributors are at the bottom of the page.)*
+
+* If you are unsure on exactly how to start to use these tutorials, you may want to look at
+  this `step-by-step guide <https://confluence.slac.stanford.edu/x/Xgg4Dg>`_ *(requires Confluence login)*.
+
+* If you want to obtain an overview of the different types of DC2 data products and their access methods,
+  take a look at `DC2 Data Product Overview <https://confluence.slac.stanford.edu/x/oJgHDg>`_ *(requires Confluence login)*.
+
+* Many of the tutorials below use the Generic Catalog Reader (GCR) to access the catalogs.
+  To learn more about GCR, visit `LSSTDESC/gcr-catalogs <https://github.com/LSSTDESC/gcr-catalogs>`_ and see the information therein.
+
+* You are very encouraged to use these tutorials as a starting point for your own projects!
+  And you can contribute your analysis notebooks following `the instruction here <https://github.com/LSSTDESC/DC2-analysis/blob/master/contributed/README.md>`_.
+  It is expected that some of your analysis notebooks would be based on these tutorials
+  and hence have duplicated code snippets.
+  You don't need to worry about that for now;
+  we can always identify commonly used pieces and refactor them as standalone tools at a later time.
+
 
 .. list-table::
    :widths: 10 20 10 10
@@ -115,7 +132,7 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
      - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_
 
 
-   * - Truth Catalog with GCG
+   * - Truth Catalog with GCR
      - Example of accessing DC2 truth catalog with GCR
      - `ipynb <truth_gcr_intro.ipynb>`_,
        `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/truth_gcr_intro.nbconvert.ipynb>`_
@@ -124,6 +141,18 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
           :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_intro.log
 
      - `Scott Daniel <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@danielsf>`_
+
+
+   * - Truth Catalog with GCR: variables and transients
+     - Example of accessing variables and transient objects in the truth catalog with GCR
+     - `ipynb <truth_gcr_variables.ipynb>`_,
+       `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/truth_gcr_variables.nbconvert.ipynb>`_
+
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_variables.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_variables.log
+
+     - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_,
+       `Scott Daniel <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@danielsf>`_
 
 
    * - Extragalactic catalog with GCR: redshift distributions
@@ -183,9 +212,9 @@ Notes on how to contribute more notebooks, and how the rendering is made, are at
 
 ----
 
-Notes for Contributors
-----------------------
-Both tutorial and demo notebooks are hugely useful resources - pull requests are most welcome!
+Notes for Tutorial Contributors
+-------------------------------
+Both tutorial and demo notebooks are hugely useful resources - pull requests are most welcome! A detailed instruction can be found `here <https://github.com/LSSTDESC/DC2-analysis/blob/master/contributed/README.md>`_.
 
 * Before you commit a notebook, please make sure that a) it runs to completion and b) the outputs are cleared (to avoid both repo bloat and conflicts on every run due to semantically equivalent but bitwise-distinct output blobs).
 
@@ -195,11 +224,11 @@ Both tutorial and demo notebooks are hugely useful resources - pull requests are
 
 * Every tutorial notebook needs an owner/last verified header, a statement of its goals (learning objectives) in the first markdown cell, and enough explanatory markdown (with links to docs, papers etc) to make the notebook make sense.
 
-* Before August 2018, these tutorials were developed in the [DC2-production](https://github.com/LSSTDESC/DC2-production) repo.You can [follow this link](https://github.com/LSSTDESC/DC2-production/search?q=label%3ATutorial&type=Issues) to see issues and PRs that were related to these tutorials before they being moved here. 
+* Before August 2018, these tutorials were developed in the `DC2-production <https://github.com/LSSTDESC/DC2-production>`_ repo.You can `follow this link <https://github.com/LSSTDESC/DC2-production/search?q=label%3ATutorial&type=Issues>`_ to see issues and PRs that were related to these tutorials before they being moved here.
 
 
 Semi-continuous Integration
 ---------------------------
-All the notebooks listed in the table above (and on the master branch) are run every 6 hours on Cori using the [`beavis-ci` script](beavis-ci.sh), which then pushes them to an orphan "rendered" branch so that the outputs can be viewed. (At present, it seems that `DC2-analysis` admin permissions are needed to execute this push, but in principle anyone could run this script.)
+All the notebooks listed in the table above (and on the master branch) are run every 6 hours on Cori using the `beavis-ci <https://github.com/LSSTDESC/beavis-ci>`_ script, which then pushes them to an orphan "rendered" branch so that the outputs can be viewed. (At present, it seems that `DC2-analysis` admin permissions are needed to execute this push, but in principle anyone could run this script.)
 
     If the link to a rendered notebook yields a 404 error, please check the corresponding log file (by clicking on the "build:failing" badge) and issue the notebook's owner. If it looks like something has gone wron with the cron job (like, none of the notebook builds are passing, or the logs indicate some problem with the run environment, `issue @drphilmarshall <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@drphilmarshall>`_.
