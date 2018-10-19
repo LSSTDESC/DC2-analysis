@@ -10,13 +10,13 @@ Notes for Tutorial Users
 *(Notes for tutorial contributors are at the bottom of the page.)*
 
 * If you are unsure on exactly how to start to use these tutorials, you may want to look at
-  `this step-by-step guide on Confluence <https://confluence.slac.stanford.edu/x/Xgg4Dg>`_ *(DESC members only)*.
+  this `step-by-step guide <https://confluence.slac.stanford.edu/x/Xgg4Dg>`_ *(requires Confluence login)*.
 
 * If you want to obtain an overview of the different types of DC2 data products and their access methods,
-  visit `this DC2 Data Product Overview page on Confluence <https://confluence.slac.stanford.edu/x/oJgHDg>`_ *(DESC members only)*.
+  take a look at `DC2 Data Product Overview <https://confluence.slac.stanford.edu/x/oJgHDg>`_ *(requires Confluence login)*.
 
 * Many of the tutorials below use the Generic Catalog Reader (GCR) to access the catalogs.
-  To learn more about GCR, visit the `LSSTDESC/gcr-catalogs <https://github.com/LSSTDESC/gcr-catalogs>`_ and see the information therein.
+  To learn more about GCR, visit `LSSTDESC/gcr-catalogs <https://github.com/LSSTDESC/gcr-catalogs>`_ and see the information therein.
 
 * You are very encouraged to use these tutorials as a starting point for your own projects!
   And you can contribute your analysis notebooks following `the instruction here <https://github.com/LSSTDESC/DC2-analysis/blob/master/contributed/README.md>`_.
