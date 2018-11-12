@@ -66,6 +66,16 @@ Notes for Tutorial Users
      - `Francois Lanusse <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@EiffL>`_, `Javier Sanchez <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@fjaviersanchez>`_
 
 
+   * - Object catalog with Spark
+     - Introduction of using Spark to access the object catalogs
+     - `ipynb <object_spark_1_intro.ipynb>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_spark_1_intro.nbconvert.ipynb>`_
+
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_spark_1_intro.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_spark_1_intro.log
+
+     - `Julien Peloton <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@JulienPeloton>`_
+
+
    * - Object catalog with pandas, color-color stellar locus
      - Directly access the Run 1.1p object catalogs using pandas and explore the stellar locus
      - `ipynb <object_pandas_stellar_locus.ipynb>`_,
