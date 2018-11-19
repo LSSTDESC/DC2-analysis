@@ -1,10 +1,10 @@
-# Solution for Challenge 2 of DC2 Coadd Run1.1p GCR tutorial Part III: Guided Challenges
+# Solution for Challenge 2 of DC2 Object Catalog Run1.2i GCR tutorial Part III: Guided Challenges
 import numpy as np
 import matplotlib.pyplot as plt
 import GCRCatalogs
 from GCR import GCRQuery
 
-catalog = GCRCatalogs.load_catalog('dc2_coadd_run1.1p')
+catalog = GCRCatalogs.load_catalog('dc2_object_run1.2i')
 
 filters=[
          GCRQuery('extendedness == 0'),
@@ -34,7 +34,7 @@ quantities = ['ra', 'dec',
 
 # Would be hidden
 data = catalog.get_quantities(quantities, 
-                              native_filters=[(lambda x: x==4850, 'tract')],
+                              native_filters=['tract == 4850'],
                               filters=filters)
 
 plt.figure(figsize=(10,5))
@@ -74,5 +74,3 @@ plt.xlabel('$g_2 - g_2^{PSF}$')
 plt.axvline(0)
 
 plt.savefig('plot2.png')
-
-
