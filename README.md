@@ -31,7 +31,7 @@ There are two reasons why one might add a notebook to the repository:
 
 Some suggestions for adding new notebooks (e.g. contribution type 2 above). The code should:
 
-a) run without issues, and 
+a) run without issues; 
 b) have some texts on what the notebook is trying to do 
 c) use recommended packages/instructions whenever possible (e.g., not skipping API to access underlying files) and if not, clearly document their atypical/unrecommended usage
 d) reasonable coding style/practice.
