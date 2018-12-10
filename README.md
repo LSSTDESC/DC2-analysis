@@ -27,7 +27,7 @@ New scripts and notebooks can be added in the [contributed directory](https://gi
 There are two reasons why one might add a notebook to the repository:
 
 1) Adding a enerally applicable notebook that you think should be added to the master set of notebooks for DC2 analysis (we imagine the DC2 team will be adding most of these). These will be reviewed by another DC2 analysis team member so the fix/contribution can be added to the tutorial set.
-2) You have a notebook for your particular science case that you'd like to add (it could combine some tasks from the existing notebooks, or do something totally different etc.) For these notebooks, we will engage the analysis teams for input.
+2) You have a notebook for your particular science case that you'd like to add (usually under `contributed`; the notebook could combine some tasks from the existing notebooks, or do something totally different etc). For these notebooks, we will engage the analysis teams for input.
 
 Some suggestions for adding new notebooks (e.g. contribution type 2 above). The code should:
 
