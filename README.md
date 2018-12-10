@@ -34,7 +34,7 @@ Some suggestions for adding new notebooks (e.g. contribution type 2 above). The 
 a) run without issues; 
 b) have some explanatory text about what the notebook is trying to do; 
 c) use recommended packages/instructions whenever possible (e.g., not skipping API to access underlying files) and if not, clearly document their atypical/unrecommended usage
-d) reasonable coding style/practice.
+d) follow reasonable coding style/practices (for some examples, see the existing tutorial notebooks; or see the [DESC Coding Guidelines](https://docs.google.com/document/d/1v54bVQI2NejK2UqACDnGXj1t6IGFgY3Uc1R7iV2uLpY/edit?usp=sharing)).
 
 
 ## Questions?
