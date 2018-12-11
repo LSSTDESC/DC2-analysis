@@ -13,7 +13,7 @@ If you are an experienced git user, the TL;DR is:
 - Put your plot into `contributed/plots`
 - Commit, push, and submit a PR.
 
-Otherwise, here's a step-by-step guide:
+Otherwise, follow the step-by-step guide outlined in [`contributed/README.md`](../README.md), but, instead of checking in notebooks, checking in your plots and descriptions. 
 
 1.  If you don't have write permission for this repo, request it.
     To request write permission, [visit this "DC2-analysis-contributors" team page](https://github.com/orgs/LSSTDESC/teams/dc2-analysis-contributors/members)
