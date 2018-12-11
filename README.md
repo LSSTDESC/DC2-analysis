@@ -22,6 +22,21 @@ In the [tutorials directory](https://github.com/LSSTDESC/DC2-analysis/tree/maste
 
 New scripts and notebooks can be added in the [contributed directory](https://github.com/LSSTDESC/DC2-analysis/tree/master/contributed).  The [README](https://github.com/LSSTDESC/DC2-analysis/tree/master/contributed/README.md) has a full description of how to do so.
 
+## Notebook review
+
+There are two reasons why one might add a notebook to the repository:
+
+1) Adding a generally applicable notebook that you think should be added to the master set of notebooks for DC2 analysis (such as a tutorial or a validation notebook; we imagine the DC2 team will be adding most of these). These will be reviewed by another DC2 team member.
+2) You have a notebook for your particular science case that you'd like to add (usually under `contributed`; the notebook could combine some tasks from the existing notebooks, or do something totally different etc). For these notebooks, we will engage the analysis teams for input.
+
+Some suggestions for adding new notebooks (e.g. contribution type 2 above). The code should:
+
+a) run without issues; 
+b) have some explanatory text about what the notebook is trying to do; 
+c) use recommended packages/instructions whenever possible (e.g., not skipping API to access underlying files) and if not, clearly document their atypical/unrecommended usage; and
+d) follow reasonable coding style/practices (for some examples, see the existing tutorial notebooks; or see the [DESC Coding Guidelines](https://docs.google.com/document/d/1v54bVQI2NejK2UqACDnGXj1t6IGFgY3Uc1R7iV2uLpY/edit?usp=sharing)).
+
+
 ## Questions?
 
 If the links above don't do the job, please [open an issue](https://github.com/LSSTDESC/DC2-analysis/issues) with your question.  Alternatively, the #desc-dc2-users channel on the LSSTC slack is a good place to talk with others who are analyzing DC2 data.
