@@ -6,7 +6,7 @@ Ideally the plots are produced from a notebook/code submitted in the directory, 
 In order to submit the figure/text, you can follow the same procedure as for submitting the analysis notebooks (repeated from the README one level up):
 
 
-Here are the instructions to contribute your analysis notebooks/code to this repo.
+Here are the instructions to contribute your plots to this repo.
 
 If you are an experienced git user, the TL;DR is:
 - Checkout a new branch.
