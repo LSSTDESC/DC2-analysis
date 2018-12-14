@@ -26,7 +26,7 @@ information used in the construction of the catalog.  The area of the catalog
 is 500 deg^2, and there are 4768 clusters with lambda>20 and 0.2<z<1.2 in the
 catalog.
 
-### Caption for [cosmoDC2_v1.1.4_run_redmapper_v0.2.1py_lgt20_zspec.png]
+### Caption for [cosmoDC2_v1.1.4_run_redmapper_v0.2.1py_lgt20_zspec.png](cosmoDC2_v1.1.4_run_redmapper_v0.2.1py_lgt20_zspec.png)
 
 This plot shows the cluster photometric redshift (z_lambda) performance.  The
 x axis is the cluster photo-z, which is derived by fitting all the members to
@@ -41,7 +41,7 @@ to z_spec).  The cyan dashed line is the internally estimated redshift
 scatter.  Both of these are very low (thanks to no systematics), and consistent
 with each other.
 
-### Caption for [cosmoDC2_v1.1.4_run_redmapper_v0.2.1py_lgt20_nz.png]
+### Caption for [cosmoDC2_v1.1.4_run_redmapper_v0.2.1py_lgt20_nz.png](cosmoDC2_v1.1.4_run_redmapper_v0.2.1py_lgt20_zspec.png)
 
 This plot shows the cluster comoving density as a function of photometric
 redshift, for clusters with lambda>20.  At low redshift (z<\~0.5) the density is
