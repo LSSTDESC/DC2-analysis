@@ -1,0 +1,75 @@
+
+input:
+
+    dir: '/global/cscratch1/sd/desc/DC2/data/Run1.2i/rerun/20181007_h/'
+    image_file_name: 'calexp/00261962-i/*/calexp_00261962-i-*.fits'
+    image_hdu: 1
+    #badpix_hdu: 2
+    weight_hdu: 3
+    invert_weight: True
+    remove_signal_from_weight: True
+    #gain: 1.7
+
+    cat_file_name: 'src/00261962-i/*/src_00261962-i-*.fits'
+    cat_hdu: 1
+
+    x_col: base_SdssCentroid_x
+    y_col: base_SdssCentroid_y
+    #flag_col: base_ClassificationExtendedness_value
+    flag_col: flags  # Note: this is an array of bools, not a normal flag column.
+    use_flag: 4  # 2**2 = bit number 3 in 1-based counting, called calib_psf_used
+
+    #cat_file_name: '/global/homes/m/mjarvis/true_stars_dc1.2.fits'
+    #ra_col: ra
+    #dec_col: dec
+    #ra_units: deg
+    #dec_units: deg
+
+    max_snr: 200
+    min_snr: 30
+
+    stamp_size: 25
+
+
+output:
+    dir: '/global/cscratch1/sd/mjarvis/DC2/00261962-i'
+    file_name: 'piff_00261962-i-full.fits'
+
+    stats:
+        -  
+            type: Rho
+            file_name: rho.png
+        -
+            type: ShapeHistograms
+            file_name: shape.png
+            bins_size: 30
+            bins_shape: 30
+
+        -
+            type: TwoDHist
+            file_name: twod.png
+            number_bins_u: 50
+            number_bins_v: 50
+
+
+psf:
+
+    type: SingleChip
+
+    model:
+        type: PixelGrid
+        scale: 0.20
+        size: 15
+        start_sigma: 0.5  # The code is pretty robust to this being larger than the actual size
+                          # of the PSF, but if it's much smaller, then there can be problems.
+
+    interp:
+        type: BasisPolynomial
+        order: 2
+
+    outliers:
+        type: Chisq
+        nsigma: 4
+        max_remove: 1
+
+verbose: 2
