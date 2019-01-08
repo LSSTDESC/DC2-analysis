@@ -19,8 +19,8 @@ not (as specified in baseDC2).
 
 # Figs
 
-Figure 1 & 2 are typical checks. Figure 3 is applying a multitude of
-cuts.
+Figure 1 is restframe colors. Fig 2 & 3 are observer colors. Figure 4
+is applying a multitude of cuts. 
 
 
 # DESCQA link:
