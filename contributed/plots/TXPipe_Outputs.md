@@ -7,4 +7,4 @@ These are the output plots from my run of the cosmoDC2_v1.0_small catalog throug
 If you have any questions about these plots please ping me! 
 github: ellongley 
 Slack: Emily Phillips Longley / ellongley
-See also https://github.com/LSSTDESC/DC2-analysis/pull/59 for more discussion of the plot.s 
+See also https://github.com/LSSTDESC/DC2-analysis/pull/59 for more discussion.
