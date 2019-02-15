@@ -13,6 +13,14 @@ The plots include:
    different auto- and cross-correlations that are relevant to shear
    measurement errors.
 
+   Note that rho_1 here is significantly noisier than the plots from large data
+   surveys (e.g. DES http://adsabs.harvard.edu/abs/2016MNRAS.460.2245J).
+   This is expected as this is just a single exposure.  The main takeaway
+   at this point is that the measurement is broadly consistent with no signal.
+   We will be doing a larger scale test of this using many more DC2 images,
+   at which point we will be able to make more significant claims about the
+   quality of the PSF reconstruction on these data.
+
 2. Spatial distribution of size and shape errors (twod.png).  These used to
    show significant outliers that were too numerous for Piff to do a good job
    of removing them.  But switching to the DM PSF stars for the input list
