@@ -73,7 +73,7 @@ Notes for Tutorial Users
        .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_4_photoz.svg
           :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_4_photoz.log
 
-     - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_
+     - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_, `Sam Schmidt <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@sschmidt23>`_
 
 
    * - Object catalog with Spark
