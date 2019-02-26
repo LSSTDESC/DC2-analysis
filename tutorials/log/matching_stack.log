@@ -1,0 +1,6 @@
+[NbConvertApp] WARNING | Config option `startup_timeout` not recognized by `ExecutePreprocessor`.  Did you mean one of: `interrupt_on_timeout, iopub_timeout, timeout`?
+[NbConvertApp] Converting notebook matching_stack.ipynb to notebook
+[NbConvertApp] Executing notebook with kernel: desc-stack
+[IPKernelApp] WARNING | File not found: '/etc/pythonstart'
+CameraMapper INFO: Loading Posix exposure registry from /global/projecta/projectdirs/lsst/global/in2p3/Run1.1/Run1.1/input
+[NbConvertApp] Writing 640576 bytes to matching_stack.nbconvert.ipynb

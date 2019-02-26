@@ -1,0 +1,40 @@
+[NbConvertApp] WARNING | Config option `startup_timeout` not recognized by `ExecutePreprocessor`.  Did you mean one of: `interrupt_on_timeout, iopub_timeout, timeout`?
+[NbConvertApp] Converting notebook postgres_object_1_intro.ipynb to notebook
+[NbConvertApp] Executing notebook with kernel: desc-python
+Now using /global/common/software/lsst/common/miniconda/current
+[NbConvertApp] ERROR | Error while converting 'postgres_object_1_intro.ipynb'
+Traceback (most recent call last):
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/nbconvertapp.py", line 373, in export_single_notebook
+    output, resources = self.exporter.from_filename(notebook_filename, resources=resources)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/exporters/exporter.py", line 171, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/exporters/exporter.py", line 189, in from_file
+    return self.from_notebook_node(nbformat.read(file_stream, as_version=4), resources=resources, **kw)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/exporters/notebook.py", line 31, in from_notebook_node
+    nb_copy, resources = super(NotebookExporter, self).from_notebook_node(nb, resources, **kw)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/exporters/exporter.py", line 131, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/exporters/exporter.py", line 308, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/preprocessors/base.py", line 47, in __call__
+    return self.preprocess(nb,resources)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/preprocessors/execute.py", line 211, in preprocess
+    nb, resources = super(ExecutePreprocessor, self).preprocess(nb, resources)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/preprocessors/base.py", line 70, in preprocess
+    nb.cells[index], resources = self.preprocess_cell(cell, resources, index)
+  File "/usr/common/software/python/3.6-anaconda-4.4/lib/python3.6/site-packages/nbconvert/preprocessors/execute.py", line 242, in preprocess_cell
+    raise CellExecutionError(msg)
+nbconvert.preprocessors.execute.CellExecutionError: An error occurred while executing the following cell:
+------------------
+dbname = 'desc_dc2_drp'
+dbuser = 'desc_dc2_drp_user'
+dbhost = 'nerscdb03.nersc.gov'
+dbconfig = {'dbname' : dbname, 'user' : dbuser, 'host' : dbhost}
+dbconn = psycopg2.connect(**dbconfig)
+
+
+------------------
+
+OperationalError: fe_sendauth: no password supplied
+
+

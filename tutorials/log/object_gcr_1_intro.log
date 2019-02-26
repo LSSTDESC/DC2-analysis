@@ -1,0 +1,5 @@
+[NbConvertApp] WARNING | Config option `startup_timeout` not recognized by `ExecutePreprocessor`.  Did you mean one of: `interrupt_on_timeout, iopub_timeout, timeout`?
+[NbConvertApp] Converting notebook object_gcr_1_intro.ipynb to notebook
+[NbConvertApp] Executing notebook with kernel: desc-python
+Now using /global/common/software/lsst/common/miniconda/current
+[NbConvertApp] Writing 2170986 bytes to object_gcr_1_intro.nbconvert.ipynb

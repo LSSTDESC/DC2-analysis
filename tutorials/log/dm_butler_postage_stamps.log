@@ -1,0 +1,6 @@
+[NbConvertApp] WARNING | Config option `startup_timeout` not recognized by `ExecutePreprocessor`.  Did you mean one of: `interrupt_on_timeout, iopub_timeout, timeout`?
+[NbConvertApp] Converting notebook dm_butler_postage_stamps.ipynb to notebook
+[NbConvertApp] Executing notebook with kernel: desc-stack
+[IPKernelApp] WARNING | File not found: '/etc/pythonstart'
+CameraMapper INFO: Loading Posix exposure registry from /global/cscratch1/sd/desc/DC2/data/Run1.1p/Run1.1/Run1.1/input
+[NbConvertApp] Writing 611109 bytes to dm_butler_postage_stamps.nbconvert.ipynb

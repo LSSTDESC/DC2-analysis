@@ -1,0 +1,9 @@
+[NbConvertApp] WARNING | Config option `startup_timeout` not recognized by `ExecutePreprocessor`.  Did you mean one of: `interrupt_on_timeout, iopub_timeout, timeout`?
+[NbConvertApp] Converting notebook object_gcr_2_lensing_cuts.ipynb to notebook
+[NbConvertApp] Executing notebook with kernel: desc-stack
+[IPKernelApp] WARNING | File not found: '/etc/pythonstart'
+CameraMapper INFO: Loading exposure registry from /global/cscratch1/sd/desc/DC2/data/Run1.2i_globus_in2p3_20181217/w_2018_39/registry.sqlite3
+CameraMapper INFO: Loading calib registry from /global/cscratch1/sd/desc/DC2/data/Run1.2i_globus_in2p3_20181217/w_2018_39/CALIB/calibRegistry.sqlite3
+CameraMapper INFO: Loading calib registry from /global/cscratch1/sd/desc/DC2/data/Run1.2i_globus_in2p3_20181217/w_2018_39/CALIB/calibRegistry.sqlite3
+CameraMapper INFO: Loading calib registry from /global/cscratch1/sd/desc/DC2/data/Run1.2i_globus_in2p3_20181217/w_2018_39/CALIB/calibRegistry.sqlite3
+[NbConvertApp] Writing 707153 bytes to object_gcr_2_lensing_cuts.nbconvert.ipynb
