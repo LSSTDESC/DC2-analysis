@@ -66,6 +66,16 @@ Notes for Tutorial Users
      - `Francois Lanusse <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@EiffL>`_, `Javier Sanchez <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@fjaviersanchez>`_
 
 
+   * - Object catalog GCR Tutorial Part IV: Photo-z information
+     - Use the GCR to access the Photo-z information that are provided as an "add-on" to the object catalog
+     - `ipynb <object_gcr_4_photoz.ipynb>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_4_photoz.nbconvert.ipynb>`_
+
+       .. image:: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_4_photoz.svg
+          :target: https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_4_photoz.log
+
+     - `Yao-Yuan Mao <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@yymao>`_, `Sam Schmidt <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@sschmidt23>`_
+
+
    * - Object catalog with Spark
      - Introduction of using Spark to access the object catalogs
      - `ipynb <object_spark_1_intro.ipynb>`_, `rendered <https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_spark_1_intro.nbconvert.ipynb>`_
