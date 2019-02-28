@@ -24,7 +24,7 @@ from lsst.sims.utils import cartesianFromSpherical, sphericalFromCartesian
 import GCRCatalogs
 from GCR import GCRQuery
 from desc_dc2_dm_data import REPOS
-from fieldRotator import FieldRotator
+from .fieldRotator import FieldRotator
 
 class RegionSelector:
     """
