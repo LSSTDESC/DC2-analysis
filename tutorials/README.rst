@@ -229,7 +229,13 @@ Notes for Tutorial Users
 
      - `Dan Korytov <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@dkorytov>`_
 
+   * - DC2 Run 2.1i DR1 Object Catalog
+     - Preliminary Validation of DR1 Object Catalog
+     - `ipynb` <../validate_dc2_run2.1i_object_table.ipynb>
+     - `rendered` <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/validation/validate_dc2_run2.1i_object_table.ipynb>
+     - `Michael Wood-Vasey <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@wmwv>`_
 
+   * - Difference Image Analysis 
 ----
 
 Notes for Tutorial Contributors
@@ -249,6 +255,6 @@ Both tutorial and demo notebooks are hugely useful resources - pull requests are
 
 Semi-continuous Integration
 ---------------------------
-All the notebooks listed in the table above (and on the master branch) are run every 6 hours on Cori using the `beavis-ci <https://github.com/LSSTDESC/beavis-ci>`_ script, which then pushes them to an orphan "rendered" branch so that the outputs can be viewed. (At present, it seems that `DC2-analysis` admin permissions are needed to execute this push, but in principle anyone could run this script.)
+All the notebooks listed in the table above (and on the master branch) can be run on Cori using the `beavis-ci <https://github.com/LSSTDESC/beavis-ci>`_ script, which then pushes them to an orphan "rendered" branch so that the outputs can be viewed.  Our ideal is that this will be run automatically daily, but that is not currently active.
 
-    If the link to a rendered notebook yields a 404 error, please check the corresponding log file (by clicking on the "build:failing" badge) and issue the notebook's owner. If it looks like something has gone wron with the cron job (like, none of the notebook builds are passing, or the logs indicate some problem with the run environment, `issue @drphilmarshall <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@drphilmarshall>`_.
+    If the link to a rendered notebook yields a 404 error, please check the corresponding log file (by clicking on the "build:failing" badge) and issue the notebook's owner. If it looks like something has gone wrong overall (like, none of the notebook builds are passing, or the logs indicate some problem with the run environment, `issue @drphilmarshall <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@drphilmarshall>`_.
