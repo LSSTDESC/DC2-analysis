@@ -3,7 +3,7 @@
 This directory contains notebooks related to the validation work
 being performed for the different DC2 runs. 
 
-These tutorials are intended to be run at NERSC using jupyter-dev. If you are unsure
+These tutorials are intended to be run at NERSC using the [JupyterHub environment](https://jupyter.nersc.gov). If you are unsure
 on how to proceed, please go [here](https://github.com/LSSTDESC/DC2-analysis/tree/master/tutorials).
 
 You are encouraged to use the code in these notebooks for your own analysis.
