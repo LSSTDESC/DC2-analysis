@@ -231,11 +231,22 @@ Notes for Tutorial Users
 
    * - DC2 Run 2.1i DR1 Object Catalog
      - Preliminary Validation of DR1 Object Catalog
-     - `ipynb` <../validate_dc2_run2.1i_object_table.ipynb>
-     - `rendered` <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/validation/validate_dc2_run2.1i_object_table.ipynb>
+     - `ipynb <../validation/validate_dc2_run2.1i_object_table.ipynb>`_,
+       `rendered <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/validation/validate_dc2_run2.1i_object_table.ipynb>`_
      - `Michael Wood-Vasey <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@wmwv>`_
 
-   * - Difference Image Analysis 
+   * - Difference Image Analysis - Stamps and Lightcurves
+     - Exploring a test Run 1.2p DIA run on (tract, patch) = (4849, '6,6')
+     - `ipynb <dia_source_object_stamp.ipynb>`_,
+       `rendered <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dia_source_object_stamp.ipynb>`_
+     - `Michael Wood-Vasey <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@wmwv>`_
+
+   * - Difference Image Analysis - Supernova Example
+     - Comparing supernova lightcurves to variable+transient truth catalog for test Run 1.2p DIA run on (tract, patch) = (4849, '6,6')
+     - `ipynb <dia_sn_vs_truth.ipynb>`_,
+       `rendered <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dia_sn_vs_truth.ipynb>`_
+     - `Michael Wood-Vasey <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@wmwv>`_
+
 ----
 
 Notes for Tutorial Contributors
