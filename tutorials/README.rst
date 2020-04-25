@@ -247,6 +247,29 @@ Notes for Tutorial Users
        `rendered <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dia_sn_vs_truth.ipynb>`_
      - `Michael Wood-Vasey <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@wmwv>`_
 
+   * - Using PostgreSQL Introduction - Object table
+     - Use object table as first example of how to access PostgreSQL database. Also includes mini SQL primer
+     - `ipynb <postgres_object_1_intro.ipynb>`_,
+       `rendered <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/postgres_object_1_intro.ipynb>`_
+     - `Joanne Bogart <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@JoanneBogart>`_
+
+   * - PostgreSQL - Object table part 2
+     - More advanced queries of object table
+     - `ipynb <postgres_object_2.ipynb>`_,
+       `rendered <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/postgres_object_2.ipynb>`_
+     - `Joanne Bogart <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@JoanneBogart>`_
+     
+   * - PostgreSQL - Forced source
+     - Use PostgreSQL fourcedsource view to access forced source, plot light curves
+     - `ipynb <postgres_forcedsource.ipynb>`_,
+       `rendered <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/postgres_forcedsource.ipynb>`_
+     - `Joanne Bogart <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@JoanneBogart>`_
+     
+   * - PostgreSQL - Truth data
+     - Use PostgreSQL to access star truth summary and variability tables
+     - `ipynb <postgres_truth.ipynb>`_,
+       `rendered <https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/postgres_truth.ipynb>`_
+     - `Joanne Bogart <https://github.com/LSSTDESC/DC2-analysis/issues/new?body=@JoanneBogart>`_
 ----
 
 Notes for Tutorial Contributors
