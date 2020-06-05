@@ -289,8 +289,8 @@ def plot_four_color_color(cat, vmin=0, vmax=50000, plotname=None):
         plt.savefig(plotname)
 
 
-def plot_density_mag(good, stars, galaxies,
-    filt, log=True, range=(16, 28), ax=None, plotname=None,
+def plot_density_mag(
+    good, stars, galaxies, filt, log=True, range=(16, 28), ax=None, plotname=None,
 ):
     if ax is None:
         ax = fig.gca()
@@ -407,7 +407,7 @@ def plot_normalize_mag_density(galaxies, plotname=None, figsize=(8, 8)):
 
 
 def plot_mag_magerr(
-    df, band, ax=ax, range=(16, 28), magerr_limit=0.25, cmin=100, plotname=None
+    df, band, ax, range=(16, 28), magerr_limit=0.25, cmin=100, plotname=None
 ):
     """
     Magnitude Error vs. Magnitude
@@ -428,8 +428,7 @@ def plot_mag_magerr(
         plt.savefig(plotname)
 
 
-def plot_mag_magerr_filters(df, filters=("u", "g", "r", "i", "z", "y"),
-                            plotname=None):
+def plot_mag_magerr_filters(df, filters=("u", "g", "r", "i", "z", "y"), plotname=None):
     fig, axes = plt.subplots(2, 3, figsize=(12, 6))
     for ax, filt in zip(axes.flat, filters):
         plot_mag_magerr(df, filt, ax=ax)
@@ -506,13 +505,9 @@ def plot_psf_cmodel(good, stars, galaxies, plotname=None):
         plt.savefig(plotname)
 
 
-def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4),
-                               plotname=None):
+def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None):
     plt.hexbin(
-        good["mag_i"],
-        good["mag_i"] - good["mag_i_cModel"],
-        extent=extent,
-        bins="log",
+        good["mag_i"], good["mag_i"] - good["mag_i_cModel"], extent=extent, bins="log",
     )
     plt.xlabel("i")
     plt.ylabel("mag_i[_psf] - mag_i_CModel")
@@ -530,9 +525,7 @@ def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4),
         plt.savefig(plotname)
 
 
-
-def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4),
-                               plotname=None):
+def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None):
     plt.hexbin(
         good["mag_g"] - good["mag_r"],
         good["mag_i"] - good["mag_i_cModel"],
@@ -553,6 +546,92 @@ def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4),
 
     if plotname is not None:
         plt.savefig(plotname)
+
+
+def plot_ellipticity(good, stars, galaxies, filt, ax=None, legend=True, plotname=None):
+    if not ax:
+        ax = fig.gca()
+
+    names = ["all", "star", "galaxy"]
+    colors = ["blue", "orange", "green"]
+    hist_kwargs = {
+        "color": colors,
+        "log": True,
+        "bins": np.logspace(-1, 1.5, 100),
+        "range": (0, 5),
+        "histtype": "step",
+    }
+    for prefix, ls in (("e", "-"), ("e1", "--"), ("e2", ":")):
+        field = f"{prefix}_{filt}"
+        labels = [f"{prefix} {name}" for name in names]
+        ax.hist(
+            [good[field], stars[field], galaxies[field]],
+            label=labels,
+            linestyle=ls,
+            **hist_kwargs,
+        )
+
+    ax.set_xlim(0, 20)
+    ax.set_ylim(10, ax.get_ylim()[1])
+
+    ax.set_xlabel(f"{filt}-band ellipticity")
+    ax.set_ylabel("objects / bin")
+    if legend:
+        ax.legend()
+
+
+def plot_shape(filt, ax=None, legend=True, plotname=None):
+    if not ax:
+        ax = fig.gca()
+
+    names = ["all", "star", "galaxy"]
+    colors = ["blue", "orange", "green"]
+    hist_kwargs = {
+        "color": colors,
+        "log": True,
+        "bins": np.logspace(-1, 1.5, 100),
+        "range": (0, 50),
+        "histtype": "step",
+    }
+    for prefix, ls in (("Ixx", "-"), ("Iyy", "--"), ("Ixy", ":")):
+        field = f"{prefix}_{filt}"
+        labels = [f"{prefix} {name}" for name in names]
+        ax.hist(
+            [good[field], stars[field], galaxies[field]],
+            label=labels,
+            linestyle=ls,
+            **hist_kwargs,
+        )
+
+    ax.set_ylim(100, ax.get_ylim()[1])
+
+    ax.set_xlabel(f"{filt}-band Moments: Ixx, Iyy, Ixy [pixels^2]")
+    ax.set_ylabel("objects / bin")
+    if legend:
+        ax.legend()
+
+    plt.tight_laytout()
+    if plotname is not None:
+        plt.savefig(plotname)
+
+
+def plot_psf_fwhm(
+    good,
+    filters,
+    colors=("purple", "blue", "green", "orange", "red", "brown"),
+    plotname=None,
+):
+    for filt, color in zip(filters, colors):
+        psf_fwhm = np.array(good[f"psf_fwhm_{filt}"])
+        (w,) = np.where(np.isfinite(psf_fwhm) & (psf_fwhm < 3))
+        sns.distplot(psf_fwhm[w], label=filt, color=color)
+    plt.xlabel("PSF FWHM [arcsec]")
+    plt.ylabel("normalized object density")
+    plt.legend()
+
+    plt.tight_laytout()
+    plotname = f"{data_release}_ellipticity.{suffix}"
+    plt.savefig(plotname)
 
 
 def run():
@@ -653,9 +732,7 @@ def run():
     plt.xlabel("g-r")
     plt.ylabel("objects / bin")
 
-
     # In[46]:
-
 
     plt.hexbin(
         stars["mag_g"] - stars["mag_r"],
@@ -669,54 +746,19 @@ def run():
     # plt.text(18, 2, "GALAXIES", fontdict={'fontsize': 24}, color='orange')
     plt.colorbar(label="objects / bin")
 
-
     # ## Shape Parameters
     #
     # Ixx, Iyy, Ixy
 
     # In[47]:
 
-
-    def plot_shape(filt, ax=None, legend=True):
-        if not ax:
-            ax = fig.gca()
-
-        names = ["all", "star", "galaxy"]
-        colors = ["blue", "orange", "green"]
-        hist_kwargs = {
-            "color": colors,
-            "log": True,
-            "bins": np.logspace(-1, 1.5, 100),
-            "range": (0, 50),
-            "histtype": "step",
-        }
-        for prefix, ls in (("Ixx", "-"), ("Iyy", "--"), ("Ixy", ":")):
-            field = f"{prefix}_{filt}"
-            labels = [f"{prefix} {name}" for name in names]
-            ax.hist(
-                [good[field], stars[field], galaxies[field]],
-                label=labels,
-                linestyle=ls,
-                **hist_kwargs,
-            )
-
-        ax.set_ylim(100, ax.get_ylim()[1])
-
-        ax.set_xlabel(f"{filt}-band Moments: Ixx, Iyy, Ixy [pixels^2]")
-        ax.set_ylabel("objects / bin")
-        if legend:
-            ax.legend()
-
-
     # In[ ]:
-
 
     fig, axes = plt.subplots(2, 3, figsize=(12, 6))
     legend = True
     for ax, filt in zip(axes.flat, filters):
         plot_shape(filt, ax=ax, legend=legend)
         legend = False
-
 
     # The stars (orange) are concentrated at low values of the source moments.
     #
@@ -726,85 +768,18 @@ def run():
 
     # In[ ]:
 
-
-    def plot_ellipticity(good, stars, galaxies, filt, ax=None, legend=True):
-        if not ax:
-            ax = fig.gca()
-
-        names = ["all", "star", "galaxy"]
-        colors = ["blue", "orange", "green"]
-        hist_kwargs = {
-            "color": colors,
-            "log": True,
-            "bins": np.logspace(-1, 1.5, 100),
-            "range": (0, 5),
-            "histtype": "step",
-        }
-        for prefix, ls in (("e", "-"), ("e1", "--"), ("e2", ":")):
-            field = f"{prefix}_{filt}"
-            labels = [f"{prefix} {name}" for name in names]
-            ax.hist(
-                [good[field], stars[field], galaxies[field]],
-                label=labels,
-                linestyle=ls,
-                **hist_kwargs,
-            )
-
-        ax.set_xlim(0, 20)
-        ax.set_ylim(10, ax.get_ylim()[1])
-
-        ax.set_xlabel(f"{filt}-band ellipticity")
-        ax.set_ylabel("objects / bin")
-        if legend:
-            ax.legend()
-
-
     # In[ ]:
-
 
     fig, axes = plt.subplots(2, 3, figsize=(12, 6))
     legend = True
     for ax, filt in zip(axes.flat, filters):
         plot_ellipticity(good, stars, galaxies, filt, ax=ax, legend=legend)
         legend = False
-
-
-    # ### FWHM of the PSF
-    # At the location of the catalog objects.
-    #
-    # The Object Table stores the shape parameters of the PSF model as evaluated at the location of the object.
-    #
-    # This is not the same as, but is certainly related to, the distribution of effective seeing in the individual images that made up the coadd.
-
-    # In[ ]:
-
-
-    def plot_psf_fwhm(
-        filters=filters, colors=("purple", "blue", "green", "orange", "red", "brown")
-    ):
-        for filt, color in zip(filters, colors):
-            psf_fwhm = np.array(good[f"psf_fwhm_{filt}"])
-            (w,) = np.where(np.isfinite(psf_fwhm) & (psf_fwhm < 3))
-            sns.distplot(psf_fwhm[w], label=filt, color=color)
-        plt.xlabel("PSF FWHM [arcsec]")
-        plt.ylabel("normalized object density")
-        plt.legend()
-
-
-    # In[ ]:
-
+    plt.tight_laytout()
+    plotname = f"{data_release}_ellipticity.{suffix}"
+    plt.savefig(plotname)
 
     plot_psf_fwhm()
-
-
-    # * Note the significant excees at unphysical values of FWHM. *
-    # Should check to see what's going on.  These should be the PSF model at the location of the object, so this is quite odd.
-    #
-    # We do see here that the model PSF FWHM from the coadd achieves the best seeing in r and i.  Providing the best seeing in r and i is one of the goals of the observation planning, so this part looks successful.
-
-    # Questions for further investigation:
-    # 1. How do the above distributions of PSF FWHM compare to the effective per-visit seeing?
-    # 2. How do the above distributions of PSF FWHM compare to the OpSim simulation, minion_1016, used to generated DC2 Run 2.1i?
-    # 3. Are the model PSFs from the coadd reasonable?  The coadds are generated by combining the individual images -- that may not result in PSFs that coherently make sense across a given region of the coadd, particularly as more and more objects are intersected by CCD boundaries and gaps.
-
-    # In[ ]:
+    plt.tight_laytout()
+    plotname = f"{data_release}_fwhm.{suffix}"
+    plt.savefig(plotname)
