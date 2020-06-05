@@ -502,6 +502,58 @@ def plot_psf_cmodel(good, stars, galaxies, plotname=None):
     plt.text(-0.080, 100, "STARS", fontdict={"fontsize": 24}, color="orange")
     plt.text(+0.025, 100, "GALAXIES", fontdict={"fontsize": 24}, color="orange")
 
+    if plotname is not None:
+        plt.savefig(plotname)
+
+
+def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4),
+                               plotname=None):
+    plt.hexbin(
+        good["mag_i"],
+        good["mag_i"] - good["mag_i_cModel"],
+        extent=extent,
+        bins="log",
+    )
+    plt.xlabel("i")
+    plt.ylabel("mag_i[_psf] - mag_i_CModel")
+    plt.text(14.5, -0.5, "STARS", fontdict={"fontsize": 24}, color="orange")
+    plt.text(18, 2, "GALAXIES", fontdict={"fontsize": 24}, color="orange")
+    plt.colorbar(label="objects / bin")
+
+    plt.axhline(0.0164, 0.92, 1.0, color="red", linestyle="--")
+    plt.axhline(
+        0.0164, 0, 0.1, color="red", linestyle="--", label=r"0.0164 $\Delta$mag cut"
+    )
+    # psf-cModel mag cut from Bosch et al. 2018.
+
+    if plotname is not None:
+        plt.savefig(plotname)
+
+
+
+def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4),
+                               plotname=None):
+    plt.hexbin(
+        good["mag_g"] - good["mag_r"],
+        good["mag_i"] - good["mag_i_cModel"],
+        extent=extent,
+        bins="log",
+    )
+    plt.xlabel("g-r")
+    plt.ylabel("mag_i[_psf] - mag_i_CModel")
+    plt.text(14.5, -0.5, "STARS", fontdict={"fontsize": 24}, color="orange")
+    plt.text(18, 2, "GALAXIES", fontdict={"fontsize": 24}, color="orange")
+    plt.colorbar(label="objects / bin")
+
+    plt.axhline(0.0164, 0.92, 1.0, color="red", linestyle="--")
+    plt.axhline(
+        0.0164, 0, 0.1, color="red", linestyle="--", label=r"0.0164 $\Delta$mag cut"
+    )
+    # psf-cModel mag cut from Bosch et al. 2018.
+
+    if plotname is not None:
+        plt.savefig(plotname)
+
 
 def run():
     suffix = "pdf"
@@ -581,232 +633,178 @@ def run():
     print(
         f"{100 * len(w)/len(good):0.1f}% of objects have finite blendedness measurements."
     )
+    plotname = f"{data_release}_psf_cmodel.{suffix}"
+    plot_psf_cmodel(good, stars, galaxies, plotname=plotname)
+    plotname = f"{data_release}_psf_cmodel_i.{suffix}"
+    plot_psf_cmodel_mag_hist2d(good, plotname=plotname)
+    plotname = f"{data_release}_psf_cmodel_i_zoom.{suffix}"
+    plot_psf_cmodel_mag_hist2d(good, plotname=plotname, extent=(22, 25.5, -0.1, +0.5))
+
+    plotname = f"{data_release}_psf_cmodel_g_r.{suffix}"
+    plot_psf_cmodel_gmr_hist2d(good, plotname=plotname, extent=(-2, +3, -0.1, +0.5))
+
+    ############
+    plt.hist(
+        [galaxies["mag_g"] - galaxies["mag_r"], stars["mag_g"] - stars["mag_r"]],
+        label=["galaxies", "stars"],
+        histtype="step",
+        bins=np.linspace(-5, +5, 51),
+    )
+    plt.xlabel("g-r")
+    plt.ylabel("objects / bin")
 
 
+    # In[46]:
 
 
-plt.hexbin(
-    good["mag_i"],
-    good["mag_i"] - good["mag_i_cModel"],
-    extent=(14, 26, -0.75, +2.5),
-    bins="log",
-)
-plt.xlabel("i")
-plt.ylabel("mag_i[_psf] - mag_i_CModel")
-plt.text(14.5, -0.5, "STARS", fontdict={"fontsize": 24}, color="orange")
-plt.text(18, 2, "GALAXIES", fontdict={"fontsize": 24}, color="orange")
-plt.colorbar(label="objects / bin")
-
-plt.axhline(0.0164, 0.92, 1.0, color="red", linestyle="--")
-plt.axhline(
-    0.0164, 0, 0.1, color="red", linestyle="--", label=r"0.0164 $\Delta$mag cut"
-)
-# psf-cModel mag cut from Bosch et al. 2018.
+    plt.hexbin(
+        stars["mag_g"] - stars["mag_r"],
+        stars["mag_i"] - stars["mag_i_cModel"],
+        extent=(-2, +3, -0.5, +5),
+        bins="log",
+    )
+    plt.xlabel("g-r")
+    plt.ylabel("mag_i[_psf] - mag_i_CModel")
+    # plt.text(14.5, 0.3, "STARS", fontdict={'fontsize': 24}, color='orange')
+    # plt.text(18, 2, "GALAXIES", fontdict={'fontsize': 24}, color='orange')
+    plt.colorbar(label="objects / bin")
 
 
-# We can zoom in a little to see how the fixed 0.0164 mag cut works at the low SNR limit.  Specifically at mag 24, we're starting to run out of stars and most things are galaxies.  But that's a population prior, it's not something visible using just morphology information.
-#
-# You can see the effect of lower SNR measurements as the horizontal line at $\Delta$mag=0 puff up due to increased uncertainties.
+    # ## Shape Parameters
+    #
+    # Ixx, Iyy, Ixy
 
-# In[43]:
-
-
-plt.hexbin(
-    good["mag_i"],
-    good["mag_i"] - good["mag_i_cModel"],
-    extent=(22, 25.5, -0.1, +0.5),
-    bins="log",
-)
-plt.xlabel("i")
-plt.ylabel("mag_i[_psf] - mag_i_CModel")
-plt.colorbar(label="objects / bin")
-
-plt.axhline(0.0164, 0, 1, color="red", linestyle="--", label=r"0.0164 $\Delta$mag cut")
-# psf-cModel mag cut from Bosch et al. 2018.
+    # In[47]:
 
 
-# If we add in color information,
+    def plot_shape(filt, ax=None, legend=True):
+        if not ax:
+            ax = fig.gca()
 
-# In[44]:
+        names = ["all", "star", "galaxy"]
+        colors = ["blue", "orange", "green"]
+        hist_kwargs = {
+            "color": colors,
+            "log": True,
+            "bins": np.logspace(-1, 1.5, 100),
+            "range": (0, 50),
+            "histtype": "step",
+        }
+        for prefix, ls in (("Ixx", "-"), ("Iyy", "--"), ("Ixy", ":")):
+            field = f"{prefix}_{filt}"
+            labels = [f"{prefix} {name}" for name in names]
+            ax.hist(
+                [good[field], stars[field], galaxies[field]],
+                label=labels,
+                linestyle=ls,
+                **hist_kwargs,
+            )
 
+        ax.set_ylim(100, ax.get_ylim()[1])
 
-plt.hexbin(
-    good["mag_g"] - good["mag_r"],
-    good["mag_i"] - good["mag_i_cModel"],
-    extent=(-2, +3, -0.5, +5),
-    bins="log",
-)
-plt.xlabel("g-r")
-plt.ylabel("mag_i[_psf] - mag_i_CModel")
-# plt.text(14.5, 0.3, "STARS", fontdict={'fontsize': 24}, color='orange')
-# plt.text(18, 2, "GALAXIES", fontdict={'fontsize': 24}, color='orange')
-plt.colorbar(label="objects / bin")
-
-
-# In[45]:
-
-
-plt.hist(
-    [galaxies["mag_g"] - galaxies["mag_r"], stars["mag_g"] - stars["mag_r"]],
-    label=["galaxies", "stars"],
-    histtype="step",
-    bins=np.linspace(-5, +5, 51),
-)
-plt.xlabel("g-r")
-plt.ylabel("objects / bin")
-
-
-# In[46]:
+        ax.set_xlabel(f"{filt}-band Moments: Ixx, Iyy, Ixy [pixels^2]")
+        ax.set_ylabel("objects / bin")
+        if legend:
+            ax.legend()
 
 
-plt.hexbin(
-    stars["mag_g"] - stars["mag_r"],
-    stars["mag_i"] - stars["mag_i_cModel"],
-    extent=(-2, +3, -0.5, +5),
-    bins="log",
-)
-plt.xlabel("g-r")
-plt.ylabel("mag_i[_psf] - mag_i_CModel")
-# plt.text(14.5, 0.3, "STARS", fontdict={'fontsize': 24}, color='orange')
-# plt.text(18, 2, "GALAXIES", fontdict={'fontsize': 24}, color='orange')
-plt.colorbar(label="objects / bin")
+    # In[ ]:
 
 
-# ## Shape Parameters
-#
-# Ixx, Iyy, Ixy
-
-# In[47]:
-
-
-def plot_shape(filt, ax=None, legend=True):
-    if not ax:
-        ax = fig.gca()
-
-    names = ["all", "star", "galaxy"]
-    colors = ["blue", "orange", "green"]
-    hist_kwargs = {
-        "color": colors,
-        "log": True,
-        "bins": np.logspace(-1, 1.5, 100),
-        "range": (0, 50),
-        "histtype": "step",
-    }
-    for prefix, ls in (("Ixx", "-"), ("Iyy", "--"), ("Ixy", ":")):
-        field = f"{prefix}_{filt}"
-        labels = [f"{prefix} {name}" for name in names]
-        ax.hist(
-            [good[field], stars[field], galaxies[field]],
-            label=labels,
-            linestyle=ls,
-            **hist_kwargs,
-        )
-
-    ax.set_ylim(100, ax.get_ylim()[1])
-
-    ax.set_xlabel(f"{filt}-band Moments: Ixx, Iyy, Ixy [pixels^2]")
-    ax.set_ylabel("objects / bin")
-    if legend:
-        ax.legend()
+    fig, axes = plt.subplots(2, 3, figsize=(12, 6))
+    legend = True
+    for ax, filt in zip(axes.flat, filters):
+        plot_shape(filt, ax=ax, legend=legend)
+        legend = False
 
 
-# In[ ]:
+    # The stars (orange) are concentrated at low values of the source moments.
+    #
+    # Would be interesting to
+    # 1. Look by magnitude or SNR to undersatnd the longer tail.  Are these galaxies mis-classified as stars, or are these noise sources?
+    # 2. Distribution of ellipticity (see validate_drp to type this right)
+
+    # In[ ]:
 
 
-fig, axes = plt.subplots(2, 3, figsize=(12, 6))
-legend = True
-for ax, filt in zip(axes.flat, filters):
-    plot_shape(filt, ax=ax, legend=legend)
-    legend = False
+    def plot_ellipticity(good, stars, galaxies, filt, ax=None, legend=True):
+        if not ax:
+            ax = fig.gca()
+
+        names = ["all", "star", "galaxy"]
+        colors = ["blue", "orange", "green"]
+        hist_kwargs = {
+            "color": colors,
+            "log": True,
+            "bins": np.logspace(-1, 1.5, 100),
+            "range": (0, 5),
+            "histtype": "step",
+        }
+        for prefix, ls in (("e", "-"), ("e1", "--"), ("e2", ":")):
+            field = f"{prefix}_{filt}"
+            labels = [f"{prefix} {name}" for name in names]
+            ax.hist(
+                [good[field], stars[field], galaxies[field]],
+                label=labels,
+                linestyle=ls,
+                **hist_kwargs,
+            )
+
+        ax.set_xlim(0, 20)
+        ax.set_ylim(10, ax.get_ylim()[1])
+
+        ax.set_xlabel(f"{filt}-band ellipticity")
+        ax.set_ylabel("objects / bin")
+        if legend:
+            ax.legend()
 
 
-# The stars (orange) are concentrated at low values of the source moments.
-#
-# Would be interesting to
-# 1. Look by magnitude or SNR to undersatnd the longer tail.  Are these galaxies mis-classified as stars, or are these noise sources?
-# 2. Distribution of ellipticity (see validate_drp to type this right)
-
-# In[ ]:
+    # In[ ]:
 
 
-def plot_ellipticity(good, stars, galaxies, filt, ax=None, legend=True):
-    if not ax:
-        ax = fig.gca()
-
-    names = ["all", "star", "galaxy"]
-    colors = ["blue", "orange", "green"]
-    hist_kwargs = {
-        "color": colors,
-        "log": True,
-        "bins": np.logspace(-1, 1.5, 100),
-        "range": (0, 5),
-        "histtype": "step",
-    }
-    for prefix, ls in (("e", "-"), ("e1", "--"), ("e2", ":")):
-        field = f"{prefix}_{filt}"
-        labels = [f"{prefix} {name}" for name in names]
-        ax.hist(
-            [good[field], stars[field], galaxies[field]],
-            label=labels,
-            linestyle=ls,
-            **hist_kwargs,
-        )
-
-    ax.set_xlim(0, 20)
-    ax.set_ylim(10, ax.get_ylim()[1])
-
-    ax.set_xlabel(f"{filt}-band ellipticity")
-    ax.set_ylabel("objects / bin")
-    if legend:
-        ax.legend()
+    fig, axes = plt.subplots(2, 3, figsize=(12, 6))
+    legend = True
+    for ax, filt in zip(axes.flat, filters):
+        plot_ellipticity(good, stars, galaxies, filt, ax=ax, legend=legend)
+        legend = False
 
 
-# In[ ]:
+    # ### FWHM of the PSF
+    # At the location of the catalog objects.
+    #
+    # The Object Table stores the shape parameters of the PSF model as evaluated at the location of the object.
+    #
+    # This is not the same as, but is certainly related to, the distribution of effective seeing in the individual images that made up the coadd.
+
+    # In[ ]:
 
 
-fig, axes = plt.subplots(2, 3, figsize=(12, 6))
-legend = True
-for ax, filt in zip(axes.flat, filters):
-    plot_ellipticity(good, stars, galaxies, filt, ax=ax, legend=legend)
-    legend = False
+    def plot_psf_fwhm(
+        filters=filters, colors=("purple", "blue", "green", "orange", "red", "brown")
+    ):
+        for filt, color in zip(filters, colors):
+            psf_fwhm = np.array(good[f"psf_fwhm_{filt}"])
+            (w,) = np.where(np.isfinite(psf_fwhm) & (psf_fwhm < 3))
+            sns.distplot(psf_fwhm[w], label=filt, color=color)
+        plt.xlabel("PSF FWHM [arcsec]")
+        plt.ylabel("normalized object density")
+        plt.legend()
 
 
-# ### FWHM of the PSF
-# At the location of the catalog objects.
-#
-# The Object Table stores the shape parameters of the PSF model as evaluated at the location of the object.
-#
-# This is not the same as, but is certainly related to, the distribution of effective seeing in the individual images that made up the coadd.
-
-# In[ ]:
+    # In[ ]:
 
 
-def plot_psf_fwhm(
-    filters=filters, colors=("purple", "blue", "green", "orange", "red", "brown")
-):
-    for filt, color in zip(filters, colors):
-        psf_fwhm = np.array(good[f"psf_fwhm_{filt}"])
-        (w,) = np.where(np.isfinite(psf_fwhm) & (psf_fwhm < 3))
-        sns.distplot(psf_fwhm[w], label=filt, color=color)
-    plt.xlabel("PSF FWHM [arcsec]")
-    plt.ylabel("normalized object density")
-    plt.legend()
+    plot_psf_fwhm()
 
 
-# In[ ]:
+    # * Note the significant excees at unphysical values of FWHM. *
+    # Should check to see what's going on.  These should be the PSF model at the location of the object, so this is quite odd.
+    #
+    # We do see here that the model PSF FWHM from the coadd achieves the best seeing in r and i.  Providing the best seeing in r and i is one of the goals of the observation planning, so this part looks successful.
 
+    # Questions for further investigation:
+    # 1. How do the above distributions of PSF FWHM compare to the effective per-visit seeing?
+    # 2. How do the above distributions of PSF FWHM compare to the OpSim simulation, minion_1016, used to generated DC2 Run 2.1i?
+    # 3. Are the model PSFs from the coadd reasonable?  The coadds are generated by combining the individual images -- that may not result in PSFs that coherently make sense across a given region of the coadd, particularly as more and more objects are intersected by CCD boundaries and gaps.
 
-plot_psf_fwhm()
-
-
-# * Note the significant excees at unphysical values of FWHM. *
-# Should check to see what's going on.  These should be the PSF model at the location of the object, so this is quite odd.
-#
-# We do see here that the model PSF FWHM from the coadd achieves the best seeing in r and i.  Providing the best seeing in r and i is one of the goals of the observation planning, so this part looks successful.
-
-# Questions for further investigation:
-# 1. How do the above distributions of PSF FWHM compare to the effective per-visit seeing?
-# 2. How do the above distributions of PSF FWHM compare to the OpSim simulation, minion_1016, used to generated DC2 Run 2.1i?
-# 3. Are the model PSFs from the coadd reasonable?  The coadds are generated by combining the individual images -- that may not result in PSFs that coherently make sense across a given region of the coadd, particularly as more and more objects are intersected by CCD boundaries and gaps.
-
-# In[ ]:
+    # In[ ]:
