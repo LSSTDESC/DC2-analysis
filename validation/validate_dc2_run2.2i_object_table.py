@@ -100,7 +100,7 @@ def print_expected_memory_usage(sampling_factor, columns):
     )
 
 
-def plot_ra_dec_object_density(
+def plot_ra_dec(
     cat, show_dc2_region=True, bins=100, cmin=100, plotname=None,
 ):
     """
@@ -612,7 +612,7 @@ def plot_shape(filt, ax=None, legend=True, plotname=None):
     if legend:
         ax.legend()
 
-    plt.tight_laytout()
+    plt.tight_layout()
     if plotname is not None:
         plt.savefig(plotname)
 
@@ -631,9 +631,9 @@ def plot_psf_fwhm(
     plt.ylabel("normalized object density")
     plt.legend()
 
-    plt.tight_laytout()
-    plotname = f"{data_release}_ellipticity.{suffix}"
-    plt.savefig(plotname)
+    plt.tight_layout()
+    if plotname is not None:
+        plt.savefig(plotname)
 
 
 def run():
@@ -748,6 +748,9 @@ def run():
     # plt.text(14.5, 0.3, "STARS", fontdict={'fontsize': 24}, color='orange')
     # plt.text(18, 2, "GALAXIES", fontdict={'fontsize': 24}, color='orange')
     plt.colorbar(label="objects / bin")
+    plotname = f"{data_release}_ellipticity.{suffix}"
+    plt.savefig(plotname)
+    plt.clf()
 
     # ## Shape Parameters
     #
@@ -759,19 +762,23 @@ def run():
         plot_shape(filt, ax=ax, legend=legend)
         legend = False
 
+    plotname = f"{data_release}_shape.{suffix}"
+    plt.savefig(plotname)
+    plt.clf()
+
     fig, axes = plt.subplots(2, 3, figsize=(12, 6))
     legend = True
     for ax, filt in zip(axes.flat, filters):
         plot_ellipticity(good, stars, galaxies, filt, ax=ax, legend=legend)
         legend = False
-    plt.tight_laytout()
+    plt.tight_layout()
+
     plotname = f"{data_release}_ellipticity.{suffix}"
     plt.savefig(plotname)
+    plt.clf()
 
-    plot_psf_fwhm()
-    plt.tight_laytout()
     plotname = f"{data_release}_fwhm.{suffix}"
-    plt.savefig(plotname)
+    plot_psf_fwhm(good, filters, plotname=plotname)
 
 
 if __name__ == "__main__":
