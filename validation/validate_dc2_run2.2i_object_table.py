@@ -88,8 +88,10 @@ def define_columns_to_use(filters):
     columns += [f"psf_fwhm_{f}" for f in filters]
     columns += ["good", "extendedness", "blendedness"]
 
+    return columns
 
-def print_expected_memory_usage(sampling_factor):
+
+def print_expected_memory_usage(sampling_factor, columns):
     N = 52000000
     MB_per_column = 512 * (N / 64000000)  # MB / column / 64 million rows
     print(f"We are going to load {len(columns)} columns.")
@@ -644,15 +646,16 @@ def run():
     catalog_basename = "dc2_object_run2.2i_dr6.parquet"
     catalog_file = os.path.join(catalog_dirname, catalog_basename)
 
-    sampling_factor = 1
-    print_expected_memory_usage(sampling_factor)
-
     # Load Data
 
     filters = ("u", "g", "r", "i", "z", "y")
 
     columns = define_columns_to_use(filters)
+    sampling_factor = 1
+    print_expected_memory_usage(sampling_factor, columns)
 
+
+    print(f"Reading {catalog_file}")
     df = pd.read_parquet(catalog_file, columns=columns)
     good = select_good_detections(df)
 
@@ -750,25 +753,11 @@ def run():
     #
     # Ixx, Iyy, Ixy
 
-    # In[47]:
-
-    # In[ ]:
-
     fig, axes = plt.subplots(2, 3, figsize=(12, 6))
     legend = True
     for ax, filt in zip(axes.flat, filters):
         plot_shape(filt, ax=ax, legend=legend)
         legend = False
-
-    # The stars (orange) are concentrated at low values of the source moments.
-    #
-    # Would be interesting to
-    # 1. Look by magnitude or SNR to undersatnd the longer tail.  Are these galaxies mis-classified as stars, or are these noise sources?
-    # 2. Distribution of ellipticity (see validate_drp to type this right)
-
-    # In[ ]:
-
-    # In[ ]:
 
     fig, axes = plt.subplots(2, 3, figsize=(12, 6))
     legend = True
@@ -783,3 +772,7 @@ def run():
     plt.tight_laytout()
     plotname = f"{data_release}_fwhm.{suffix}"
     plt.savefig(plotname)
+
+
+if __name__ == "__main__":
+    run()
