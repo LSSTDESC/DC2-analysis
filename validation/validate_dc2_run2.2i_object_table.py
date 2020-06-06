@@ -638,7 +638,8 @@ def plot_psf_fwhm(
 
 def run():
     suffix = "pdf"
-    data_release = "DC2_Run2.2i_DR6"
+    # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
+    data_release = "DC2_Run2.2i_DR6a"
 
     # Define Catalog and Subsampling
 
