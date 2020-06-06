@@ -25,7 +25,9 @@ Produce qualitative validation plots for Run 2.2i DR6 Object Table
 
 Loading two columns of entire catalog from parquet file takes a few minutes,
 depending on memory load on the JupyterHub node.
-It thus is often most useful to develop ones codes looking at only subsamples of the full DC2 datasets, whether that's considering just one tract, or taking a subsample of the full catalog.
+It thus is often most useful to develop ones codes looking at only subsamples
+of the full DC2 datasets, whether that's considering just one tract,
+or taking a subsample of the full catalog.
 
 #### Quick Data Size estimates
 
@@ -409,7 +411,7 @@ def plot_normalize_mag_density(galaxies, num_den_dc2, plotname=None, figsize=(8,
 
 
 def plot_mag_magerr(
-    df, band, ax, range=(16, 28), magerr_limit=0.25, cmin=100, plotname=None
+    df, band, ax, range=(16, 28), magerr_limit=0.25, vmin=100, plotname=None
 ):
     """
     Magnitude Error vs. Magnitude
@@ -421,7 +423,7 @@ def plot_mag_magerr(
     mag_col, magerr_col = f"mag_{band}", f"magerr_{band}"
     good = df[df[magerr_col] < magerr_limit]
 
-    ax.hexbin(good[mag_col], good[magerr_col], cmin=cmin)
+    ax.hexbin(good[mag_col], good[magerr_col], vmin=vmin)
     ax.set_xlabel(band)
     ax.set_ylabel(f"{band} err")
     ax.set_ylim(0, magerr_limit)
