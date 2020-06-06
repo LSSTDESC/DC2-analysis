@@ -215,7 +215,7 @@ def plot_stellar_locus(
         "scaley": False,
     }
     if not ax:
-        ax = fig.gca()
+        ax = plt.gca()
 
     ax.plot(model_gmr, model_rmi, **plot_kwargs)
 
@@ -263,7 +263,7 @@ def plot_color_color(
 
     try:
         plot_stellar_locus(color1, color2, ax=ax)
-    except KeyError as e:
+    except KeyError:
         print(f"Couldn't plot Stellar Locus model for {color1}, {color2}")
 
     if plotname is not None:
@@ -295,7 +295,7 @@ def plot_density_mag(
     good, stars, galaxies, filt, log=True, range=(16, 28), ax=None, plotname=None,
 ):
     if ax is None:
-        ax = fig.gca()
+        ax = plt.gca()
     mag = f"mag_{filt}"
     ax.hist(
         [good[mag], stars[mag], galaxies[mag]],
@@ -374,7 +374,7 @@ def calculate_area(cat, threshold=0.25, nside=1024, verbose=False):
     return area
 
 
-def plot_normalize_mag_density(galaxies, plotname=None, figsize=(8, 8)):
+def plot_normalize_mag_density(galaxies, num_den_dc2, plotname=None, figsize=(8, 8)):
     """
     Now we plot the *normalized* i-band magnitude distributions in Run 2.2i.
     They are normalized so we can focus on the shape of the distribution.
@@ -655,7 +655,6 @@ def run():
     sampling_factor = 1
     print_expected_memory_usage(sampling_factor, columns)
 
-
     print(f"Reading {catalog_file}")
     df = pd.read_parquet(catalog_file, columns=columns)
     good = select_good_detections(df)
@@ -700,7 +699,7 @@ def run():
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
     plotname = f"{data_release}_galaxy_counts.pdf"
-    plot_normalize_mag_density(galaxies, plotname=plotname)
+    plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
     plot_mag_magerr_filters(galaxies, filters)
     plot_mag_magerr_filters(stars, filters)
