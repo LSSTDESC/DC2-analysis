@@ -60,6 +60,45 @@ import seaborn as sns
 cmap = "viridis"
 
 
+def load_data(catalog_file=None, sampling_factor=1):
+    if catalog_file is None:
+        catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
+        catalog_basename = "dc2_object_run2.2i_dr6.parquet"
+        catalog_file = os.path.join(catalog_dirname, catalog_basename)
+
+    filters = ("u", "g", "r", "i", "z", "y")
+
+    columns = define_columns_to_use(filters)
+    print_expected_memory_usage(sampling_factor, columns)
+
+    print(f"Reading {catalog_file}")
+    df = pd.read_parquet(catalog_file, columns=columns)
+
+    for filt in filters:
+        df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
+            df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
+        )
+
+    good = select_good_detections(df)
+
+    return filters, df, good
+
+
+def define_columns_to_use(filters):
+    columns = ["ra", "dec"]
+    columns += [f"mag_{f}" for f in filters]
+    columns += [f"magerr_{f}" for f in filters]
+    columns += [f"mag_{f}_cModel" for f in filters]
+    columns += [f"magerr_{f}_cModel" for f in filters]
+    columns += [f"Ixx_{f}" for f in filters]
+    columns += [f"Ixy_{f}" for f in filters]
+    columns += [f"Iyy_{f}" for f in filters]
+    columns += [f"psf_fwhm_{f}" for f in filters]
+    columns += ["good", "extendedness", "blendedness"]
+
+    return columns
+
+
 def select_good_detections(df):
     # Select good detections:
     #  1. Marked as 'good' in catalog flags.
@@ -76,21 +115,6 @@ def select_good_detections(df):
     good_idx = df["good"] & (df[magerr_col] < magerr_cut)
 
     return df.loc[good_idx]
-
-
-def define_columns_to_use(filters):
-    columns = ["ra", "dec"]
-    columns += [f"mag_{f}" for f in filters]
-    columns += [f"magerr_{f}" for f in filters]
-    columns += [f"mag_{f}_cModel" for f in filters]
-    columns += [f"magerr_{f}_cModel" for f in filters]
-    columns += [f"Ixx_{f}" for f in filters]
-    columns += [f"Ixy_{f}" for f in filters]
-    columns += [f"Iyy_{f}" for f in filters]
-    columns += [f"psf_fwhm_{f}" for f in filters]
-    columns += ["good", "extendedness", "blendedness"]
-
-    return columns
 
 
 def print_expected_memory_usage(sampling_factor, columns):
@@ -638,7 +662,7 @@ def plot_psf_fwhm(
         plt.savefig(plotname)
 
 
-def plot_ellipticity_filters(good, stars,g alaxies, filters, plotname=None):
+def plot_ellipticity_filters(good, stars, galaxies, filters, plotname=None):
     fig, axes = plt.subplots(2, 3, figsize=(12, 6))
     legend = True
     for ax, filt in zip(axes.flat, filters):
@@ -695,34 +719,9 @@ def run():
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
-
-    # Define Catalog and Subsampling
-
-    catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
-    catalog_basename = "dc2_object_run2.2i_dr6.parquet"
-    catalog_file = os.path.join(catalog_dirname, catalog_basename)
-
-    # Load Data
-
-    filters = ("u", "g", "r", "i", "z", "y")
-
-    columns = define_columns_to_use(filters)
     sampling_factor = 1
-    print_expected_memory_usage(sampling_factor, columns)
 
-    print(f"Reading {catalog_file}")
-    df = pd.read_parquet(catalog_file, columns=columns)
-
-    print(f"Loaded {len(df)} objects.")
-
-    for filt in filters:
-        df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
-            df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
-        )
-
-    good = select_good_detections(df)
-    print(f"Loaded {len(good)} good objects.")
-
+    df, good = load_data(sampling_factor=sampling_factor)
     plot_ra_dec(df, plotname=f"{data_release}_ra_dec.{suffix}")
 
     stars = df.loc[df["extendedness"] == 0]
@@ -781,7 +780,7 @@ def run():
     plotname = f"{data_release}_psf_cmodel_g_r.{suffix}"
     plot_psf_cmodel_gmr_hist2d(good, plotname=plotname, extent=(-2, +3, -0.1, +0.5))
 
-    plotname = f{"data_release}_gmr_hist.{suffix}"
+    plotname = f"{data_release}_gmr_hist.{suffix}"
     plot_gmr_hist(stars, galaxies, plotname=plotname)
 
     plotname = f"{data_release}_gmr_cmodel.{suffix}"
