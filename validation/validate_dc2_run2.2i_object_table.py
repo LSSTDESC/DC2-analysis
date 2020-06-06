@@ -584,7 +584,7 @@ def plot_ellipticity(good, stars, galaxies, filt, ax=None, legend=True, plotname
         ax.legend()
 
 
-def plot_shape(filt, ax=None, legend=True, plotname=None):
+def plot_shape(good, stars, galaxies, filt, ax=None, legend=True, plotname=None):
     if not ax:
         ax = fig.gca()
 
@@ -638,6 +638,59 @@ def plot_psf_fwhm(
         plt.savefig(plotname)
 
 
+def plot_ellipticity_filters(good, stars,g alaxies, filters, plotname=None):
+    fig, axes = plt.subplots(2, 3, figsize=(12, 6))
+    legend = True
+    for ax, filt in zip(axes.flat, filters):
+        plot_ellipticity(good, stars, galaxies, filt, ax=ax, legend=legend)
+        legend = False
+    plt.tight_layout()
+
+    if plotname is not None:
+        plt.savefig(plotname)
+
+
+def plot_gmr_hist(stars, galaxies, plotname=None):
+    plt.hist(
+        [galaxies["mag_g"] - galaxies["mag_r"], stars["mag_g"] - stars["mag_r"]],
+        label=["galaxies", "stars"],
+        histtype="step",
+        bins=np.linspace(-5, +5, 51),
+    )
+    plt.xlabel("g-r")
+    plt.ylabel("objects / bin")
+    if plotname is not None:
+        plt.savefig(plotname)
+
+
+def plot_gmr_cmodel(stars):
+    plt.hexbin(
+        stars["mag_g"] - stars["mag_r"],
+        stars["mag_i"] - stars["mag_i_cModel"],
+        extent=(-2, +3, -0.5, +5),
+        bins="log",
+    )
+    plt.xlabel("g-r")
+    plt.ylabel("mag_i[_psf] - mag_i_CModel")
+    plt.colorbar(label="objects / bin")
+
+    if plotname is not None:
+        plt.savefig(plotname)
+
+
+def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
+    # ## Shape Parameters
+    #
+    # Ixx, Iyy, Ixy
+    fig, axes = plt.subplots(2, 3, figsize=(12, 6))
+    legend = True
+    for ax, filt in zip(axes.flat, filters):
+        plot_shape(good, stars, galaxies, filt, ax=ax, legend=legend)
+        legend = False
+
+    plt.savefig(plotname)
+
+
 def run():
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
@@ -659,15 +712,16 @@ def run():
 
     print(f"Reading {catalog_file}")
     df = pd.read_parquet(catalog_file, columns=columns)
-    good = select_good_detections(df)
 
     print(f"Loaded {len(df)} objects.")
-    print(f"Loaded {len(good)} good objects.")
 
     for filt in filters:
         df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
             df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
         )
+
+    good = select_good_detections(df)
+    print(f"Loaded {len(good)} good objects.")
 
     plot_ra_dec(df, plotname=f"{data_release}_ra_dec.{suffix}")
 
@@ -727,57 +781,26 @@ def run():
     plotname = f"{data_release}_psf_cmodel_g_r.{suffix}"
     plot_psf_cmodel_gmr_hist2d(good, plotname=plotname, extent=(-2, +3, -0.1, +0.5))
 
-    ############
-    plt.hist(
-        [galaxies["mag_g"] - galaxies["mag_r"], stars["mag_g"] - stars["mag_r"]],
-        label=["galaxies", "stars"],
-        histtype="step",
-        bins=np.linspace(-5, +5, 51),
-    )
-    plt.xlabel("g-r")
-    plt.ylabel("objects / bin")
+    plotname = f{"data_release}_gmr_hist.{suffix}"
+    plot_gmr_hist(stars, galaxies, plotname=plotname)
 
-    # In[46]:
-
-    plt.hexbin(
-        stars["mag_g"] - stars["mag_r"],
-        stars["mag_i"] - stars["mag_i_cModel"],
-        extent=(-2, +3, -0.5, +5),
-        bins="log",
-    )
-    plt.xlabel("g-r")
-    plt.ylabel("mag_i[_psf] - mag_i_CModel")
-    # plt.text(14.5, 0.3, "STARS", fontdict={'fontsize': 24}, color='orange')
-    # plt.text(18, 2, "GALAXIES", fontdict={'fontsize': 24}, color='orange')
-    plt.colorbar(label="objects / bin")
-    plotname = f"{data_release}_ellipticity.{suffix}"
-    plt.savefig(plotname)
-    plt.clf()
-
-    # ## Shape Parameters
-    #
-    # Ixx, Iyy, Ixy
-
-    fig, axes = plt.subplots(2, 3, figsize=(12, 6))
-    legend = True
-    for ax, filt in zip(axes.flat, filters):
-        plot_shape(filt, ax=ax, legend=legend)
-        legend = False
+    plotname = f"{data_release}_gmr_cmodel.{suffix}"
+    plot_gmr_cmodel(stars, plotname=plotname)
 
     plotname = f"{data_release}_shape.{suffix}"
-    plt.savefig(plotname)
-    plt.clf()
-
-    fig, axes = plt.subplots(2, 3, figsize=(12, 6))
-    legend = True
-    for ax, filt in zip(axes.flat, filters):
-        plot_ellipticity(good, stars, galaxies, filt, ax=ax, legend=legend)
-        legend = False
-    plt.tight_layout()
+    plot_shape_filters(good, stars, galaxies, filters, plotname=plotname)
 
     plotname = f"{data_release}_ellipticity.{suffix}"
-    plt.savefig(plotname)
-    plt.clf()
+    plot_ellipticity_filters(good, stars,g alaxies, filters, plotname=plotname)
+
+    plotname = f"{data_release}_fwhm.{suffix}"
+    plot_psf_fwhm(good, filters, plotname=plotname)
+
+
+
+
+    plotname = f"{data_release}_ellipticity.{suffix}"
+    plot_ellipticity_filters(good, stars,g alaxies, filters, plotname=plotname)
 
     plotname = f"{data_release}_fwhm.{suffix}"
     plot_psf_fwhm(good, filters, plotname=plotname)
