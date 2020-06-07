@@ -77,10 +77,10 @@ def load_data(catalog_file=None):
     print(f"Reading {catalog_file}")
     df = dd.read_parquet(catalog_file, engine='pyarrow', columns=columns)
 
-    for filt in filters:
-        df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
-            df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
-        )
+    # for filt in filters:
+    #     df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
+    #         df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
+    #     )
 
     good = select_good_detections(df)
 
@@ -829,6 +829,68 @@ def run_test(catalog_file=None):
     filters, df, good = load_data(catalog_file)
     print(f"Loaded {len(df)} objects.")
     print(f"Loaded {len(good)} good objects.")
+
+    stars = df.loc[df["extendedness"] == 0]
+    galaxies = df.loc[df["extendedness"] > 0]
+
+    print(
+        f"Total: {len(df)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
+    )
+    print(f"For {data_release} with {sampling_factor}x subsample")
+
+    # Color-Color Diagrams and the Stellar Locus
+    im = plot_color_color(good, "gmr", "rmi")
+    plt.colorbar(im)
+
+    plotname = f"{data_release}_good_color_color.{suffix}"
+    plot_four_color_color(good, vmax=50000, plotname=plotname)
+
+    plotname = f"{data_release}_star_color_color.{suffix}"
+    plot_four_color_color(stars, vmax=10000, plotname=plotname)
+
+    plotname = f"{data_release}_galaxy_color_color.{suffix}"
+    plot_four_color_color(galaxies, vmax=40000, plotname=plotname)
+
+    area_dc2 = calculate_area(galaxies)
+    print(f"DC2 Run 2.2i area: {area_dc2:0.2f}")
+
+    num_den_dc2 = sampling_factor * len(galaxies) / area_dc2
+
+    # Change default expression to 1/arcmin**2
+    num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
+
+    plotname = f"{data_release}_galaxy_counts.pdf"
+    plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
+
+    plot_mag_magerr_filters(galaxies, filters)
+    plot_mag_magerr_filters(stars, filters)
+
+    # ## Blendedness
+    #
+    # Blendedness is a measure of how much the identified flux from an object is affected by overlapping from other objects.
+    #
+    # See Bosch et al., 2018, Section 4.9.11.
+
+    (w,) = np.where(np.isfinite(good["blendedness"]))
+
+    print(
+        f"{100 * len(w)/len(good):0.1f}% of objects have finite blendedness measurements."
+    )
+    plotname = f"{data_release}_psf_cmodel.{suffix}"
+    plot_psf_cmodel(good, stars, galaxies, plotname=plotname)
+    plotname = f"{data_release}_psf_cmodel_i.{suffix}"
+    plot_psf_cmodel_mag_hist2d(good, plotname=plotname)
+    plotname = f"{data_release}_psf_cmodel_i_zoom.{suffix}"
+    plot_psf_cmodel_mag_hist2d(good, plotname=plotname, extent=(22, 25.5, -0.1, +0.5))
+
+    plotname = f"{data_release}_psf_cmodel_g_r.{suffix}"
+    plot_psf_cmodel_gmr_hist2d(good, plotname=plotname, extent=(-2, +3, -0.1, +0.5))
+
+    plotname = f"{data_release}_gmr_hist.{suffix}"
+    plot_gmr_hist(stars, galaxies, plotname=plotname)
+
+    plotname = f"{data_release}_gmr_cmodel.{suffix}"
+    plot_gmr_cmodel(stars, plotname=plotname)
 
     plotname = f"{data_release}_fwhm.{suffix}"
     plot_psf_fwhm(good, filters, plotname=plotname)
