@@ -69,7 +69,7 @@ def load_data(catalog_file=None, sampling_factor=1):
     filters = ("u", "g", "r", "i", "z", "y")
 
     columns = define_columns_to_use(filters)
-    print_expected_memory_usage(sampling_factor, columns)
+    print_expected_memory_usage(columns, sampling_factor)
 
     print(f"Reading {catalog_file}")
     df = pd.read_parquet(catalog_file, columns=columns)
@@ -79,11 +79,13 @@ def load_data(catalog_file=None, sampling_factor=1):
         df = df.sample(frac=1/sampling_factor)
         print("New length: {len(df)}")
 
+    print(f"Computing ellipticities."))))
     for filt in filters:
         df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
             df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
         )
 
+    print(f"Select 'good' detections.")
     good = select_good_detections(df)
 
     return filters, df, good
@@ -122,7 +124,7 @@ def select_good_detections(df):
     return df.loc[good_idx]
 
 
-def print_expected_memory_usage(sampling_factor, columns):
+def print_expected_memory_usage(columns, sampling_factor):
     N = 52000000
     MB_per_column = 512 * (N / 64000000)  # MB / column / 64 million rows
     print(f"We are going to load {len(columns)} columns.")
