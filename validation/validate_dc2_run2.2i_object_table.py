@@ -79,7 +79,7 @@ def load_data(catalog_file=None, sampling_factor=1):
         df = df.sample(frac=1/sampling_factor)
         print("New length: {len(df)}")
 
-    print(f"Computing ellipticities."))))
+    print(f"Computing ellipticities.")
     for filt in filters:
         df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
             df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
