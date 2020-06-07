@@ -63,7 +63,7 @@ from matplotlib.patches import Polygon
 cmap = "viridis"
 
 
-def load_data(catalog_file=None, sampling_factor=1):
+def load_data(catalog_file=None):
     if catalog_file is None:
         catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
         catalog_basename = "dc2_object_run2.2i_dr6.parquet"
@@ -72,15 +72,10 @@ def load_data(catalog_file=None, sampling_factor=1):
     filters = ("u", "g", "r", "i", "z", "y")
 
     columns = define_columns_to_use(filters)
-    print_expected_memory_usage(sampling_factor, columns)
+    print_expected_memory_usage(columns)
 
     print(f"Reading {catalog_file}")
-    df = dd.read_parquet(catalog_file, columns=columns)
-
-    if sampling_factor > 1:
-        print("Reducing sample of {len(df)} by a factor of {sampling_factor}")
-        df = df.sample(frac=1/sampling_factor)
-        print("New length: {len(df)}")
+    df = dd.read_parquet(catalog_file, engine='pyarrow', columns=columns)
 
     for filt in filters:
         df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
@@ -125,7 +120,7 @@ def select_good_detections(df):
     return df.loc[good_idx]
 
 
-def print_expected_memory_usage(sampling_factor, columns):
+def print_expected_memory_usage(columns, sampling_factor=1):
     N = 52000000
     MB_per_column = 512 * (N / 64000000)  # MB / column / 64 million rows
     print(f"We are going to load {len(columns)} columns.")
@@ -730,7 +725,7 @@ def run():
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    filters, df, good = load_data(sampling_factor=sampling_factor)
+    filters, df, good = load_data()
     plot_ra_dec(df, plotname=f"{data_release}_ra_dec.{suffix}")
 
     stars = df.loc[df["extendedness"] == 0]
@@ -805,13 +800,13 @@ def run():
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
-def run_test():
+def run_test(catalog_file=None):
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    filters, df, good = load_data(sampling_factor=sampling_factor)
+    filters, df, good = load_data(catalog_file)
     print(f"Loaded {len(df)} objects.")
     print(f"Loaded {len(good)} good objects.")
 
@@ -820,4 +815,5 @@ def run_test():
 
 
 if __name__ == "__main__":
-    run_test()
+    catalog_file = "tract_3640.parquet"
+    run_test(catalog_file)
