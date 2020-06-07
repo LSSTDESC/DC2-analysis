@@ -691,7 +691,7 @@ def plot_gmr_hist(stars, galaxies, plotname=None):
         plt.savefig(plotname)
 
 
-def plot_gmr_cmodel(stars):
+def plot_gmr_cmodel(stars, plotname=None):
     plt.hexbin(
         stars["mag_g"] - stars["mag_r"],
         stars["mag_i"] - stars["mag_i_cModel"],
@@ -719,13 +719,13 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
     plt.savefig(plotname)
 
 
-def run():
+def run(catalog_file=None):
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    filters, df, good = load_data()
+    filters, df, good = load_data(catalog_file=catalog_file)
     plot_ra_dec(df, plotname=f"{data_release}_ra_dec.{suffix}")
 
     stars = df.loc[df["extendedness"] == 0]
