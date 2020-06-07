@@ -75,16 +75,16 @@ def load_data(catalog_file=None):
     print_expected_memory_usage(columns)
 
     print(f"Reading {catalog_file}")
-    df = dd.read_parquet(catalog_file, engine='pyarrow', columns=columns)
+    ddf = dd.read_parquet(catalog_file, engine='pyarrow', columns=columns)
 
     # for filt in filters:
-    #     df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
-    #         df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
+    #     ddf[f"e_{filt}"], ddf[f"e1_{filt}"], ddf[f"e2_{filt}"] = ellipticity(
+    #         ddf[f"Ixx_{filt}"], ddf[f"Ixy_{filt}"], ddf[f"Iyy_{filt}"]
     #     )
 
-    good = select_good_detections(df)
+    good = select_good_detections(ddf)
 
-    return filters, df, good
+    return filters, ddf, good
 
 
 def define_columns_to_use(filters):
@@ -102,7 +102,7 @@ def define_columns_to_use(filters):
     return columns
 
 
-def select_good_detections(df):
+def select_good_detections(ddf):
     # Select good detections:
     #  1. Marked as 'good' in catalog flags.
     #  2. SNR in given band > threshold
@@ -115,9 +115,9 @@ def select_good_detections(df):
     magerr_cut = (2.5 / np.log(10)) / snr_threshold
     magerr_col = f"magerr_{snr_filter}"
 
-    good_idx = df["good"] & (df[magerr_col] < magerr_cut)
+    good_idx = ddf["good"] & (ddf[magerr_col] < magerr_cut)
 
-    return df.loc[good_idx]
+    return ddf.loc[good_idx]
 
 
 def print_expected_memory_usage(columns, sampling_factor=1):
@@ -444,7 +444,7 @@ def plot_normalize_mag_density(galaxies, num_den_dc2, plotname=None, figsize=(8,
 
 
 def plot_mag_magerr(
-    df, band, ax, range=(16, 28), magerr_limit=0.25, vmin=100, plotname=None
+    ddf, band, ax, range=(16, 28), magerr_limit=0.25, vmin=100, plotname=None
 ):
     """
     Magnitude Error vs. Magnitude
@@ -454,7 +454,7 @@ def plot_mag_magerr(
 
     # Restrict to reasonable range
     mag_col, magerr_col = f"mag_{band}", f"magerr_{band}"
-    good = df[df[magerr_col] < magerr_limit]
+    good = ddf[ddf[magerr_col] < magerr_limit]
 
     ax.hexbin(good[mag_col], good[magerr_col], vmin=vmin)
     ax.set_xlabel(band)
@@ -466,10 +466,10 @@ def plot_mag_magerr(
         plt.clf()
 
 
-def plot_mag_magerr_filters(df, filters=("u", "g", "r", "i", "z", "y"), plotname=None):
+def plot_mag_magerr_filters(ddf, filters=("u", "g", "r", "i", "z", "y"), plotname=None):
     fig, axes = plt.subplots(2, 3, figsize=(12, 6))
     for ax, filt in zip(axes.flat, filters):
-        plot_mag_magerr(df, filt, ax=ax)
+        plot_mag_magerr(ddf, filt, ax=ax)
     plt.tight_layout()
 
     if plotname is not None:
@@ -477,10 +477,10 @@ def plot_mag_magerr_filters(df, filters=("u", "g", "r", "i", "z", "y"), plotname
         plt.clf()
 
 
-def plot_blendedness(df, plotname=None):
-    df_blendedness = df.loc[np.isfinite(df["blendedness"])]
+def plot_blendedness(ddf, plotname=None):
+    ddf_blendedness = ddf.loc[np.isfinite(ddf["blendedness"])]
     plt.hexbin(
-        df_blendedness["mag_i"], df_blendedness["blendedness"], bins="log", vmin=10
+        ddf_blendedness["mag_i"], ddf_blendedness["blendedness"], bins="log", vmin=10
     )
     plt.xlabel("i")
     plt.ylabel("blendedness")
@@ -491,7 +491,7 @@ def plot_blendedness(df, plotname=None):
         plt.clf()
 
 
-def plot_extendedness(df, plotname=None):
+def plot_extendedness(ddf, plotname=None):
     # ### Extendedness
     #
     # Extendedness is essentially star/galaxy separation based purely on morphology in the main detected reference band (which is `i` for most Objects).
@@ -501,8 +501,8 @@ def plot_extendedness(df, plotname=None):
     # In[40]:
 
     plt.hexbin(
-        df["mag_i"],
-        df["extendedness"],
+        ddf["mag_i"],
+        ddf["extendedness"],
         extent=(14, 26, -0.1, +1.1),
         bins="log",
         vmin=10,
@@ -740,19 +740,19 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
 
 
 def run(catalog_file=None):
-    suffix = "pdf"
+    suffix = "pddf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    filters, df, good = load_data(catalog_file=catalog_file)
-    plot_ra_dec(df, plotname=f"{data_release}_ra_dec.{suffix}")
+    filters, ddf, good = load_data(catalog_file=catalog_file)
+    plot_ra_dec(ddf, plotname=f"{data_release}_ra_dec.{suffix}")
 
-    stars = df.loc[df["extendedness"] == 0]
-    galaxies = df.loc[df["extendedness"] > 0]
+    stars = ddf.loc[ddf["extendedness"] == 0]
+    galaxies = ddf.loc[ddf["extendedness"] > 0]
 
     print(
-        f"Total: {len(df)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
+        f"Total: {len(ddf)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
     )
     print(f"For {data_release} with {sampling_factor}x subsample")
 
@@ -777,7 +777,7 @@ def run(catalog_file=None):
     # Change default expression to 1/arcmin**2
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
-    plotname = f"{data_release}_galaxy_counts.pdf"
+    plotname = f"{data_release}_galaxy_counts.pddf"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
     plot_mag_magerr_filters(galaxies, filters)
@@ -821,20 +821,20 @@ def run(catalog_file=None):
 
 
 def run_test(catalog_file=None):
-    suffix = "pdf"
+    suffix = "pddf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    filters, df, good = load_data(catalog_file)
-    print(f"Loaded {len(df)} objects.")
+    filters, ddf, good = load_data(catalog_file)
+    print(f"Loaded {len(ddf)} objects.")
     print(f"Loaded {len(good)} good objects.")
 
-    stars = df.loc[df["extendedness"] == 0]
-    galaxies = df.loc[df["extendedness"] > 0]
+    stars = ddf.loc[ddf["extendedness"] == 0]
+    galaxies = ddf.loc[ddf["extendedness"] > 0]
 
     print(
-        f"Total: {len(df)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
+        f"Total: {len(ddf)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
     )
     print(f"For {data_release} with {sampling_factor}x subsample")
 
@@ -859,7 +859,7 @@ def run_test(catalog_file=None):
     # Change default expression to 1/arcmin**2
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
-    plotname = f"{data_release}_galaxy_counts.pdf"
+    plotname = f"{data_release}_galaxy_counts.pddf"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
     plot_mag_magerr_filters(galaxies, filters)
