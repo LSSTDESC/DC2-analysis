@@ -795,7 +795,7 @@ def run():
     plot_shape_filters(good, stars, galaxies, filters, plotname=plotname)
 
     plotname = f"{data_release}_ellipticity.{suffix}"
-    plot_ellipticity_filters(good, stars,g alaxies, filters, plotname=plotname)
+    plot_ellipticity_filters(good, stars, galaxies, filters, plotname=plotname)
 
     plotname = f"{data_release}_fwhm.{suffix}"
     plot_psf_fwhm(good, filters, plotname=plotname)
