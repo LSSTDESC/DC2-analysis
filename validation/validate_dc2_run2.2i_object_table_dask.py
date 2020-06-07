@@ -727,7 +727,7 @@ def run():
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    df, good = load_data(sampling_factor=sampling_factor)
+    filters, df, good = load_data(sampling_factor=sampling_factor)
     plot_ra_dec(df, plotname=f"{data_release}_ra_dec.{suffix}")
 
     stars = df.loc[df["extendedness"] == 0]
@@ -736,7 +736,7 @@ def run():
     print(
         f"Total: {len(df)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
     )
-    print(f"For {catalog_file} with {sampling_factor}x subsample")
+    print(f"For {data_release} with {sampling_factor}x subsample")
 
     # Color-Color Diagrams and the Stellar Locus
     im = plot_color_color(good, "gmr", "rmi")
