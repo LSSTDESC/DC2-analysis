@@ -803,14 +803,5 @@ def run():
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
-
-
-    plotname = f"{data_release}_ellipticity.{suffix}"
-    plot_ellipticity_filters(good, stars,g alaxies, filters, plotname=plotname)
-
-    plotname = f"{data_release}_fwhm.{suffix}"
-    plot_psf_fwhm(good, filters, plotname=plotname)
-
-
 if __name__ == "__main__":
     run()
