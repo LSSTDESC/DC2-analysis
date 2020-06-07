@@ -735,7 +735,7 @@ def run():
     print(
         f"Total: {len(df)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
     )
-    print(f"For {catalog_file} with {sampling_factor}x subsample")
+    print(f"For {data_release} with {sampling_factor}x subsample")
 
     # Color-Color Diagrams and the Stellar Locus
     im = plot_color_color(good, "gmr", "rmi")
