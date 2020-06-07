@@ -201,6 +201,7 @@ def plot_ra_dec(
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def ellipticity(I_xx, I_xy, I_yy):
@@ -301,6 +302,7 @@ def plot_color_color(
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
     return im
 
@@ -322,6 +324,7 @@ def plot_four_color_color(cat, vmin=0, vmax=50000, plotname=None):
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_density_mag(
@@ -346,6 +349,7 @@ def plot_density_mag(
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_density_mag_filters(good, stars, galaxies, filters, plotname=None):
@@ -357,6 +361,7 @@ def plot_density_mag_filters(good, stars, galaxies, filters, plotname=None):
     plt.tight_layout()
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def calculate_area(cat, threshold=0.25, nside=1024, verbose=False):
@@ -439,6 +444,7 @@ def plot_normalize_mag_density(galaxies, num_den_dc2, plotname=None, figsize=(8,
     plt.yscale("log")
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_mag_magerr(
@@ -461,6 +467,7 @@ def plot_mag_magerr(
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_mag_magerr_filters(df, filters=("u", "g", "r", "i", "z", "y"), plotname=None):
@@ -471,6 +478,7 @@ def plot_mag_magerr_filters(df, filters=("u", "g", "r", "i", "z", "y"), plotname
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_blendedness(df, plotname=None):
@@ -484,6 +492,7 @@ def plot_blendedness(df, plotname=None):
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_extendedness(df, plotname=None):
@@ -511,6 +520,7 @@ def plot_extendedness(df, plotname=None):
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_psf_cmodel(good, stars, galaxies, plotname=None):
@@ -538,6 +548,7 @@ def plot_psf_cmodel(good, stars, galaxies, plotname=None):
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None):
@@ -558,6 +569,7 @@ def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4), figsize=(6, 6), plotname=None):
@@ -582,6 +594,7 @@ def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4), figsize=(6, 6
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_ellipticity(good, stars, galaxies, filt, ax=None, legend=True, plotname=None):
@@ -649,6 +662,7 @@ def plot_shape(good, stars, galaxies, filt, ax=None, legend=True, plotname=None)
     plt.tight_layout()
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_psf_fwhm(
@@ -668,6 +682,7 @@ def plot_psf_fwhm(
     plt.tight_layout()
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_ellipticity_filters(good, stars, galaxies, filters, plotname=None):
@@ -680,6 +695,7 @@ def plot_ellipticity_filters(good, stars, galaxies, filters, plotname=None):
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_gmr_hist(stars, galaxies, plotname=None):
@@ -693,6 +709,7 @@ def plot_gmr_hist(stars, galaxies, plotname=None):
     plt.ylabel("objects / bin")
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_gmr_cmodel(stars, figsize=(6, 6), plotname=None):
@@ -709,6 +726,7 @@ def plot_gmr_cmodel(stars, figsize=(6, 6), plotname=None):
 
     if plotname is not None:
         plt.savefig(plotname)
+        plt.clf()
 
 
 def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
@@ -721,7 +739,9 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
         plot_shape(good, stars, galaxies, filt, ax=ax, legend=legend)
         legend = False
 
-    plt.savefig(plotname)
+    if plotname is not None:
+        plt.savefig(plotname)
+        plt.clf()
 
 
 def run():
