@@ -74,6 +74,11 @@ def load_data(catalog_file=None, sampling_factor=1):
     print(f"Reading {catalog_file}")
     df = pd.read_parquet(catalog_file, columns=columns)
 
+    if sampling_factor > 1:
+        print("Reducing sample of {len(df)} by a factor of {sampling_factor}")
+        df = df.sample(frac=1/sampling_factor)
+        print("New length: {len(df)}")
+
     for filt in filters:
         df[f"e_{filt}"], df[f"e1_{filt}"], df[f"e2_{filt}"] = ellipticity(
             df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
