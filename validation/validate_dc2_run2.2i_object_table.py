@@ -560,7 +560,8 @@ def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None
         plt.savefig(plotname)
 
 
-def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None):
+def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4), figsize=(6, 6), plotname=None):
+    plt.figure(figsize=figsize)
     plt.hexbin(
         good["mag_g"] - good["mag_r"],
         good["mag_i"] - good["mag_i_cModel"],
@@ -694,7 +695,8 @@ def plot_gmr_hist(stars, galaxies, plotname=None):
         plt.savefig(plotname)
 
 
-def plot_gmr_cmodel(stars):
+def plot_gmr_cmodel(stars, figsize=(6, 6), plotname=None):
+    plt.figure(figsize=figsize)
     plt.hexbin(
         stars["mag_g"] - stars["mag_r"],
         stars["mag_i"] - stars["mag_i_cModel"],
