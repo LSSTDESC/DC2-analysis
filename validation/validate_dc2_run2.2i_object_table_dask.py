@@ -2,6 +2,10 @@
 # coding: utf-8
 
 """
+2020-06-06
+Can I get Dask to go through 42 GB Parquet file on a 64 GB machine in a
+reaasonable amount of time?
+
 # Inspection of DC2 Run 2.2i DR3 Object Table
 ### Michael Wood-Vasey (@wmwv)
 ### Last Verified to Run: 2020-06-04 by MWV
@@ -50,12 +54,11 @@ import numpy as np
 from numpy.lib import scimath as SM
 
 import astropy.units as u
+import dask.dataframe as dd
 import pandas as pd
 
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
-
-import seaborn as sns
 
 cmap = "viridis"
 
@@ -72,7 +75,7 @@ def load_data(catalog_file=None, sampling_factor=1):
     print_expected_memory_usage(sampling_factor, columns)
 
     print(f"Reading {catalog_file}")
-    df = pd.read_parquet(catalog_file, columns=columns)
+    df = dd.read_parquet(catalog_file, columns=columns)
 
     if sampling_factor > 1:
         print("Reducing sample of {len(df)} by a factor of {sampling_factor}")
