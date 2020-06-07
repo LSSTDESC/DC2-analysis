@@ -728,7 +728,7 @@ def run():
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    df, good = load_data(sampling_factor=sampling_factor)
+    filters, df, good = load_data(sampling_factor=sampling_factor)
     plot_ra_dec(df, plotname=f"{data_release}_ra_dec.{suffix}")
 
     stars = df.loc[df["extendedness"] == 0]
