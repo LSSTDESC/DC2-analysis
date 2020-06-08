@@ -456,9 +456,9 @@ def plot_mag_magerr(
     mag_col, magerr_col = f"mag_{band}", f"magerr_{band}"
     good_snr_idx = ddf[magerr_col] < magerr_limit
 
-    ax.hexbin(ddf.loc[good_snr_idx, mag_col].to_dask_array(lengths=True),
-              ddf.loc[good_snr_idx, magerr_col].to_dask_array(lengths=True),
-              vmin=vmin)
+    mag = ddf.loc[good_snr_idx, mag_col].to_dask_array(lengths=True)
+    magerr = ddf.loc[good_snr_idx, magerr_col].to_dask_array(lengths=True)
+    ax.hexbin(mag, magerr, vmin=vmin)
     ax.set_xlabel(band)
     ax.set_ylabel(f"{band} err")
     ax.set_ylim(0, magerr_limit)
@@ -549,12 +549,14 @@ def plot_psf_cmodel(good, stars, galaxies, plotname=None):
         plt.clf()
 
 
-def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None):
-    plt.hexbin(
-        good["mag_i"], good["mag_i"] - good["mag_i_cModel"], extent=extent, bins="log",
-    )
+def plot_psf_cmodel_mag_hist2d(ddf, filt="i", extent=(14, 26, -0.75, +2.4),
+                               figsize=(6, 6), plotname=None):
+    plt.figure(figsize=figsize)
+    mag = ddf[f"mag_{filt}"].to_dask_array(lengths=True)
+    mag_cModel = ddf[f"mag_{filt}_cModel"].to_dask_array(lengths=True)
+    plt.hexbin(mag, mag - mag_cModel, extent=extent, bins="log")
     plt.xlabel("i")
-    plt.ylabel("mag_i[_psf] - mag_i_CModel")
+    plt.ylabel(f"mag_{filt}[_psf] - mag_{filt}_CModel")
     plt.text(14.5, -0.5, "STARS", fontdict={"fontsize": 24}, color="orange")
     plt.text(18, 2, "GALAXIES", fontdict={"fontsize": 24}, color="orange")
     plt.colorbar(label="objects / bin")
@@ -570,15 +572,17 @@ def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None
         plt.clf()
 
 
-def plot_psf_cmodel_gmr_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None):
-    plt.hexbin(
-        good["mag_g"] - good["mag_r"],
-        good["mag_i"] - good["mag_i_cModel"],
-        extent=extent,
-        bins="log",
-    )
+def plot_psf_cmodel_gmr_hist2d(ddf, filt="i", extent=(14, 26, -0.75, +2.4),
+                               figsize=(6, 6), plotname=None):
+    plt.figure(figsize=figsize)
+    mag_g = ddf["mag_g"].to_dask_array(lengths=True)
+    mag_r = ddf["mag_r"].to_dask_array(lengths=True)
+    mag = ddf[f"mag_{filt}"].to_dask_array(lengths=True)
+    mag_cModel = ddf[f"mag_{filt}_cModel"].to_dask_array(lengths=True)
+
+    plt.hexbin(mag_g - mag_r, mag - mag_cModel, extent=extent, bins="log")
     plt.xlabel("g-r")
-    plt.ylabel("mag_i[_psf] - mag_i_CModel")
+    plt.ylabel(f"mag_{filt}[_psf] - mag_{filt}_CModel")
     plt.text(14.5, -0.5, "STARS", fontdict={"fontsize": 24}, color="orange")
     plt.text(18, 2, "GALAXIES", fontdict={"fontsize": 24}, color="orange")
     plt.colorbar(label="objects / bin")
@@ -710,10 +714,12 @@ def plot_gmr_hist(stars, galaxies, plotname=None):
         plt.clf()
 
 
-def plot_gmr_cmodel(stars, plotname=None):
-    plt.hexbin(
-        stars["mag_g"] - stars["mag_r"],
-        stars["mag_i"] - stars["mag_i_cModel"],
+def plot_gmr_cmodel(stars, filt="i", plotname=None):
+    mag_g = stars["mag_g"].to_dask_array(lengths=True)
+    mag_r = stars["mag_r"].to_dask_array(lengths=True)
+    mag = stars[f"mag_{filt}"].to_dask_array(lengths=True)
+    mag_cModel = stars[f"mag_{filt}_cModel"].to_dask_array(lengths=True)
+    plt.hexbin(mag_g - mag_r, mag - mag_cModel,
         extent=(-2, +3, -0.5, +5),
         bins="log",
     )
