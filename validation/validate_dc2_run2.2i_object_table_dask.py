@@ -740,7 +740,7 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
 
 
 def run(catalog_file=None):
-    suffix = "pddf"
+    suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
@@ -777,7 +777,7 @@ def run(catalog_file=None):
     # Change default expression to 1/arcmin**2
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
-    plotname = f"{data_release}_galaxy_counts.pddf"
+    plotname = f"{data_release}_galaxy_counts.{suffix}"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
     plot_mag_magerr_filters(galaxies, filters)
@@ -821,7 +821,7 @@ def run(catalog_file=None):
 
 
 def run_test(catalog_file=None):
-    suffix = "pddf"
+    suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
@@ -829,6 +829,8 @@ def run_test(catalog_file=None):
     filters, ddf, good = load_data(catalog_file)
     print(f"Loaded {len(ddf)} objects.")
     print(f"Loaded {len(good)} good objects.")
+
+    plotname = f"{data_release}_psf_cmodel.{suffix}"
 
     stars = ddf.loc[ddf["extendedness"] == 0]
     galaxies = ddf.loc[ddf["extendedness"] > 0]
@@ -859,7 +861,7 @@ def run_test(catalog_file=None):
     # Change default expression to 1/arcmin**2
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
-    plotname = f"{data_release}_galaxy_counts.pddf"
+    plotname = f"{data_release}_galaxy_counts.{suffix}"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
     plot_mag_magerr_filters(galaxies, filters)
