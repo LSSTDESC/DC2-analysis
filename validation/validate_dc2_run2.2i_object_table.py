@@ -238,13 +238,14 @@ def get_stellar_locus_davenport(
 
 
 def plot_stellar_locus(
-    color1="gmr", color2="rmi", color="blue", linestyle="--", linewidth=2.5, ax=None
+    color1="gmr", color2="rmi", color="blue", alpha=0.5, linestyle="--", linewidth=2.5, ax=None
 ):
     model_gmr, model_rmi = get_stellar_locus_davenport(color1, color2)
     plot_kwargs = {
         "linestyle": linestyle,
         "linewidth": linewidth,
         "color": color,
+        "alpha": alpha,
         "scalex": False,
         "scaley": False,
     }
@@ -481,7 +482,8 @@ def plot_mag_magerr_filters(df, filters=("u", "g", "r", "i", "z", "y"), plotname
         plt.clf()
 
 
-def plot_blendedness(df, plotname=None):
+def plot_blendedness(df, figsize=(6, 6), plotname=None):
+    plt.figure(figsize=figsize)
     df_blendedness = df.loc[np.isfinite(df["blendedness"])]
     plt.hexbin(
         df_blendedness["mag_i"], df_blendedness["blendedness"], bins="log", vmin=10
@@ -495,7 +497,8 @@ def plot_blendedness(df, plotname=None):
         plt.clf()
 
 
-def plot_extendedness(df, plotname=None):
+def plot_extendedness(df, figsize=(6, 6), plotname=None):
+    plt.figure(figsize=figsize)
     # ### Extendedness
     #
     # Extendedness is essentially star/galaxy separation based purely on morphology in the main detected reference band (which is `i` for most Objects).
@@ -523,7 +526,8 @@ def plot_extendedness(df, plotname=None):
         plt.clf()
 
 
-def plot_psf_cmodel(good, stars, galaxies, plotname=None):
+def plot_psf_cmodel(good, stars, galaxies, figsize=(6, 6), plotname=None):
+    plt.figure(figsize=figsize)
     plt.axvline(
         0.0164, 0.4, 1, color="red", linestyle="--", label=r"0.0164 $\Delta$mag cut"
     )  # psf-cModel mag cut from Bosch et al. 2018.
@@ -551,7 +555,8 @@ def plot_psf_cmodel(good, stars, galaxies, plotname=None):
         plt.clf()
 
 
-def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4), plotname=None):
+def plot_psf_cmodel_mag_hist2d(good, extent=(14, 26, -0.75, +2.4), figsize=(6, 6), plotname=None):
+    plt.figure(figsize=figsize)
     plt.hexbin(
         good["mag_i"], good["mag_i"] - good["mag_i_cModel"], extent=extent, bins="log",
     )
