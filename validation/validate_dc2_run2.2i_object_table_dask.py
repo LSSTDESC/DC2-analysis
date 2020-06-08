@@ -529,12 +529,11 @@ def plot_psf_cmodel(good, stars, galaxies, filt="i", plotname=None):
     good_mag_m_cModel = (good[f"mag_{filt}"] - good["mag_i_cModel"]).to_dask_array(lengths=True)
     stars_mag_m_cModel = (stars[f"mag_{filt}"] - stars["mag_i_cModel"]).to_dask_array(lengths=True)
     galaxies_mag_m_cModel = (galaxies[f"mag_{filt}"] - galaxies["mag_i_cModel"]).to_dask_array(lengths=True)
-    plt.hist(
-        [good_mag_m_cModel, stars_mag_m_cModel, galaxies_mag_m_cModel],
-        label=["All", "Stars", "Galaxies"],
-        bins=np.linspace(-0.1, 0.1, 201),
-        histtype="step",
-    )
+
+    bins = np.linspace(-0.1, 0.1, 201)
+    plt.hist(good_mag_m_cModel, label="All", bins=bins, histtype="step")
+    plt.hist(stars_mag_m_cModel, label="Stars", bins=bins, histtype="step")
+    plt.hist(galaxies_mag_m_cModel, label="Galaxies", bins=bins, histtype="step")
 
     plt.legend()
     plt.xlabel(f"mag_{filt}[_psf] - mag_{filt}_CModel")
