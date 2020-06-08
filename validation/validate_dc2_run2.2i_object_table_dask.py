@@ -454,9 +454,11 @@ def plot_mag_magerr(
 
     # Restrict to reasonable range
     mag_col, magerr_col = f"mag_{band}", f"magerr_{band}"
-    good = ddf[ddf[magerr_col] < magerr_limit]
+    good_snr_idx = ddf[magerr_col] < magerr_limit
 
-    ax.hexbin(good[mag_col], good[magerr_col], vmin=vmin)
+    ax.hexbin(ddf.loc[good_snr_idx, mag_col].to_dask_array(lengths=True),
+              ddf.loc[good_snr_idx, magerr_col].to_dask_array(lengths=True),
+              vmin=vmin)
     ax.set_xlabel(band)
     ax.set_ylabel(f"{band} err")
     ax.set_ylim(0, magerr_limit)
