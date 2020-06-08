@@ -838,8 +838,6 @@ def run_test(catalog_file=None):
     print(f"Loaded {len(ddf)} objects.")
     print(f"Loaded {len(good)} good objects.")
 
-    plotname = f"{data_release}_psf_cmodel.{suffix}"
-
     stars = ddf.loc[ddf["extendedness"] == 0]
     galaxies = ddf.loc[ddf["extendedness"] > 0]
 
