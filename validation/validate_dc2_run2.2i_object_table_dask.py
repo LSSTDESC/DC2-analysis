@@ -903,5 +903,9 @@ def run_test(catalog_file=None):
 
 
 if __name__ == "__main__":
-    catalog_file = "tract_3640.parquet"
+    n_workers = 8
+    from dask.distributed import Client
+    client = Client(n_workers=n_workers)
+
+    catalog_file = "/global/homes/w/wmwv/validation/tract_3640.parquet"
     run_test(catalog_file)
