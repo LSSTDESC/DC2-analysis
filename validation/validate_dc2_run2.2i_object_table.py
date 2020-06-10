@@ -787,7 +787,7 @@ def run():
     # Change default expression to 1/arcmin**2
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
-    plotname = f"{data_release}_galaxy_counts.pdf"
+    plotname = f"{data_release}_galaxy_counts.{suffix}"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
     plotname = f"{data_release}_galaxy_mag_magerr.{suffix}"
