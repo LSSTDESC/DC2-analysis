@@ -790,7 +790,9 @@ def run():
     plotname = f"{data_release}_galaxy_counts.pdf"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
+    plotname = f"{data_release}_galaxy_mag_magerr.{suffix}"
     plot_mag_magerr_filters(galaxies, filters)
+    plotname = f"{data_release}_star_mag_magerr.{suffix}"
     plot_mag_magerr_filters(stars, filters)
 
     # ## Blendedness
