@@ -85,10 +85,21 @@ def load_data(catalog_file=None, sampling_factor=1):
             df[f"Ixx_{filt}"], df[f"Ixy_{filt}"], df[f"Iyy_{filt}"]
         )
 
-    print(f"Select 'good' detections.")
-    good = select_good_detections(df)
+    print(f"Computing PSF_FWHM.")
+    for filt in filters:
+        df[f"psf_fwhm_{filt}"] = calc_psf_fwhm(df, filt)
+    
+    second_moment_psf_columns_to_drop = []
+    second_moment_psf_columns_to_drop.extend([f'IxxPSF_{filt}' for filt in filters])
+    second_moment_psf_columns_to_drop.extend([f'IyyPSF_{filt}' for filt in filters])
+    second_moment_psf_columns_to_drop.extend([f'IxyPSF_{filt}' for filt in filters])
 
-    return filters, df, good
+    # To drop columns, Pandas still creates a temporary new dataframe and then replaces it,
+    # so the 'inplace' is misleading about how it actually does things in memory
+    # But it should at least free the memory used by the prevous dataframe once its done.
+    df.drop(second_moment_psf_columns_to_drop, axis=1, inplace=True)
+
+    return filters, df
 
 
 def define_columns_to_use(filters):
@@ -97,14 +108,31 @@ def define_columns_to_use(filters):
     columns += [f"magerr_{f}" for f in filters]
     columns += [f"mag_{f}_cModel" for f in filters]
     columns += [f"magerr_{f}_cModel" for f in filters]
+    columns += [f"IxxPSF_{f}" for f in filters]
+    columns += [f"IxyPSF_{f}" for f in filters]
+    columns += [f"IyyPSF_{f}" for f in filters]
     columns += [f"Ixx_{f}" for f in filters]
     columns += [f"Ixy_{f}" for f in filters]
     columns += [f"Iyy_{f}" for f in filters]
-    columns += [f"psf_fwhm_{f}" for f in filters]
+#    columns += [f"psf_fwhm_{f}" for f in filters]
     columns += ["good", "extendedness", "blendedness"]
 
     return columns
 
+
+def _calc_psf_fwhm(Ixx, Iyy, Ixy, pixel_scale=0.2):
+    return pixel_scale * 2.355 * (Ixx * Iyy - Ixy * Ixy)**0.25
+
+
+def calc_psf_fwhm(df, filt):
+    """
+    Calculate psf_fwhm_{band}.
+
+    There was a bug in v0.18 of gcr-catalogs that calculated psf_fwhm_{band} incorrectly.
+    We here calculate it correctly based on I{xx,yy,xy}PSF_{band}
+    """
+    return _calc_psf_fwhm(df[f"IxxPSF_{filt}"], df[f"IyyPSF_{filt}"], df[f"IxyPSF_{filt}"])
+    
 
 def select_good_detections(df):
     # Select good detections:
@@ -755,14 +783,20 @@ def run():
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    filters, df, good = load_data(sampling_factor=sampling_factor)
-    plot_ra_dec(df, plotname=f"{data_release}_ra_dec.{suffix}")
+    filters, df = load_data(sampling_factor=sampling_factor)
+    len_total_df = len(df)
 
-    stars = df.loc[df["extendedness"] == 0]
-    galaxies = df.loc[df["extendedness"] > 0]
+    print(f"Select 'good' detections.")
+    good = select_good_detections(df)
+    del df
+
+    plot_ra_dec(good, plotname=f"{data_release}_ra_dec.{suffix}")
+
+    stars = good.loc[good["extendedness"] == 0]
+    galaxies = good.loc[good["extendedness"] > 0]
 
     print(
-        f"Total: {len(df)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
+        f"Total: {len_total_df}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
     )
     print(f"For {data_release} with {sampling_factor}x subsample")
 
@@ -828,7 +862,7 @@ def run():
     plotname = f"{data_release}_ellipticity.{suffix}"
     plot_ellipticity_filters(good, stars, galaxies, filters, plotname=plotname)
 
-    plotname = f"{data_release}_fwhm.{suffix}"
+    plotname = f"{data_release}_psf_fwhm.{suffix}"
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
