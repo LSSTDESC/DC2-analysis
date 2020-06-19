@@ -25,19 +25,27 @@ Please, if you find any problems feel free to open a new issue in this repositor
 
 ### Scripts
 
-# To run the validate_dc2_run2.2i_object_table.py script
-# first start an interactive session on a Node:
-# Running through an interaction session is the reasonable way
-# to run this on NERSC because we need 0.5-1 hour to run this,
-# but the 'debug' queue is only 0.5 hours,
-# and waiting for a regular queue slot can easily take at least a day.
-# We need an entire node for the memory (~128 GB)
+To run the validate_dc2_run2.2i_object_table.py script
+first start an interactive session on a Node:
+Running through an interaction session is the reasonable way
+to run this on NERSC because we need 0.5-1 hour to run this,
+but the 'debug' queue is only 0.5 hours,
+and waiting for a regular queue slot can easily take at least a day.
+We need an entire node for the memory (~128 GB)
+```
 salloc -N 1 -C haswell -q interactive --time=02:00:00
+```
 
-# Once you're running on the allocated node:
+Once you're running on the allocated node:
+```
 module load python3
-# Or
+```
+Or
+```
 start-kernel-cli.py desc-python
+```
 
-# And then run the script, ideally pipeline the output to a log file for future reference:
+And then run the script, ideally pipeline the output to a log file for future reference:
+```
 python validate_dc2_run2.2i_object_table.py > validate_dc2_run2.2i_object_table.log 2>&1 < /dev/null &
+```
