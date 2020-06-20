@@ -908,8 +908,16 @@ def run_test(catalog_file=None):
 
 if __name__ == "__main__":
     n_workers = 8
-    from dask.distributed import Client
-    client = Client(n_workers=n_workers)
 
-    catalog_file = "/global/homes/w/wmwv/validation/tract_3640.parquet"
+    from dask.distributed import Client
+    scheduler_file = os.path.join(os.environ["SCRATCH"], "scheduler.json")
+    if scheduler_file is not None:
+        client = Client(scheduler_file=scheduler_file)
+    else:
+        client = Client(n_workers=n_workers)
+        client.write_scheduler_file(scheduler_file)
+
+#    catalog_file = "/global/homes/w/wmwv/validation/tract_3640.parquet"
+#    catalog_file = "/global/cscratch1/sd/wmwv/DC2/Run2.2i/tract_3640.parquet"
+    catalog_file = "/global/cscratch1/sd/wmwv/DC2/Run2.2i/dc2_object_run2.2i_dr6.parquet"
     run_test(catalog_file)
