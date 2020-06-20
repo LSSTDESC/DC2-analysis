@@ -80,6 +80,7 @@ def load_data(client, catalog_file=None):
 
     print(f"Reading {catalog_file}")
     ddf = dd.read_parquet(catalog_file, engine='pyarrow', columns=columns)
+    ddf = ddf.repartition(npartitions=len(client.scheduler_info()['workers']))
 
     # for filt in filters:
     #     ddf[f"e_{filt}"], ddf[f"e1_{filt}"], ddf[f"e2_{filt}"] = ellipticity(
