@@ -67,7 +67,7 @@ from matplotlib.patches import Polygon
 cmap = "viridis"
 
 
-def load_data(catalog_file=None):
+def load_data(client, catalog_file=None):
     if catalog_file is None:
         catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
         catalog_basename = "dc2_object_run2.2i_dr6.parquet"
@@ -749,13 +749,13 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
         plt.clf()
 
 
-def run(catalog_file=None):
+def run(client, catalog_file=None):
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    filters, ddf, good = load_data(catalog_file=catalog_file)
+    filters, ddf, good = load_data(client, catalog_file=catalog_file)
     plot_ra_dec(ddf, plotname=f"{data_release}_ra_dec.{suffix}")
 
     stars = ddf.loc[ddf["extendedness"] == 0]
@@ -830,13 +830,13 @@ def run(catalog_file=None):
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
-def run_test(catalog_file=None):
+def run_test(client, catalog_file=None):
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
     data_release = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
-    filters, ddf, good = load_data(catalog_file)
+    filters, ddf, good = load_data(client, catalog_file)
     print(f"Loaded {len(ddf)} objects.")
     print(f"Loaded {len(good)} good objects.")
 
@@ -920,4 +920,4 @@ if __name__ == "__main__":
 #    catalog_file = "/global/homes/w/wmwv/validation/tract_3640.parquet"
 #    catalog_file = "/global/cscratch1/sd/wmwv/DC2/Run2.2i/tract_3640.parquet"
     catalog_file = "/global/cscratch1/sd/wmwv/DC2/Run2.2i/dc2_object_run2.2i_dr6.parquet"
-    run_test(catalog_file)
+    run_test(client, catalog_file)
