@@ -57,8 +57,12 @@ import astropy.units as u
 import dask.dataframe as dd
 import pandas as pd
 
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
+
 
 cmap = "viridis"
 
