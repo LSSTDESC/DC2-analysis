@@ -67,7 +67,8 @@ def load_data(catalog_file=None, data_release="dr6", sampling_factor=1):
             catalog_basename = "dc2_object_run2.2i_dr6.parquet"
         else:
             catalog_dirname = "/global/cfs/cdirs/lsst/shared/DC2-prod/Run2.2i/dpdd/"
-            catalog_basename = f"Run2.2i-{data_release}/dc2_object_run2.2i_{data_release}.parquet"
+            # The following is a directory of Parquet files
+            catalog_basename = f"Run2.2i-{data_release}/dc2_object_run2.2i_{data_release}"
         catalog_file = os.path.join(catalog_dirname, catalog_basename)
 
     filters = ("u", "g", "r", "i", "z", "y")
