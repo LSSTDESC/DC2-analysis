@@ -60,10 +60,14 @@ import seaborn as sns
 cmap = "viridis"
 
 
-def load_data(catalog_file=None, sampling_factor=1):
+def load_data(catalog_file=None, data_release="dr6", sampling_factor=1):
     if catalog_file is None:
-        catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
-        catalog_basename = "dc2_object_run2.2i_dr6.parquet"
+        if data_release == "dr6a":
+            catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
+            catalog_basename = "dc2_object_run2.2i_dr6.parquet"
+        else:
+            catalog_dirname = "/global/cfs/cdirs/lsst/shared/DC2-prod/Run2.2i/dpdd/"
+            catalog_basename = f"Run2.2i-{data_release}/dc2_object_run2.2i_{data_release}.parquet"
         catalog_file = os.path.join(catalog_dirname, catalog_basename)
 
     filters = ("u", "g", "r", "i", "z", "y")
@@ -153,12 +157,11 @@ def select_good_detections(df):
 
 
 def print_expected_memory_usage(columns, sampling_factor):
-    N = 52000000
-    MB_per_column = 512 * (N / 64000000)  # MB / column / 64 million rows
-    print(f"We are going to load {len(columns)} columns.")
-    print(
-        f"For {N//sampling_factor} million rows that should take {(len(columns)/sampling_factor)*MB_per_column/1024:0.2f} GB of memory"
-    )
+    num_rows = 52000000 // sampling_factor
+    MB_per_column_per_row = 512 / 64000000  # Based on estimates from previous runs.
+    MB_per_column = num_rows * MB_per_column_per_row
+    print(f'We are going to load {len(columns)} columns.')
+    print(f'For {num_rows} rows that should take {(len(columns))*MB_per_column/1024:0.2f} GB of memory')
 
 
 def plot_ra_dec(
@@ -780,17 +783,19 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
 def run():
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
-    data_release = "DC2_Run2.2i_DR6a"
+    data_release = "DR6a"
+    data_release_name = "DC2_Run2.2i_{data_release}"
     sampling_factor = 1
 
-    filters, df = load_data(sampling_factor=sampling_factor)
+    filters, df = load_data(data_release=data_release.lower(),
+                            sampling_factor=sampling_factor)
     len_total_df = len(df)
 
     print(f"Select 'good' detections.")
     good = select_good_detections(df)
     del df
 
-    plot_ra_dec(good, plotname=f"{data_release}_ra_dec.{suffix}")
+    plot_ra_dec(good, plotname=f"{data_release_name}_ra_dec.{suffix}")
 
     stars = good.loc[good["extendedness"] == 0]
     galaxies = good.loc[good["extendedness"] > 0]
@@ -798,19 +803,19 @@ def run():
     print(
         f"Total: {len_total_df}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
     )
-    print(f"For {data_release} with {sampling_factor}x subsample")
+    print(f"For {data_release_name} with {sampling_factor}x subsample")
 
     # Color-Color Diagrams and the Stellar Locus
     im = plot_color_color(good, "gmr", "rmi")
     plt.colorbar(im)
 
-    plotname = f"{data_release}_good_color_color.{suffix}"
+    plotname = f"{data_release_name}_good_color_color.{suffix}"
     plot_four_color_color(good, vmax=50000, plotname=plotname)
 
-    plotname = f"{data_release}_star_color_color.{suffix}"
+    plotname = f"{data_release_name}_star_color_color.{suffix}"
     plot_four_color_color(stars, vmax=10000, plotname=plotname)
 
-    plotname = f"{data_release}_galaxy_color_color.{suffix}"
+    plotname = f"{data_release_name}_galaxy_color_color.{suffix}"
     plot_four_color_color(galaxies, vmax=40000, plotname=plotname)
 
     area_dc2 = calculate_area(galaxies)
@@ -821,12 +826,12 @@ def run():
     # Change default expression to 1/arcmin**2
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
-    plotname = f"{data_release}_galaxy_counts.{suffix}"
+    plotname = f"{data_release_name}_galaxy_counts.{suffix}"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
-    plotname = f"{data_release}_galaxy_mag_magerr.{suffix}"
+    plotname = f"{data_release_name}_galaxy_mag_magerr.{suffix}"
     plot_mag_magerr_filters(galaxies, filters)
-    plotname = f"{data_release}_star_mag_magerr.{suffix}"
+    plotname = f"{data_release_name}_star_mag_magerr.{suffix}"
     plot_mag_magerr_filters(stars, filters)
 
     # ## Blendedness
@@ -840,29 +845,29 @@ def run():
     print(
         f"{100 * len(w)/len(good):0.1f}% of objects have finite blendedness measurements."
     )
-    plotname = f"{data_release}_psf_cmodel.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel.{suffix}"
     plot_psf_cmodel(good, stars, galaxies, plotname=plotname)
-    plotname = f"{data_release}_psf_cmodel_i.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_i.{suffix}"
     plot_psf_cmodel_mag_hist2d(good, plotname=plotname)
-    plotname = f"{data_release}_psf_cmodel_i_zoom.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_i_zoom.{suffix}"
     plot_psf_cmodel_mag_hist2d(good, plotname=plotname, extent=(22, 25.5, -0.1, +0.5))
 
-    plotname = f"{data_release}_psf_cmodel_g_r.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_g_r.{suffix}"
     plot_psf_cmodel_gmr_hist2d(good, plotname=plotname, extent=(-2, +3, -0.1, +0.5))
 
-    plotname = f"{data_release}_gmr_hist.{suffix}"
+    plotname = f"{data_release_name}_gmr_hist.{suffix}"
     plot_gmr_hist(stars, galaxies, plotname=plotname)
 
-    plotname = f"{data_release}_gmr_cmodel.{suffix}"
+    plotname = f"{data_release_name}_gmr_cmodel.{suffix}"
     plot_gmr_cmodel(stars, plotname=plotname)
 
-    plotname = f"{data_release}_shape.{suffix}"
+    plotname = f"{data_release_name}_shape.{suffix}"
     plot_shape_filters(good, stars, galaxies, filters, plotname=plotname)
 
-    plotname = f"{data_release}_ellipticity.{suffix}"
+    plotname = f"{data_release_name}_ellipticity.{suffix}"
     plot_ellipticity_filters(good, stars, galaxies, filters, plotname=plotname)
 
-    plotname = f"{data_release}_psf_fwhm.{suffix}"
+    plotname = f"{data_release_name}_psf_fwhm.{suffix}"
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
