@@ -67,10 +67,15 @@ from matplotlib.patches import Polygon
 cmap = "viridis"
 
 
-def load_data(client, catalog_file=None):
+def load_data(client, data_release="dr6", catalog_file=None):
     if catalog_file is None:
-        catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
-        catalog_basename = "dc2_object_run2.2i_dr6.parquet"
+        if data_release == "dr6a":
+            catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
+            catalog_basename = "dc2_object_run2.2i_dr6.parquet"
+        else:
+            catalog_dirname = "/global/cfs/cdirs/lsst/shared/DC2-prod/Run2.2i/dpdd/"
+            # The following is a directory of Parquet files
+            catalog_basename = f"Run2.2i-{data_release}/dc2_object_run2.2i_{data_release}"
         catalog_file = os.path.join(catalog_dirname, catalog_basename)
 
     filters = ("u", "g", "r", "i", "z", "y")
@@ -752,12 +757,19 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
 
 def run(client, catalog_file=None):
     suffix = "pdf"
-    # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
-    data_release = "DC2_Run2.2i_DR6a"
+    # Run 2.2i DR6: "DR6a" has the first 78 tracts.
+    data_release = "DR6a"
+    data_release_name = "DC2_Run2.2i_{data_release}"
+
     sampling_factor = 1
 
-    filters, ddf, good = load_data(client, catalog_file=catalog_file)
-    plot_ra_dec(ddf, plotname=f"{data_release}_ra_dec.{suffix}")
+    # The catalogs are named in lower-case
+    data_release_catalog_string = data_release.lower()
+    filters, ddf, good = load_data(client,
+                                   data_release=data_release_catalog_string,
+                                   catalog_file=catalog_file)
+
+    plot_ra_dec(ddf, plotname=f"{data_release_name}_ra_dec.{suffix}")
 
     stars = ddf.loc[ddf["extendedness"] == 0]
     galaxies = ddf.loc[ddf["extendedness"] > 0]
@@ -765,19 +777,19 @@ def run(client, catalog_file=None):
     print(
         f"Total: {len(ddf)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
     )
-    print(f"For {data_release} with {sampling_factor}x subsample")
+    print(f"For {data_release_name} with {sampling_factor}x subsample")
 
     # Color-Color Diagrams and the Stellar Locus
     im = plot_color_color(good, "gmr", "rmi")
     plt.colorbar(im)
 
-    plotname = f"{data_release}_good_color_color.{suffix}"
+    plotname = f"{data_release_name}_good_color_color.{suffix}"
     plot_four_color_color(good, vmax=50000, plotname=plotname)
 
-    plotname = f"{data_release}_star_color_color.{suffix}"
+    plotname = f"{data_release_name}_star_color_color.{suffix}"
     plot_four_color_color(stars, vmax=10000, plotname=plotname)
 
-    plotname = f"{data_release}_galaxy_color_color.{suffix}"
+    plotname = f"{data_release_name}_galaxy_color_color.{suffix}"
     plot_four_color_color(galaxies, vmax=40000, plotname=plotname)
 
     area_dc2 = calculate_area(galaxies)
@@ -788,7 +800,7 @@ def run(client, catalog_file=None):
     # Change default expression to 1/arcmin**2
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
-    plotname = f"{data_release}_galaxy_counts.{suffix}"
+    plotname = f"{data_release_name}_galaxy_counts.{suffix}"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
     plot_mag_magerr_filters(galaxies, filters)
@@ -805,36 +817,36 @@ def run(client, catalog_file=None):
     print(
         f"{100 * len(w)/len(good):0.1f}% of objects have finite blendedness measurements."
     )
-    plotname = f"{data_release}_psf_cmodel.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel.{suffix}"
     plot_psf_cmodel(good, stars, galaxies, plotname=plotname)
-    plotname = f"{data_release}_psf_cmodel_i.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_i.{suffix}"
     plot_psf_cmodel_mag_hist2d(good, plotname=plotname)
-    plotname = f"{data_release}_psf_cmodel_i_zoom.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_i_zoom.{suffix}"
     plot_psf_cmodel_mag_hist2d(good, plotname=plotname, extent=(22, 25.5, -0.1, +0.5))
 
-    plotname = f"{data_release}_psf_cmodel_g_r.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_g_r.{suffix}"
     plot_psf_cmodel_gmr_hist2d(good, plotname=plotname, extent=(-2, +3, -0.1, +0.5))
 
-    plotname = f"{data_release}_gmr_hist.{suffix}"
+    plotname = f"{data_release_name}_gmr_hist.{suffix}"
     plot_gmr_hist(stars, galaxies, plotname=plotname)
 
-    plotname = f"{data_release}_gmr_cmodel.{suffix}"
+    plotname = f"{data_release_name}_gmr_cmodel.{suffix}"
     plot_gmr_cmodel(stars, plotname=plotname)
 
-    plotname = f"{data_release}_shape.{suffix}"
+    plotname = f"{data_release_name}_shape.{suffix}"
     plot_shape_filters(good, stars, galaxies, filters, plotname=plotname)
 
-    plotname = f"{data_release}_ellipticity.{suffix}"
+    plotname = f"{data_release_name}_ellipticity.{suffix}"
     plot_ellipticity_filters(good, stars, galaxies, filters, plotname=plotname)
 
-    plotname = f"{data_release}_fwhm.{suffix}"
+    plotname = f"{data_release_name}_fwhm.{suffix}"
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
 def run_test(client, catalog_file=None):
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
-    data_release = "DC2_Run2.2i_DR6a"
+    data_release_name = "DC2_Run2.2i_DR6a"
     sampling_factor = 1
 
     filters, ddf, good = load_data(client, catalog_file)
@@ -847,19 +859,19 @@ def run_test(client, catalog_file=None):
     print(
         f"Total: {len(ddf)}, Good: {len(good)}, Stars: {len(stars)}, Galaxies: {len(galaxies)}"
     )
-    print(f"For {data_release} with {sampling_factor}x subsample")
+    print(f"For {data_release_name} with {sampling_factor}x subsample")
 
     # Color-Color Diagrams and the Stellar Locus
     im = plot_color_color(good, "gmr", "rmi")
     plt.colorbar(im)
 
-    plotname = f"{data_release}_good_color_color.{suffix}"
+    plotname = f"{data_release_name}_good_color_color.{suffix}"
     plot_four_color_color(good, vmax=50000, plotname=plotname)
 
-    plotname = f"{data_release}_star_color_color.{suffix}"
+    plotname = f"{data_release_name}_star_color_color.{suffix}"
     plot_four_color_color(stars, vmax=10000, plotname=plotname)
 
-    plotname = f"{data_release}_galaxy_color_color.{suffix}"
+    plotname = f"{data_release_name}_galaxy_color_color.{suffix}"
     plot_four_color_color(galaxies, vmax=40000, plotname=plotname)
 
     area_dc2 = calculate_area(galaxies)
@@ -870,7 +882,7 @@ def run_test(client, catalog_file=None):
     # Change default expression to 1/arcmin**2
     num_den_dc2 = num_den_dc2.to(1 / u.arcmin ** 2)
 
-    plotname = f"{data_release}_galaxy_counts.{suffix}"
+    plotname = f"{data_release_name}_galaxy_counts.{suffix}"
     plot_normalize_mag_density(galaxies, num_den_dc2, plotname=plotname)
 
     plot_mag_magerr_filters(galaxies, filters)
@@ -887,23 +899,23 @@ def run_test(client, catalog_file=None):
     print(
         f"{100 * len(w)/len(good):0.1f}% of objects have finite blendedness measurements."
     )
-    plotname = f"{data_release}_psf_cmodel.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel.{suffix}"
     plot_psf_cmodel(good, stars, galaxies, plotname=plotname)
-    plotname = f"{data_release}_psf_cmodel_i.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_i.{suffix}"
     plot_psf_cmodel_mag_hist2d(good, plotname=plotname)
-    plotname = f"{data_release}_psf_cmodel_i_zoom.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_i_zoom.{suffix}"
     plot_psf_cmodel_mag_hist2d(good, plotname=plotname, extent=(22, 25.5, -0.1, +0.5))
 
-    plotname = f"{data_release}_psf_cmodel_g_r.{suffix}"
+    plotname = f"{data_release_name}_psf_cmodel_g_r.{suffix}"
     plot_psf_cmodel_gmr_hist2d(good, plotname=plotname, extent=(-2, +3, -0.1, +0.5))
 
-    plotname = f"{data_release}_gmr_hist.{suffix}"
+    plotname = f"{data_release_name}_gmr_hist.{suffix}"
     plot_gmr_hist(stars, galaxies, plotname=plotname)
 
-    plotname = f"{data_release}_gmr_cmodel.{suffix}"
+    plotname = f"{data_release_name}_gmr_cmodel.{suffix}"
     plot_gmr_cmodel(stars, plotname=plotname)
 
-    plotname = f"{data_release}_fwhm.{suffix}"
+    plotname = f"{data_release_name}_fwhm.{suffix}"
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
