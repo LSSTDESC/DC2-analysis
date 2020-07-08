@@ -67,29 +67,17 @@ from matplotlib.patches import Polygon
 cmap = "viridis"
 
 
-def load_data(client, data_release="dr6", catalog_file=None):
-    if catalog_file is None:
-        if data_release == "dr6a":
-            catalog_dirname = "/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/dpdd/"
-            catalog_basename = "dc2_object_run2.2i_dr6.parquet"
-        else:
-            catalog_dirname = "/global/cfs/cdirs/lsst/shared/DC2-prod/Run2.2i/dpdd/"
-            # The following is a directory of Parquet files
-            catalog_basename = f"Run2.2i-{data_release}/dc2_object_run2.2i_{data_release}"
-        catalog_file = os.path.join(catalog_dirname, catalog_basename)
+def load_data(client, data_release="dr6", catalog_path=None):
+    if catalog_path is None:
+        catalog_path = f"/global/cfs/cdirs/lsst/shared/DC2-prod/Run2.2i/dpdd/Run2.2i-{data_release}/dc2_object_run2.2i_{data_release}"
 
     filters = ("u", "g", "r", "i", "z", "y")
 
     columns = define_columns_to_use(filters)
     print_expected_memory_usage(columns)
 
-    print(f"Reading {catalog_file}")
-    ddf = dd.read_parquet(catalog_file, engine='pyarrow', columns=columns)
-
-    # for filt in filters:
-    #     ddf[f"e_{filt}"], ddf[f"e1_{filt}"], ddf[f"e2_{filt}"] = ellipticity(
-    #         ddf[f"Ixx_{filt}"], ddf[f"Ixy_{filt}"], ddf[f"Iyy_{filt}"]
-    #     )
+    print(f"Reading {catalog_path}")
+    ddf = dd.read_parquet(catalog_path, engine='pyarrow', columns=columns)
 
     return filters, ddf
 
@@ -845,7 +833,7 @@ def run(client, data_release="DR6a"):
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
-def run_test(client, catalog_file=None):
+def run_test(client, data_release):
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
 #    data_release_name = "DC2_Run2.2i_DR61"
@@ -931,17 +919,13 @@ def run_test(client, catalog_file=None):
 
 
 if __name__ == "__main__":
-    n_workers = 8
+    n_workers = 16
 
     from dask.distributed import Client
     scheduler_file = os.path.join(os.environ["SCRATCH"], "scheduler.json")
-    if scheduler_file is not None:
-        client = Client(scheduler_file=scheduler_file)
-    else:
-        client = Client(n_workers=n_workers)
-        client.write_scheduler_file(scheduler_file)
 
-#    catalog_file = "/global/homes/w/wmwv/validation/tract_3640.parquet"
-#    catalog_file = "/global/cscratch1/sd/wmwv/DC2/Run2.2i/tract_3640.parquet"
-    catalog_file = "/global/cscratch1/sd/wmwv/DC2/Run2.2i/dc2_object_run2.2i_dr6.parquet"
-    run_test(client, catalog_file)
+    client = Client(n_workers=n_workers)
+    client.write_scheduler_file(scheduler_file)
+
+    data_release = "dr6a"
+    run(client, data_release)
