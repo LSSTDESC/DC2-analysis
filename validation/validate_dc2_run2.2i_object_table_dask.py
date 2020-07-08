@@ -743,14 +743,8 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
         plt.clf()
 
 
-def run(client, data_release="DR6a"):
-    suffix = "pdf"
-    # Run 2.2i DR6: "DR6a" has the first 78 tracts.
-#    data_release = "DR6a"
-    data_release = "DR6b"
-    data_release_name = "DC2_Run2.2i_{data_release}"
-
-    sampling_factor = 1
+def run(client, data_release="DR6a", suffix="pdf", sampling_factor=1):
+    data_release_name = f"DC2_Run2.2i_{data_release}"
 
     # The catalogs are named in lower-case
     data_release_catalog_string = data_release.lower()
@@ -833,13 +827,8 @@ def run(client, data_release="DR6a"):
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
-def run_test(client, data_release):
-    suffix = "pdf"
-    # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
-#    data_release_name = "DC2_Run2.2i_DR61"
-    data_release = "DR6b"
-    data_release_name = "DC2_Run2.2i_DR6b"
-    sampling_factor = 1
+def run_test(client, data_release="DR6a", suffix="pdf", sampling_factor=1):
+    data_release_name = f"DC2_Run2.2i_{data_release}"
 
     # The catalogs are named in lower-case
     data_release_catalog_string = data_release.lower()
