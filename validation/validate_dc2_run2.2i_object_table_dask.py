@@ -918,14 +918,18 @@ def run_test(client, data_release):
     plot_psf_fwhm(good, filters, plotname=plotname)
 
 
-if __name__ == "__main__":
-    n_workers = 16
-
+def start_dask_cluster(n_workers=16, scheduler_file=None):
     from dask.distributed import Client
-    scheduler_file = os.path.join(os.environ["SCRATCH"], "scheduler.json")
+    if scheduler_file is None:
+        scheduler_file = os.path.join(os.environ["SCRATCH"], "scheduler.json")
 
     client = Client(n_workers=n_workers)
     client.write_scheduler_file(scheduler_file)
 
+    return client
+
+
+if __name__ == "__main__":
+    client = start_dask_cluster()
     data_release = "dr6a"
     run(client, data_release)
