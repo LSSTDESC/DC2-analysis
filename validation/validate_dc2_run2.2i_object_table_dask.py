@@ -230,7 +230,10 @@ def ellipticity(I_xx, I_xy, I_yy):
 
 
 # We refer to a file over in `tutorials/assets' for the stellar locus
-datafile_davenport = "../tutorials/assets/Davenport_2014_MNRAS_440_3430_table1.txt"
+dc2_analysis_dir = os.path.dirname(__file__)
+datafile_davenport = os.path.join(
+    dc2_analysis_dir,
+    "../tutorials/assets/Davenport_2014_MNRAS_440_3430_table1.txt")
 
 
 def get_stellar_locus_davenport(
