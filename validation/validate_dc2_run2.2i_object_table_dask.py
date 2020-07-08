@@ -85,16 +85,13 @@ def load_data(client, data_release="dr6", catalog_file=None):
 
     print(f"Reading {catalog_file}")
     ddf = dd.read_parquet(catalog_file, engine='pyarrow', columns=columns)
-    ddf = ddf.repartition(npartitions=len(client.scheduler_info()['workers']))
 
     # for filt in filters:
     #     ddf[f"e_{filt}"], ddf[f"e1_{filt}"], ddf[f"e2_{filt}"] = ellipticity(
     #         ddf[f"Ixx_{filt}"], ddf[f"Ixy_{filt}"], ddf[f"Iyy_{filt}"]
     #     )
 
-    good = select_good_detections(ddf)
-
-    return filters, ddf, good
+    return filters, ddf
 
 
 def define_columns_to_use(filters):
@@ -755,19 +752,21 @@ def plot_shape_filters(good, stars, galaxies, filters, plotname=None):
         plt.clf()
 
 
-def run(client, catalog_file=None):
+def run(client, data_release="DR6a"):
     suffix = "pdf"
     # Run 2.2i DR6: "DR6a" has the first 78 tracts.
-    data_release = "DR6a"
+#    data_release = "DR6a"
+    data_release = "DR6b"
     data_release_name = "DC2_Run2.2i_{data_release}"
 
     sampling_factor = 1
 
     # The catalogs are named in lower-case
     data_release_catalog_string = data_release.lower()
-    filters, ddf, good = load_data(client,
-                                   data_release=data_release_catalog_string,
-                                   catalog_file=catalog_file)
+    filters, ddf = load_data(client,
+                             data_release=data_release_catalog_string)
+    ddf = ddf.persist()
+    good = select_good_detections(ddf)
 
     plot_ra_dec(ddf, plotname=f"{data_release_name}_ra_dec.{suffix}")
 
@@ -846,10 +845,19 @@ def run(client, catalog_file=None):
 def run_test(client, catalog_file=None):
     suffix = "pdf"
     # Processing the first 78 tracts from Run 2.2i DR6: "DR6a"
-    data_release_name = "DC2_Run2.2i_DR6a"
+#    data_release_name = "DC2_Run2.2i_DR61"
+    data_release = "DR6b"
+    data_release_name = "DC2_Run2.2i_DR6b"
     sampling_factor = 1
 
-    filters, ddf, good = load_data(client, catalog_file)
+    # The catalogs are named in lower-case
+    data_release_catalog_string = data_release.lower()
+    filters, ddf = load_data(client,
+                             data_release=data_release_catalog_string)
+
+    ddf = ddf.persist()
+    good = select_good_detections(ddf)
+
     print(f"Loaded {len(ddf)} objects.")
     print(f"Loaded {len(good)} good objects.")
 
