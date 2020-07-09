@@ -840,5 +840,5 @@ def start_dask_cluster(n_workers=16, scheduler_file=None):
 
 if __name__ == "__main__":
     client = start_dask_cluster()
-    data_release = "dr6a"
+    data_release = "DR6a"
     run(client, data_release)
