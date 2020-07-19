@@ -1,6 +1,7 @@
 name: Check notebook outputs
 
 on:
+  push:
   pull_request:
     branches: [ master ]
 
