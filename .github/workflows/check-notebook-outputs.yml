@@ -1,0 +1,16 @@
+name: Check notebook outputs
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install jq
+      run: sudo apt-get install jq
+    - uses: actions/checkout@v2
+    - name: Check if notebook outputs have been cleared
+      run: |
+        find . -name "*.ipynb" -print -exec jq -e "[.cells[] | .outputs | length] | add == 0" {} \;
