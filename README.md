@@ -2,6 +2,8 @@
 
 The repository contains general analysis scripts for the DC2 simulated dataset.  Project-specific work can be done in separate repositories, but some analysis tasks will be generally useful, and the relevant scripts and notebooks can be included here for more general consumption.
 
+:arrow_right: [Click here to browse rendered notebooks](https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/tree/rendered/)!
+
 ## Links
 
 The [DC2-production repository](https://github.com/LSSTDESC/DC2-production) includes documents, discussion, and scripts related to the production and validation of DC2.  Please go there for more information about DC2.
