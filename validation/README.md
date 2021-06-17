@@ -49,9 +49,3 @@ And then run the script, ideally pipeline the output to a log file for future re
 ```
 python validate_dc2_run2.2i_object_table.py > validate_dc2_run2.2i_object_table.log 2>&1 < /dev/null &
 ```
-
-#### Dask-based script
-The instructions for running the Dask-based script are the same.  Once we're on our own node, we'll use the availalable processors for Dask.
-```
-python validate_dc2_run2.2i_object_table_dask.py > validate_dc2_run2.2i_object_table_dask.log 2>&1 < /dev/null &
-```
