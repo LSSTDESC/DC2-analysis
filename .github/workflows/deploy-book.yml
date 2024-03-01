@@ -17,10 +17,6 @@ jobs:
       with:
         python-version: '3.12'
         cache: 'pip'
-    - name: Install dependencies
-      run: |
-        pip install wheel
-        pip install jupyter-book
     - name: Build the book
       run: jupyter-book build --all .
     - name: Push to GitHub Pages
