@@ -12,7 +12,3 @@ parts:
 - caption: Validation
   chapters:
   - glob: validation/*
-
-- caption: Contributed
-  chapters:
-  - glob: contributed/*
