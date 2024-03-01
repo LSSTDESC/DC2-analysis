@@ -1,0 +1,1151 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DC2: Generate Postage Stamps for set of RA, Dec coordinates &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/dm_butler_postage_stamps';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/dm_butler_postage_stamps.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog" href="dm_butler_postage_stamps_for_object_catalogs.html" />
+    <link rel="prev" title="Accessing the Coadd data using the Data Butler" href="dm_butler_lensing_cuts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/dm_butler_postage_stamps.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/dm_butler_postage_stamps.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/dm_butler_postage_stamps.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DC2: Generate Postage Stamps for set of RA, Dec coordinates</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistics">Logistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set Up</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-backends-and-nersc-jupyter-vs-jupyterlab">Interactive backends and NERSC Jupyter vs JupyterLab</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-make-a-cutout-image">How To Make a Cutout Image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-some-postage-stamps">Making Some Postage Stamps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#afw-display">AFW Display</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-mask-planes">Using mask planes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-plt-imshow-and-afwdisplay">Comparing <code class="docutils literal notranslate"><span class="pre">plt.imshow</span></code> and <code class="docutils literal notranslate"><span class="pre">afwDisplay</span></code>:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-psf-model">Using the PSF Model</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dc2-generate-postage-stamps-for-set-of-ra-dec-coordinates">
+<h1>DC2: Generate Postage Stamps for set of RA, Dec coordinates<a class="headerlink" href="#dc2-generate-postage-stamps-for-set-of-ra-dec-coordinates" title="Link to this heading">#</a></h1>
+<p><br>Owner: <strong>Michael Wood-Vasey</strong> (<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;wmwv">&#64;wmwv</a>)
+<br>Last Verified to Run: <strong>2018-10-26</strong> (by &#64;yymao)</p>
+<p>This Notebook demonstrates taking a list of RA, Dec positions and generating “postage-stamp” cutout images from the coadded images.  It illustrates using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for simple display and saving of PNGs.  It also introduces using <code class="docutils literal notranslate"><span class="pre">lsst.afw.display</span></code> to use a more DM-product aware visualization to show the detect object footprints and other mask planes.</p>
+<section id="learning-objectives">
+<h2>Learning Objectives:<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<p>After working through and studying this Notebook you should be able to</p>
+<ol class="arabic simple">
+<li><p>Generate a postage stamp from a coadd for your chosen RA, Dec in a chosen filter and save as (a) a FITS file and (b) a PNG.</p></li>
+<li><p>Use afw.display to show a postage stamp along with the mask planes from the coadd image, including overlaying the object footprints.</p></li>
+<li><p>[Advanced] Instantiate a Butler object for a repo and read an arbitrary coadd image.  This will require reading through functions carefully and testing individual lines.</p></li>
+<li><p>[Advanced] Load the PSF model for a coadd and evaluate it at a given RA, Dec.</p></li>
+<li><p>[Expert] Subtract a scaled PSF model from the location of an object on a coadd.</p></li>
+<li><p>[Expert] Look up which tract, patch a given RA, Dec falls in.</p></li>
+</ol>
+</section>
+<section id="logistics">
+<h2>Logistics<a class="headerlink" href="#logistics" title="Link to this heading">#</a></h2>
+<p>This is intended to be runnable at NERSC through the <a class="reference external" href="https://jupyter-dev.nersc.gov">https://jupyter-dev.nersc.gov</a> interface from a local git clone of <a class="github reference external" href="https://github.com/LSSTDESC/DC2-analysis">LSSTDESC/DC2-analysis</a> in your NERSC directory.  But you can also run it wherever, with appropriate adjustment of the ‘repo’ location to point to a place where you have a Butler repo will all of the images. Instructions for setting up the proper python kernel can be found here: <a class="reference external" href="https://confluence.slac.stanford.edu/x/1_ubDQ">https://confluence.slac.stanford.edu/x/1_ubDQ</a></p>
+<p>Based in part on <a class="github reference external" href="https://github.com/lsst-com/notebooks/blob/master/postage_stamp.ipynb">lsst-com/notebooks</a></p>
+</section>
+<section id="set-up">
+<h2>Set Up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
+
+<span class="kn">import</span> <span class="nn">lsst.daf.persistence</span> <span class="k">as</span> <span class="nn">dafPersist</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.geom</span> <span class="k">as</span> <span class="nn">afwGeom</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.coord</span> <span class="k">as</span> <span class="nn">afwCoord</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.image</span> <span class="k">as</span> <span class="nn">afwImage</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.display</span> <span class="k">as</span> <span class="nn">afwDisplay</span>
+
+<span class="kn">from</span> <span class="nn">astropy.visualization</span> <span class="kn">import</span> <span class="n">ZScaleInterval</span>
+
+<span class="kn">from</span> <span class="nn">desc_dc2_dm_data</span> <span class="kn">import</span> <span class="n">REPOS</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="interactive-backends-and-nersc-jupyter-vs-jupyterlab">
+<h3>Interactive backends and NERSC Jupyter vs JupyterLab<a class="headerlink" href="#interactive-backends-and-nersc-jupyter-vs-jupyterlab" title="Link to this heading">#</a></h3>
+<p>If you’re running on directly in Jupyter and not JupyterLab
+you can instead use below the interactive figure interface (nbAgg)<br />
+<code class="docutils literal notranslate"><span class="pre">%matplotlib</span> <span class="pre">notebook</span></code></p>
+<p>We don’t do that by default in this Notebook so that it can be run under the NERSC JupyterLab environment, which is what DESC specifically called out in the <a class="reference external" href="https://confluence.slac.stanford.edu/x/1_ubDQ">instructions for using NERSC</a>
+but I recommend that you use the Jupyter interface to get the best out of this Notebook.</p>
+<p>If you want to switch from <code class="docutils literal notranslate"><span class="pre">notebok</span></code>&lt;-&gt;<code class="docutils literal notranslate"><span class="pre">inline</span></code> you have to restart the Python kernel for this Jupyter Notebook.  I recommend using the “Kernel-&gt;Restart &amp; Clear Output” menu option above.</p>
+<p>The distinction between Jupyter and JupyterLab is confusing, so I’ll repeat here with the specific examples:</p>
+<ol class="arabic simple">
+<li><p>This is my Jupyter URL and specific URL of this Notebook URL at NERSC:<br />
+<a class="reference external" href="https://jupyter-dev.nersc.gov/user/wmwv/">https://jupyter-dev.nersc.gov/user/wmwv/</a><br />
+<a class="reference external" href="https://jupyter-dev.nersc.gov/user/wmwv/notebooks/global/homes/w/wmwv/DC2-analysis/Notebooks/DC2_Postage_Stamps.ipynb">https://jupyter-dev.nersc.gov/user/wmwv/notebooks/global/homes/w/wmwv/DC2-analysis/Notebooks/DC2_Postage_Stamps.ipynb</a></p></li>
+<li><p>This is my JupyterLab URL and specific URL of this Notebook at NERSC:<br />
+<a class="reference external" href="https://jupyter-dev.nersc.gov/user/wmwv/lab">https://jupyter-dev.nersc.gov/user/wmwv/lab</a><br />
+<a class="reference external" href="https://jupyter-dev.nersc.gov/user/wmwv/lab/tree/global/homes/w/wmwv/DC2-analysis/Notebooks/DC2_Postage_Stamps.ipynb">https://jupyter-dev.nersc.gov/user/wmwv/lab/tree/global/homes/w/wmwv/DC2-analysis/Notebooks/DC2_Postage_Stamps.ipynb</a></p></li>
+</ol>
+<p>The interactive ‘notebook’ (nbAgg) backend will work with #1 but will not work with #2.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set plotting to &#39;inline&#39; figures</span>
+<span class="c1"># If you&#39;re running on directly in Jupyter and not JupyterLab</span>
+<span class="c1"># you can instead use the interactive figure interface (nbAgg).</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="c1"># %matplotlib notebook</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">zscale</span> <span class="o">=</span> <span class="n">ZScaleInterval</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="how-to-make-a-cutout-image">
+<h2>How To Make a Cutout Image<a class="headerlink" href="#how-to-make-a-cutout-image" title="Link to this heading">#</a></h2>
+<p>The DM butler’s <code class="docutils literal notranslate"><span class="pre">get</span></code> method enables postage stamp making, via a bounding box keyword argument. The functions below show how to make this bounding box, and apply it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cutout_coadd_ra_dec</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">datasetType</span><span class="o">=</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Produce a cutout from coadd from the given butler at the given RA, Dec in decimal degrees.</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Trivial wrapper around &#39;cutout_coadd_spherepoint&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    butler: lsst.daf.persistence.Butler</span>
+<span class="sd">        Servant providing access to a data repository</span>
+<span class="sd">    ra: float</span>
+<span class="sd">        Right ascension of the center of the cutout, degrees</span>
+<span class="sd">    dec: float</span>
+<span class="sd">        Declination of the center of the cutout, degrees</span>
+<span class="sd">    filter: string</span>
+<span class="sd">        Filter of the image to load</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MaskedImage</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">radec</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cutout_coadd_spherepoint</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">radec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">,</span> <span class="n">datasetType</span><span class="o">=</span><span class="n">datasetType</span><span class="p">)</span>
+    
+
+<span class="k">def</span> <span class="nf">cutout_coadd_spherepoint</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">radec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">datasetType</span><span class="o">=</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">,</span>
+                                  <span class="n">skymap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cutoutSideLength</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Produce a cutout from a coadd at the given afw SpherePoint radec position.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    butler: lsst.daf.persistence.Butler</span>
+<span class="sd">        Servant providing access to a data repository</span>
+<span class="sd">    radec: lsst.afw.geom.SpherePoint </span>
+<span class="sd">        Coordinates of the center of the cutout.</span>
+<span class="sd">    filter: string </span>
+<span class="sd">        Filter of the image to load</span>
+<span class="sd">    datasetType: string [&#39;deepCoadd&#39;]  </span>
+<span class="sd">        Which type of coadd to load.  Doesn&#39;t support &#39;calexp&#39;</span>
+<span class="sd">    skymap: lsst.afw.skyMap.SkyMap [optional] </span>
+<span class="sd">        Pass in to avoid the Butler read.  Useful if you have lots of them.</span>
+<span class="sd">    cutoutSideLength: float [optional] </span>
+<span class="sd">        Side of the cutout region in pixels.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MaskedImage</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cutoutSize</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">ExtentI</span><span class="p">(</span><span class="n">cutoutSideLength</span><span class="p">,</span> <span class="n">cutoutSideLength</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">skymap</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">skymap</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_skyMap&quot;</span> <span class="o">%</span> <span class="n">datasetType</span><span class="p">)</span>
+    
+    <span class="c1"># Look up the tract, patch for the RA, Dec</span>
+    <span class="n">tractInfo</span> <span class="o">=</span> <span class="n">skymap</span><span class="o">.</span><span class="n">findTract</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    <span class="n">patchInfo</span> <span class="o">=</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">findPatch</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">PointI</span><span class="p">(</span><span class="n">tractInfo</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">))</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">BoxI</span><span class="p">(</span><span class="n">xy</span> <span class="o">-</span> <span class="n">cutoutSize</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">cutoutSize</span><span class="p">)</span>
+
+    <span class="n">coaddId</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tract&#39;</span><span class="p">:</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getId</span><span class="p">(),</span> <span class="s1">&#39;patch&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patchInfo</span><span class="o">.</span><span class="n">getIndex</span><span class="p">(),</span> <span class="s1">&#39;filter&#39;</span><span class="p">:</span> <span class="nb">filter</span><span class="p">}</span>
+    
+    <span class="n">cutout_image</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">datasetType</span><span class="o">+</span><span class="s1">&#39;_sub&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span> <span class="n">immediate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">coaddId</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">cutout_image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">saveplot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">savefits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">datasetType</span><span class="o">=</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate and optionally display and save a postage stamp for a given RA, Dec.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    butler: lsst.daf.persistence.Butler</span>
+<span class="sd">        Servant providing access to a data repository</span>
+<span class="sd">    ra: float</span>
+<span class="sd">        Right ascension of the center of the cutout, degrees</span>
+<span class="sd">    dec: float</span>
+<span class="sd">        Declination of the center of the cutout, degrees</span>
+<span class="sd">    filter: string </span>
+<span class="sd">        Filter of the image to load</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MaskedImage</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Uses matplotlib to generate stamps.  Saves FITS file if requested.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cutout_image</span> <span class="o">=</span> <span class="n">cutout_coadd_ra_dec</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">,</span> <span class="n">datasetType</span><span class="o">=</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">savefits</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">savefits</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">savefits</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;postage-stamp.fits&#39;</span>
+        <span class="n">cutout_image</span><span class="o">.</span><span class="n">writeFits</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    
+    <span class="n">radec</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">cutout_image</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">vmin</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">vmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">zscale</span><span class="o">.</span><span class="n">get_limits</span><span class="p">(</span><span class="n">cutout_image</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cutout_image</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;binary_r&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xy</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">-</span> <span class="n">cutout_image</span><span class="o">.</span><span class="n">getX0</span><span class="p">(),</span> <span class="n">xy</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">-</span> <span class="n">cutout_image</span><span class="o">.</span><span class="n">getY0</span><span class="p">(),</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">saveplot</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">saveplot</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">saveplot</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;postage-stamp.png&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">cutout_image</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="making-some-postage-stamps">
+<h2>Making Some Postage Stamps<a class="headerlink" href="#making-some-postage-stamps" title="Link to this heading">#</a></h2>
+<p>We’ll use a list of 20 targets, pre-selected and checked into the Notebooks folder, and have the butler make postage stamps from the Run 1.1 coadd images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="o">=</span> <span class="s1">&#39;1.1p&#39;</span>
+<span class="n">repo</span> <span class="o">=</span> <span class="n">REPOS</span><span class="p">[</span><span class="n">run</span><span class="p">]</span>
+<span class="n">butler</span> <span class="o">=</span> <span class="n">dafPersist</span><span class="o">.</span><span class="n">Butler</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">filter</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
+<span class="n">coord_file</span> <span class="o">=</span> <span class="s1">&#39;assets/id_ra_dec_mid_mag_</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="nb">filter</span><span class="p">)</span>
+<span class="n">id_ra_dec</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">coord_file</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot just one</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">first</span> <span class="o">=</span> <span class="n">id_ra_dec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">first</span><span class="p">[</span><span class="s1">&#39;RA&#39;</span><span class="p">],</span> <span class="n">first</span><span class="p">[</span><span class="s1">&#39;DEC&#39;</span><span class="p">]</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">cutout</span> <span class="o">=</span> <span class="n">make_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Object ID: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">id_ra_dec</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ID&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we use <code class="docutils literal notranslate"><span class="pre">notebook</span></code> as the backend, we can interact with the figure and read off pixel coordinates and counts.</p>
+<p>We can loop over this to create postage-stamps for each entry in our catalog.  To keep the Notebooks folder tidy, we’ll make and use a subfolder.</p>
+<p>We use <code class="docutils literal notranslate"><span class="pre">show=False</span></code> because we don’t necessarily want to display each of the 20 figures.  But even with <code class="docutils literal notranslate"><span class="pre">show=False</span></code> we will get a figure displayed in interactive <code class="docutils literal notranslate"><span class="pre">%matplotlib</span> <span class="pre">notebook</span></code> mode because under that backend, one is always displaying the figure without waiting for a <code class="docutils literal notranslate"><span class="pre">plt.show</span></code> command.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subfolder</span> <span class="o">=</span> <span class="s1">&#39;Stamps&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">subfolder</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">subfolder</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">show</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">datasetType</span> <span class="o">=</span> <span class="s1">&#39;deepCoadd&#39;</span>
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="o">+</span><span class="mf">1.5</span>  <span class="c1"># Fix the vmin, vmax to make it easier to compare across postage stamps.</span>
+
+<span class="k">for</span> <span class="n">objectId</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="ow">in</span> <span class="n">id_ra_dec</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+    <span class="n">basename</span> <span class="o">=</span> <span class="s2">&quot;Stamps/</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">datasetType</span><span class="p">,</span> <span class="n">objectId</span><span class="p">,</span> <span class="nb">filter</span><span class="p">)</span>
+    <span class="n">saveplot</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.png&quot;</span> <span class="o">%</span> <span class="n">basename</span>
+    <span class="n">savefits</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.fits&quot;</span> <span class="o">%</span> <span class="n">basename</span>
+    <span class="n">make_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="nb">filter</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span>
+                      <span class="n">datasetType</span><span class="o">=</span><span class="n">datasetType</span><span class="p">,</span>
+                      <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Object ID: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">objectId</span><span class="p">,</span>
+                      <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span> <span class="n">saveplot</span><span class="o">=</span><span class="n">saveplot</span><span class="p">,</span> <span class="n">savefits</span><span class="o">=</span><span class="n">savefits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="afw-display">
+<h2>AFW Display<a class="headerlink" href="#afw-display" title="Link to this heading">#</a></h2>
+<p>But there’s additional information available in the Exposure object that we can access using LSST DM tools that are aware of these.  Specifically, we’ll use <code class="docutils literal notranslate"><span class="pre">lsst.afw.display</span></code> to expose the mask planes in a cutout image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">display_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span>
+                      <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">saveplot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">savefits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">old_matplotlib</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                      <span class="n">datasetType</span><span class="o">=</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display a postage stamp for a given RA, Dec using LSST lsst.afw.display.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    backend: string</span>
+<span class="sd">        Backend can be anything that lsst.afw.display and your configuration supports: </span>
+<span class="sd">        e.g. matplotlib, ds9, ginga, firefly.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MaskedImage</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Parameters are the same as for make_cutout_image, except for the backend.</span>
+<span class="sd">    You definitely have the matplotlib backend.</span>
+<span class="sd">    ds9, ginga, and firefly can be set up but are non-trivial on the scale of a simple Notebook.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cutout_image</span> <span class="o">=</span> <span class="n">cutout_coadd_ra_dec</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">datasetType</span><span class="o">=</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">savefits</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">savefits</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">savefits</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;postage-stamp.fits&#39;</span>
+        <span class="n">cutout_image</span><span class="o">.</span><span class="n">writeFits</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">display</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">display</span> <span class="o">=</span> <span class="n">afwDisplay</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">)</span>
+
+    <span class="n">radec</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">cutout_image</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    
+    <span class="n">display</span><span class="o">.</span><span class="n">mtv</span><span class="p">(</span><span class="n">cutout_image</span><span class="p">)</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="s2">&quot;asinh&quot;</span><span class="p">,</span> <span class="s2">&quot;zscale&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">xy</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span> <span class="n">ctype</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">show_colorbar</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">cutout_image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display just one</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">first</span> <span class="o">=</span> <span class="n">id_ra_dec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">first</span><span class="p">[</span><span class="s1">&#39;RA&#39;</span><span class="p">],</span> <span class="n">first</span><span class="p">[</span><span class="s1">&#39;DEC&#39;</span><span class="p">]</span>
+
+<span class="c1"># We start specifying figure numbers here and below to explicitly control which figure we&#39;re plotting to</span>
+<span class="c1"># If we use the interactive `%matplotlib notebook` (nbAgg),</span>
+<span class="c1"># then figures stay active even when you exit the cell.</span>
+<span class="c1"># It can then be confusing to figure out which figure is active.</span>
+<span class="c1"># (matplotlib.pyplot doesn&#39;t call these &#39;frame&#39;s, but afwDisplay does)</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">cutout</span> <span class="o">=</span> <span class="n">display_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span>
+                              <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Object ID: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">id_ra_dec</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;ID&#39;</span><span class="p">])</span>
+
+<span class="c1"># After we have the displayed image we can interact with it a bit through matplotlib</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;afwDisplay.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here when we browse around we get both x,y coordinates (RA, Dec) = <span class="math notranslate nohighlight">\((\alpha, \delta)\)</span> the pixel counts as well as the list of named mask bits that are set for the pixels.</p>
+</section>
+<section id="using-mask-planes">
+<h2>Using mask planes<a class="headerlink" href="#using-mask-planes" title="Link to this heading">#</a></h2>
+<p>Along with the pixels, the coadd image also has a set of associated “mask” planes. “Mask” means has an identified property – it doesn’t necessarily mean “bad”.  In particular, the “DETECTED” mask plane means the measurement identified an object here.  “Plane” here refers to a specific bit in the mask.</p>
+<p>Specifically, the blue overlays above are called the “footprints” for the observations.  These are the pixels identified by the pipeline as “belonging” to the object: pixels where the object contributes detectable number of photons above the sky background.</p>
+<p>The colors are configurable, but the default values are:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">afwDisplay</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">maskName</span><span class="p">,</span> <span class="n">maskBit</span> <span class="ow">in</span> <span class="n">cutout</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">getMaskPlaneDict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">maskName</span><span class="p">,</span> <span class="n">display</span><span class="o">.</span><span class="n">getMaskPlaneColor</span><span class="p">(</span><span class="n">maskName</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="comparing-plt-imshow-and-afwdisplay">
+<h3>Comparing <code class="docutils literal notranslate"><span class="pre">plt.imshow</span></code> and <code class="docutils literal notranslate"><span class="pre">afwDisplay</span></code>:<a class="headerlink" href="#comparing-plt-imshow-and-afwdisplay" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>X,Y origin<br />
+Note that <code class="docutils literal notranslate"><span class="pre">afwDisplay</span></code> displays images with the lower-left as the origin, which is the x,y convention that most  astronomers are using to thinking in.  This is opposite to the default vertical orientation in <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow</span></code>, thus we passed <code class="docutils literal notranslate"><span class="pre">origin='lower'</span></code> in our call above to <code class="docutils literal notranslate"><span class="pre">imshow</span></code>. <code class="docutils literal notranslate"><span class="pre">afwDisplay</span></code> also provides the original pixel coordinates of the tract+patch coadd image, which is potentially useful.</p></li>
+<li><p>Colormap<br />
+This is an arbitrary choice, but <code class="docutils literal notranslate"><span class="pre">afwDisplay</span></code> displays pixels with large values in lighter shades. We match this with the <code class="docutils literal notranslate"><span class="pre">binary_r</span></code> colormap in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p></li>
+<li><p>Colorbar
+We have added the colorbar explicitly with a call to <code class="docutils literal notranslate"><span class="pre">plt.colorbar</span></code>.</p></li>
+<li><p>Saving output
+Again, we’ve used the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> interface to save the resulting figure to a PNG.  This is not presently possible directly from the afwDisplay object.</p></li>
+</ul>
+<p>Take a look at <a class="reference external" href="https://pipelines.lsst.io/v/DM-11077/getting-started/display.html">https://pipelines.lsst.io/v/DM-11077/getting-started/display.html</a> for a few more details on afwDisplay. You can also look at <a class="reference external" href="https://github.com/lsst/display_matplotlib/blob/master/python/lsst/display/matplotlib/matplotlib.py">the source code</a> for the matplotlib backend to afwDisplay.</p>
+</section>
+</section>
+<section id="using-the-psf-model">
+<h2>Using the PSF Model<a class="headerlink" href="#using-the-psf-model" title="Link to this heading">#</a></h2>
+<p>The cutout image object retains full information from the image, including the PSF model.</p>
+<p>The PSF model is accessible as a function object that can be evaluated a specific locations.</p>
+<p>In addition, the coadd catalog saves the xx, xy, yy moments of the PSF model at the location of photometered objects.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We still have our cutout image object from above</span>
+<span class="n">psf</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">getPsf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">psf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The repetition in the object name is a consequence of the pybind11 mapping.  It’s really a <code class="docutils literal notranslate"><span class="pre">lsst.meas.algorithms.coaddPsf.CoaddPsf</span></code> object.  The C++ documentation unfortunately doesn’t come through nicely through the wrapping to Python:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">psf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can look up the documentation in the LSST DM Stack Doxygen pages.  If we assume (correctly for these purposes) that a CoaddPsf is just like a regular PSF, then we can look here:
+<a class="reference external" href="http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1detection_1_1_psf.html">http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1detection_1_1_psf.html</a></p>
+<p>where we will see that there are several relevant functions:
+<code class="docutils literal notranslate"><span class="pre">computeImage</span></code>: Return an Image of the PSF, in a form that can be compared directly with star images.
+<code class="docutils literal notranslate"><span class="pre">computeKernelImage</span></code>:  Return an Image of the PSF, in a form suitable for convolution.
+<code class="docutils literal notranslate"><span class="pre">computeShape</span></code>: Compute the ellipse corresponding to the second moments of the Psf.</p>
+<p>and then some interesting things you might not have expected to even be available:
+<code class="docutils literal notranslate"><span class="pre">getAverageColor</span></code>: Return the average Color of the stars used to construct the Psf.
+<code class="docutils literal notranslate"><span class="pre">getAveragePosition</span></code>: Return the average position of the stars used to construct the Psf.</p>
+<p>Unfortunately, the documentation is hard to read from a Python perspective.  What kind of arguments does the following function actually want and how do I create those objects?</p>
+<p>computeImage(…) from builtins.PyCapsule
+computeImage(self: lsst.afw.detection._psf.Psf, position: lsst.afw.geom.coordinates.coordinates.Point2D=Point2D(nan, nan), color: lsst.afw.image.color.Color=&lt;lsst.afw.image.color.Color object at 0x2b8f57b38928&gt;, owner: lsst.afw.detection._psf.ImageOwnerEnum=ImageOwnerEnum.COPY) -&gt; lsst.afw.image.image.image.ImageD)</p>
+<p>Examples are easiest:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s use the same first row to get an RA, Dec and translate that to an x, y on the image plane.</span>
+<span class="n">first</span> <span class="o">=</span> <span class="n">id_ra_dec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">first</span><span class="p">[</span><span class="s1">&#39;RA&#39;</span><span class="p">],</span> <span class="n">first</span><span class="p">[</span><span class="s1">&#39;DEC&#39;</span><span class="p">]</span>
+<span class="n">radec</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+<span class="n">xy</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>  <span class="c1"># returns a Point2D</span>
+
+<span class="n">kernel_image</span> <span class="o">=</span> <span class="n">psf</span><span class="o">.</span><span class="n">computeImage</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The object we get back is an <code class="docutils literal notranslate"><span class="pre">lsst.afw.image.image.ImageD</span></code> – An <code class="docutils literal notranslate"><span class="pre">Image</span></code> in double precision.</p>
+<p>Let’s display the kernel image we made:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">kernel_image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For comparison, the postage stamp is a full <code class="docutils literal notranslate"><span class="pre">lsst.afw.image.exposure.ExposureF</span></code>.  An <code class="docutils literal notranslate"><span class="pre">Exposure</span></code> contains a <code class="docutils literal notranslate"><span class="pre">MaskedImage</span></code> (an image, a mask, and variance plane), along with an optional SkyWCS.
+<a class="reference external" href="http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1image_1_1_exposure.html#details">http://doxygen.lsst.codes/stack/doxygen/x_masterDoxyDoc/classlsst_1_1afw_1_1image_1_1_exposure.html#details</a></p>
+<p>An <code class="docutils literal notranslate"><span class="pre">Exposure</span></code> can also generate <code class="docutils literal notranslate"><span class="pre">subExposures</span></code>, which are <code class="docutils literal notranslate"><span class="pre">Exposure</span></code>s of a subset of the pixels.  Our postage stamp cutout is thus an <code class="docutils literal notranslate"><span class="pre">Exposure</span></code>.  The additional information is what allowed <code class="docutils literal notranslate"><span class="pre">afwDisplay</span></code> to show the image with the original pixel coordinates.</p>
+<p>If you read a <code class="docutils literal notranslate"><span class="pre">raw</span></code>, <code class="docutils literal notranslate"><span class="pre">calexp</span></code>, or <code class="docutils literal notranslate"><span class="pre">deepCoadd</span></code> or similar image product through the Butler, you will get an <code class="docutils literal notranslate"><span class="pre">Exposure</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">cutout</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">afwDisplay</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;minmax&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">mtv</span><span class="p">(</span><span class="n">kernel_image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Above we see an image of the PSF centered at the x, y position corresponding to the RA, Dec position of the object.  This is a convenient representation to use to subtract.</p>
+<p>Note that while the cutout was 51x51 pixels (the default <code class="docutils literal notranslate"><span class="pre">cutoutSideLength</span></code> in <code class="docutils literal notranslate"><span class="pre">cutout_coadd_spherepoint</span></code> above), the PSF is 61x61 pixels.  That’s the default size of specifying the full PSF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cutout shape: &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">cutout</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">array</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PSF shape: &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">kernel_image</span><span class="o">.</span><span class="n">array</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kernel_image</span><span class="o">.</span><span class="n">array</span><span class="p">))</span>  <span class="c1"># Kernel is normalized to total sum of 1 over the size of the PSF.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We next scale our PSF model to the detected object in the coadd and illustrate using a 1D slice.  We have to account for the different sizes of the PSF model and the cutout, including the finite fraction of PSF flux included in the smaller cutout  The scaling is the the total sum along the slice in this overly simple model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">cutout_nx</span><span class="p">,</span> <span class="n">cutout_ny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">cutout</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+<span class="n">kernel_nx</span><span class="p">,</span> <span class="n">kernel_ny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">kernel_image</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+
+<span class="n">cutout_slice</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">cutout_nx</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">kernel_slice</span> <span class="o">=</span> <span class="n">kernel_image</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">kernel_nx</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
+
+<span class="c1"># Normalize PSF sum to cutout sum in this slice</span>
+<span class="n">scaling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cutout_slice</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">kernel_slice</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cutout_nx</span><span class="p">)</span> <span class="o">-</span> <span class="n">cutout_nx</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">cutout_slice</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Postage Stamp slice&#39;</span><span class="p">,</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">kernel_nx</span><span class="p">)</span> <span class="o">-</span> <span class="n">kernel_nx</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">scaling</span> <span class="o">*</span> <span class="n">kernel_slice</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PSF scaled by </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">scaling</span><span class="p">,</span>
+         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Assume that the PSF kernel size is *larger* than the cutout size.</span>
+<span class="n">offset_nx</span> <span class="o">=</span> <span class="n">kernel_nx</span> <span class="o">-</span> <span class="n">cutout_nx</span>
+<span class="n">offset_ny</span> <span class="o">=</span> <span class="n">kernel_ny</span> <span class="o">-</span> <span class="n">cutout_ny</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cutout_nx</span><span class="p">)</span> <span class="o">-</span> <span class="n">cutout_nx</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+         <span class="n">cutout_slice</span> <span class="o">-</span> <span class="p">(</span><span class="n">scaling</span> <span class="o">*</span> <span class="n">kernel_slice</span><span class="p">[</span><span class="n">offset_nx</span><span class="o">//</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="n">offset_nx</span><span class="o">//</span><span class="mi">2</span><span class="p">]),</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Postage stamp - scaled PSF&#39;</span><span class="p">,</span>
+         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;counts in pixel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Subtract a scaled version of the PSF from the image array.
+Note that we have to select out just the section of the PSF that’s within the cutout.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cutout_minus_psf</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">array</span> <span class="o">-</span> \
+    <span class="n">scaling</span> <span class="o">*</span> <span class="n">kernel_image</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="n">offset_nx</span><span class="o">//</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="n">offset_nx</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span>
+                                 <span class="n">offset_ny</span><span class="o">//</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="n">offset_ny</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To create an <code class="docutils literal notranslate"><span class="pre">Exposure</span></code> with the pixel values of subtracting the PSF model we create a copy of the postage stamp and set the image data array to the residual value we just calculated above.
+We keep the WCS, the pixel mapping of this subExposure, and the mask and variance plane.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">residual</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+<span class="n">residual</span><span class="o">.</span><span class="n">setImage</span><span class="p">(</span><span class="n">afwImage</span><span class="o">.</span><span class="n">ImageF</span><span class="p">(</span><span class="n">afwImage</span><span class="o">.</span><span class="n">ImageF</span><span class="p">(</span><span class="n">cutout_minus_psf</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))))</span>
+
+<span class="n">frame</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">afwDisplay</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span><span class="n">backend</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;minmax&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">mtv</span><span class="p">(</span><span class="n">cutout</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+<span class="n">display</span> <span class="o">=</span> <span class="n">afwDisplay</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span>
+
+<span class="n">display</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;minmax&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">mtv</span><span class="p">(</span><span class="n">residual</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And the source is gone.  The actual fitting for the PSF flux is a bit more complicated, but the above demonstrates the basic process of evaluating a PSF at a location in the image and creating a new <code class="docutils literal notranslate"><span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">Exposure</span></code> object with a PSF model subtracted out.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "desc-stack"
+        },
+        kernelOptions: {
+            name: "desc-stack",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-stack'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dm_butler_lensing_cuts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Accessing the Coadd data using the Data Butler</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="dm_butler_postage_stamps_for_object_catalogs.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistics">Logistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set Up</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-backends-and-nersc-jupyter-vs-jupyterlab">Interactive backends and NERSC Jupyter vs JupyterLab</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-make-a-cutout-image">How To Make a Cutout Image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-some-postage-stamps">Making Some Postage Stamps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#afw-display">AFW Display</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-mask-planes">Using mask planes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-plt-imshow-and-afwdisplay">Comparing <code class="docutils literal notranslate"><span class="pre">plt.imshow</span></code> and <code class="docutils literal notranslate"><span class="pre">afwDisplay</span></code>:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-psf-model">Using the PSF Model</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

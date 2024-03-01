@@ -1,0 +1,982 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Using the LSST Stack tools to do positional matching on coadd and src catalogs &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/matching_stack';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/matching_stack.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access" href="object_gcr_1_intro.html" />
+    <link rel="prev" title="Match truth and object catalogs for DC2 Run 2.2i" href="matching_fof.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/matching_stack.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/matching_stack.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/matching_stack.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Using the LSST Stack tools to do positional matching on coadd and src catalogs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set Up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-source-catalog">How To Create a Source Catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-galaxies">Selecting Galaxies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matching-experiments">Matching Experiments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-or-objects">Sources or Objects?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focusing-on-well-measured-galaxies">Focusing on Well-measured Galaxies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-the-truth-info">Extracting the Truth Info</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#doing-the-matching">Doing the Matching</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going Further</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="using-the-lsst-stack-tools-to-do-positional-matching-on-coadd-and-src-catalogs">
+<h1>Using the LSST Stack tools to do positional matching on coadd and src catalogs<a class="headerlink" href="#using-the-lsst-stack-tools-to-do-positional-matching-on-coadd-and-src-catalogs" title="Link to this heading">#</a></h1>
+<p><br>Owner: <strong>Jim Chiang</strong> (<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;jchiang87">&#64;jchiang87</a>)
+<br>Updated by: <strong>Javier Sánchez</strong> (<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;fjaviersanchez">&#64;fjaviersanchez</a>)
+<br>Last Run: <strong>2020-06-12</strong></p>
+<p>In this notebook, we use the data butler to retrieve catalogs from coadd and visit-level analyses of Run2.2i, and use the <code class="docutils literal notranslate"><span class="pre">lsst.afw.table.matchRaDec</span></code> function to do positional matching against galaxy truth info extracted from the cosmoDC2 v1.1.4 extragalactic catalog.  To enable this, we show how to create a <code class="docutils literal notranslate"><span class="pre">SourceCatalog</span></code> object from the galaxy truth info provided by the GCR interface.</p>
+<section id="set-up">
+<h2>Set Up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.geom</span> <span class="k">as</span> <span class="nn">afw_geom</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.table</span> <span class="k">as</span> <span class="nn">afw_table</span>
+<span class="kn">import</span> <span class="nn">lsst.daf.persistence</span> <span class="k">as</span> <span class="nn">dp</span>
+<span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="kn">import</span> <span class="nn">healpy</span> <span class="k">as</span> <span class="nn">hp</span>
+<span class="kn">import</span> <span class="nn">lsst.geom</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="how-to-create-a-source-catalog">
+<h2>How To Create a Source Catalog<a class="headerlink" href="#how-to-create-a-source-catalog" title="Link to this heading">#</a></h2>
+<p>In order to use the Stack’s spatial matching code, we will need to reformat the extragalactic catalog galaxy position and magnitude information into an afw <code class="docutils literal notranslate"><span class="pre">SourceCatalog</span></code> object. These table objects are initialized by a “schema”, which in turn is built from column definition “Coldef” objects.  The <code class="docutils literal notranslate"><span class="pre">mag_cols</span></code> function below shows how these Coldefs can be created.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_SourceCatalog</span><span class="p">(</span><span class="n">new_cols</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a SourceCatalog to contain id and coordinates for each object, plus any new</span>
+<span class="sd">    columns.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    new_cols: list of Coldefs</span>
+<span class="sd">        Column info for adding to an afw.table schema.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    lsst.afw.table.SourceCatalog: An empty SourceCatalog with the desired schema.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The minimal schema just contains the `id`, `coord_ra`, and `coord_dec` fields.</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">afw_table</span><span class="o">.</span><span class="n">SourceTable</span><span class="o">.</span><span class="n">makeMinimalSchema</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">coldef</span> <span class="ow">in</span> <span class="n">new_cols</span><span class="p">:</span>
+        <span class="n">schema</span><span class="o">.</span><span class="n">addField</span><span class="p">(</span><span class="n">coldef</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">coldef</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">coldef</span><span class="o">.</span><span class="n">doc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">afw_table</span><span class="o">.</span><span class="n">SourceCatalog</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">mag_cols</span><span class="p">(</span><span class="n">bands</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return column information for adding magnitude columns to an afw.table schema.&quot;&quot;&quot;</span>
+    <span class="n">Coldef</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Coldef&#39;</span><span class="p">,</span> <span class="s1">&#39;name type doc&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">Coldef</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;mag_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">-magnitude&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bands</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="selecting-galaxies">
+<h2>Selecting Galaxies<a class="headerlink" href="#selecting-galaxies" title="Link to this heading">#</a></h2>
+<p>We are going to downselect cosmoDC2 to the sky region being considered. We’ll make a general-purpose RegionSelector class, and then sub-class it for selecting objects in either CCDs or patches.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RegionSelector</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to rotate the protoDC2 galaxies to the Run1.1p sky location and downselect those galaxies</span>
+<span class="sd">    based on a magnitude limit and on the coordinates of the subregion (i.e., patch or CCD) being</span>
+<span class="sd">    considered.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+    
+    <span class="k">def</span> <span class="nf">_set_coord_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">wcs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the coordinate range of the region.</span>
+<span class="sd">        </span>
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This method is used by the RegionSelector&#39;s subclasses.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        bbox: Calexp.BBox</span>
+<span class="sd">            Defines corners of region&#39;s bounding box</span>
+<span class="sd">        wcs: Calexp.Wcs</span>
+<span class="sd">            Defines pixel to world (sky) coordinate transformation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">region_box</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">Box2D</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+        <span class="n">corners</span> <span class="o">=</span> <span class="n">region_box</span><span class="o">.</span><span class="n">getCorners</span><span class="p">()</span>
+        <span class="n">ra_values</span><span class="p">,</span> <span class="n">dec_values</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">corner</span> <span class="ow">in</span> <span class="n">corners</span><span class="p">:</span>
+            <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">pixelToSky</span><span class="p">(</span><span class="n">corner</span><span class="p">)</span>
+            <span class="n">ra_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ra</span><span class="o">.</span><span class="n">asDegrees</span><span class="p">())</span>
+            <span class="n">dec_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dec</span><span class="o">.</span><span class="n">asDegrees</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra_range</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ra_values</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">ra_values</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_range</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dec_values</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">dec_values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gc</span><span class="p">,</span> <span class="n">band</span><span class="p">,</span> <span class="n">max_mag</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a SourceCatalog object from the input galaxy catalog for the specified band, and</span>
+<span class="sd">        apply the region and magnitude cuts.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        gc: GCRCatalogs GalaxyCatalog</span>
+<span class="sd">            The galaxy catalog obtained via GCR.</span>
+<span class="sd">        band: str</span>
+<span class="sd">            The band, e.g., &#39;i&#39;, to use for the magnitude comparison with the values measured</span>
+<span class="sd">            from the simulated data.</span>
+<span class="sd">        max_mag: float</span>
+<span class="sd">            The magnitude limit to apply.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        lsst.afw.table.SourceCatalog</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Retrieve the healpix pixels corresponding to the catalog so we don&#39;t query the full catalog</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">ang2vec</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">ra_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]]),</span>
+                              <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">dec_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]]),</span> <span class="n">lonlat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">ipix</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">query_polygon</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">vertices</span><span class="p">,</span> <span class="n">inclusive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># We are going to pass the healpixels that overlap with our catalog as native filters to speed up the process</span>
+        <span class="n">native_filter</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;(healpix_pixel == </span><span class="si">{</span><span class="n">ipix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="k">for</span> <span class="n">ipx</span> <span class="ow">in</span> <span class="n">ipix</span><span class="p">:</span>
+            <span class="n">native_filter</span><span class="o">=</span><span class="n">native_filter</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39; | (healpix_pixel == </span><span class="si">{</span><span class="n">ipx</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="c1"># Retrieve the desired columns and cut on the magnitude values.</span>
+        <span class="n">bandname</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;mag_</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">filter_</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">bandname</span><span class="si">}</span><span class="s1"> &lt; </span><span class="si">{</span><span class="n">max_mag</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Applying magnitude filter:&quot;</span><span class="p">,</span> <span class="n">filter_</span><span class="p">)</span>
+        <span class="n">gc_cols</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;galaxy_id&#39;</span><span class="p">,</span> <span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span>
+                                     <span class="n">bandname</span><span class="p">],</span> <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="n">filter_</span><span class="p">,</span> 
+                                                         <span class="sa">f</span><span class="s1">&#39;ra &gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                                         <span class="sa">f</span><span class="s1">&#39;ra &lt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ra_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                                         <span class="sa">f</span><span class="s1">&#39;dec &gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                                         <span class="sa">f</span><span class="s1">&#39;dec &lt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dec_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                                        <span class="p">],</span>
+                                    <span class="n">native_filters</span> <span class="o">=</span> <span class="n">native_filter</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of galaxies within region:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gc_cols</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]))</span>
+
+        <span class="c1"># Create a SourceCatalog with the galaxy_ids, coordinates, magnitudes</span>
+        <span class="n">galaxy_catalog</span> <span class="o">=</span> <span class="n">make_SourceCatalog</span><span class="p">(</span><span class="n">mag_cols</span><span class="p">((</span><span class="n">band</span><span class="p">,)))</span>
+        <span class="k">for</span> <span class="n">id_</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">mag</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">gc_cols</span><span class="p">[</span><span class="s1">&#39;galaxy_id&#39;</span><span class="p">],</span> <span class="n">gc_cols</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">gc_cols</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">gc_cols</span><span class="p">[</span><span class="n">bandname</span><span class="p">]):</span>
+            <span class="n">record</span> <span class="o">=</span> <span class="n">galaxy_catalog</span><span class="o">.</span><span class="n">addNew</span><span class="p">()</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">id_</span><span class="p">)</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;coord_ra&#39;</span><span class="p">,</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">Angle</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">))</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;coord_dec&#39;</span><span class="p">,</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">Angle</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">))</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;mag_</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">galaxy_catalog</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CcdSelector</span><span class="p">(</span><span class="n">RegionSelector</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;RegionSelector to use with visit-level calexps, i.e., single CCD exposures.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">butler</span><span class="p">,</span> <span class="n">visit</span><span class="p">,</span> <span class="n">raft</span><span class="p">,</span> <span class="n">sensor</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CcdSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Get the CCD boundaries</span>
+        <span class="n">dataId</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visit</span><span class="o">=</span><span class="n">visit</span><span class="p">,</span> <span class="n">raft</span><span class="o">=</span><span class="n">raft</span><span class="p">,</span> <span class="n">sensor</span><span class="o">=</span><span class="n">sensor</span><span class="p">)</span>
+        <span class="n">calexp</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;calexp&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_coord_range</span><span class="p">(</span><span class="n">calexp</span><span class="o">.</span><span class="n">getBBox</span><span class="p">(),</span> <span class="n">calexp</span><span class="o">.</span><span class="n">getWcs</span><span class="p">())</span>
+
+
+<span class="k">class</span> <span class="nc">PatchSelector</span><span class="p">(</span><span class="n">RegionSelector</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;RegionSelector to use with skyMap patches, i.e., coadd data.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">butler</span><span class="p">,</span> <span class="n">tract</span><span class="p">,</span> <span class="n">patch</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PatchSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># Get the patch boundaries.</span>
+        <span class="n">skymap</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deepCoadd_skyMap&#39;</span><span class="p">)</span>
+        <span class="n">tractInfo</span> <span class="o">=</span> <span class="n">skymap</span><span class="p">[</span><span class="n">tract</span><span class="p">]</span>
+        <span class="n">patchInfo</span> <span class="o">=</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getPatchInfo</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">patch</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_coord_range</span><span class="p">(</span><span class="n">patchInfo</span><span class="o">.</span><span class="n">getOuterBBox</span><span class="p">(),</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getWcs</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="matching-experiments">
+<h2>Matching Experiments<a class="headerlink" href="#matching-experiments" title="Link to this heading">#</a></h2>
+<p>Now we have the tools we need, let’s read in the Run 2.2i-DR3 coadd catalog data and match it to the extragalactic catalog input.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a data butler for the repo.</span>
+<span class="n">repo</span> <span class="o">=</span> <span class="s1">&#39;/global/cfs/cdirs/lsst/production/DC2_ImSim/Run2.2i/desc_dm_drp/v19.0.0-v1/rerun/run2.2i-coadd-wfd-dr3-v1&#39;</span>
+<span class="n">butler</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">Butler</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="sources-or-objects">
+<h3>Sources or Objects?<a class="headerlink" href="#sources-or-objects" title="Link to this heading">#</a></h3>
+<p>We can consider visit-level src catalog data, in which case we would provide a <code class="docutils literal notranslate"><span class="pre">dataId</span></code> to the butler with (<code class="docutils literal notranslate"><span class="pre">visit</span></code>, <code class="docutils literal notranslate"><span class="pre">raft</span></code>, <code class="docutils literal notranslate"><span class="pre">sensor</span></code>) ids; or we can consider coadd object data, for which we would provid a <code class="docutils literal notranslate"><span class="pre">dataId</span></code> with (<code class="docutils literal notranslate"><span class="pre">filter</span></code>, <code class="docutils literal notranslate"><span class="pre">tract</span></code>, <code class="docutils literal notranslate"><span class="pre">patch</span></code>) ids.</p>
+<p>Somewhat different flux models are available in the Run2.2i data for src catalogs versus coadd catalogs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mag_max</span> <span class="o">=</span> <span class="mf">24.5</span>
+<span class="c1"># we_are_matching = &quot;Sources&quot;</span>
+<span class="n">we_are_matching</span> <span class="o">=</span> <span class="s2">&quot;Objects&quot;</span>
+
+<span class="k">if</span> <span class="n">we_are_matching</span> <span class="o">==</span> <span class="s2">&quot;Sources&quot;</span><span class="p">:</span>
+    <span class="c1"># Get the src catalog for a selected visit, raft, and sensor:</span>
+    <span class="n">visit</span> <span class="o">=</span> <span class="mi">219976</span>
+    <span class="n">raft</span> <span class="o">=</span> <span class="s1">&#39;2,2&#39;</span>
+    <span class="n">sensor</span> <span class="o">=</span> <span class="s1">&#39;1,1&#39;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Run2.2i-DR3, visit=</span><span class="si">{</span><span class="n">visit</span><span class="si">}</span><span class="s1">, raft=</span><span class="si">{</span><span class="n">raft</span><span class="si">}</span><span class="s1">, sensor=</span><span class="si">{</span><span class="n">sensor</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">dataId</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visit</span><span class="o">=</span><span class="n">visit</span><span class="p">,</span> <span class="n">raft</span><span class="o">=</span><span class="n">raft</span><span class="p">,</span> <span class="n">sensor</span><span class="o">=</span><span class="n">sensor</span><span class="p">)</span>
+    <span class="n">catalog</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">)</span>
+    <span class="n">calexp</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;calexp&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">)</span>
+    <span class="n">filter_</span> <span class="o">=</span> <span class="n">calexp</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()</span><span class="o">.</span><span class="n">getFilter</span><span class="p">()</span><span class="o">.</span><span class="n">getFilter</span><span class="p">()</span>
+    <span class="n">calib</span> <span class="o">=</span> <span class="n">calexp</span><span class="o">.</span><span class="n">getPhotoCalib</span><span class="p">()</span>
+    <span class="c1">#flux_model = &#39;ext_photometryKron_KronFlux&#39;</span>
+    <span class="n">flux_model</span> <span class="o">=</span> <span class="s1">&#39;modelfit_CModel&#39;</span>
+    <span class="n">region_selector</span> <span class="o">=</span> <span class="n">CcdSelector</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">visit</span><span class="p">,</span> <span class="n">raft</span><span class="p">,</span> <span class="n">sensor</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Get the coadd catalog for a selected filter, tract, and patch:</span>
+    <span class="n">filter_</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
+    <span class="n">tract</span> <span class="o">=</span> <span class="mi">4638</span>
+    <span class="n">patch</span> <span class="o">=</span> <span class="s1">&#39;2,2&#39;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Run2.2i-DR3, filter=</span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">, tract=</span><span class="si">{</span><span class="n">tract</span><span class="si">}</span><span class="s1">, patch=</span><span class="si">{</span><span class="n">patch</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">dataId</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">tract</span><span class="o">=</span><span class="n">tract</span><span class="p">,</span> <span class="n">patch</span><span class="o">=</span><span class="n">patch</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">filter_</span><span class="p">)</span>
+    <span class="n">catalog</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deepCoadd_meas&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">)</span>
+    <span class="n">calexp</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">)</span>
+    <span class="n">calib</span> <span class="o">=</span> <span class="n">calexp</span><span class="o">.</span><span class="n">getPhotoCalib</span><span class="p">()</span>
+    <span class="n">flux_model</span> <span class="o">=</span> <span class="s1">&#39;modelfit_CModel&#39;</span>
+    <span class="n">region_selector</span> <span class="o">=</span> <span class="n">PatchSelector</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">tract</span><span class="p">,</span> <span class="n">patch</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="focusing-on-well-measured-galaxies">
+<h3>Focusing on Well-measured Galaxies<a class="headerlink" href="#focusing-on-well-measured-galaxies" title="Link to this heading">#</a></h3>
+<p>Galaxies can be selected as extended objects (or sources) using the <code class="docutils literal notranslate"><span class="pre">base_ClassificationExtendedness_value</span></code>. We use the model flag and flux to ensure that a flux value could be measured, and then apply a selection to ensure that we get deblended objects. Finally, we apply a relatively bright magnitude cut, to avoid confusion when performing the positional match.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract columns to use in the selection:</span>
+<span class="n">ext</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;base_ClassificationExtendedness_value&#39;</span><span class="p">)</span>
+<span class="n">model_flag</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">flux_model</span> <span class="o">+</span> <span class="s1">&#39;_flag&#39;</span><span class="p">)</span>
+<span class="n">model_flux</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">flux_model</span> <span class="o">+</span> <span class="s1">&#39;_instFlux&#39;</span><span class="p">)</span>
+<span class="n">num_children</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deblend_nChild&#39;</span><span class="p">)</span>
+
+<span class="c1"># Apply the extendedness, flag, and blendedness cuts using the subset method:</span>
+<span class="n">cat_temp</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">subset</span><span class="p">((</span><span class="n">ext</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>
+                          <span class="p">(</span><span class="n">model_flag</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span>
+                          <span class="p">(</span><span class="n">model_flux</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>
+                          <span class="p">(</span><span class="n">num_children</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+<span class="c1"># Extract the magnitude and again use subset to apply the depth cut:</span>
+<span class="n">_mag</span> <span class="o">=</span> <span class="n">calib</span><span class="o">.</span><span class="n">instFluxToMagnitude</span><span class="p">(</span><span class="n">cat_temp</span><span class="p">,</span> <span class="n">flux_model</span><span class="p">)</span> 
+<span class="n">mag</span> <span class="o">=</span> <span class="n">_mag</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#Magnitude</span>
+<span class="n">magerr</span> <span class="o">=</span> <span class="n">_mag</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="c1">#Magnitude Error</span>
+<span class="c1">#print(mag, len(mag))</span>
+<span class="n">cat_temp</span> <span class="o">=</span> <span class="n">cat_temp</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">mag</span> <span class="o">&lt;</span> <span class="n">mag_max</span><span class="p">)</span>
+
+<span class="c1"># Repackage everything in a more minimal SourceCatalog and add a magnitude column for comparing</span>
+<span class="c1"># to the galaxy catalog truth values.</span>
+<span class="n">drp_catalog</span> <span class="o">=</span> <span class="n">make_SourceCatalog</span><span class="p">(</span><span class="n">mag_cols</span><span class="p">((</span><span class="n">filter_</span><span class="p">,)))</span>
+<span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">cat_temp</span><span class="p">:</span>
+    <span class="n">new_rec</span> <span class="o">=</span> <span class="n">drp_catalog</span><span class="o">.</span><span class="n">addNew</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="s1">&#39;id coord_ra coord_dec parent&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+        <span class="n">new_rec</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+    <span class="n">mag</span> <span class="o">=</span> <span class="n">calib</span><span class="o">.</span><span class="n">instFluxToMagnitude</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">flux_model</span><span class="p">)</span>
+    <span class="n">new_rec</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;mag_</span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">mag</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+                
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of observed objects in our DRP galaxy catalog&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">drp_catalog</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="extracting-the-truth-info">
+<h3>Extracting the Truth Info<a class="headerlink" href="#extracting-the-truth-info" title="Link to this heading">#</a></h3>
+<p>We can now use our region_selector object to process the protoDC2 extragalactic catalog. Note that while we instantiated it with a butler, so that it could work on selecting galaxy observations from either a tract or a CCD, we can <em>call</em> it as a function (via its <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method) which takes a GCR catalog object as its first argument. The result will be a DM Stack SourceCatalog object, that we can match to our observed DRP catalog.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in the galaxy catalog data.</span>
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;cosmoDC2_v1.1.4_image&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a SourceCatalog from the gc data, applying the region and magnitude selections.</span>
+<span class="n">galaxy_catalog</span> <span class="o">=</span> <span class="n">region_selector</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">band</span><span class="o">=</span><span class="n">filter_</span><span class="p">,</span> <span class="n">max_mag</span><span class="o">=</span><span class="n">mag_max</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compare the number of galaxies within our region with th enumber of observed galaxies in the DRP catalog. Is this what you would expect?</p>
+</section>
+<section id="doing-the-matching">
+<h3>Doing the Matching<a class="headerlink" href="#doing-the-matching" title="Link to this heading">#</a></h3>
+<p>We can now carry out the spatial matching, and compute some quantities to plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find positional matches within 100 milliarcseconds:</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">Angle</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">arcseconds</span><span class="p">)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">afw_table</span><span class="o">.</span><span class="n">matchRaDec</span><span class="p">(</span><span class="n">drp_catalog</span><span class="p">,</span> <span class="n">galaxy_catalog</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">matches</span></code> is a list of <code class="docutils literal notranslate"><span class="pre">match</span></code> objects, each one containing an observed-true matchd galaxy pair. The code below shows how to work with these, looping over the matches and extracting information to plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare magnitudes for matched objects:</span>
+<span class="n">drp_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">gc_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">sep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="c1"># Arrays for a quiver plot.</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">match</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matches</span><span class="p">):</span>
+    <span class="n">drp_mag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">first</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mag_</span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+    <span class="n">gc_mag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">second</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mag_</span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+    <span class="n">sep</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">distance</span><span class="p">)</span><span class="o">*</span><span class="mf">3600.</span><span class="o">*</span><span class="mf">1000.</span>
+    <span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">first</span><span class="p">[</span><span class="s1">&#39;coord_ra&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">match</span><span class="o">.</span><span class="n">second</span><span class="p">[</span><span class="s1">&#39;coord_ra&#39;</span><span class="p">]</span>
+    <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">first</span><span class="p">[</span><span class="s1">&#39;coord_dec&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">match</span><span class="o">.</span><span class="n">second</span><span class="p">[</span><span class="s1">&#39;coord_dec&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of matches:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start a 2x2 panel figure:</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">frame_axes</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">frame_axes</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<span class="n">frame_axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
+<span class="n">frame_axes</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">([])</span>
+
+<span class="n">delta_mag</span> <span class="o">=</span> <span class="n">drp_mag</span> <span class="o">-</span> <span class="n">gc_mag</span>  <span class="c1"># Observed - True</span>
+
+<span class="c1"># Upper Left: Histogram of match separations.</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sep</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;separation (marcsec)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;entries / bin&#39;</span><span class="p">)</span>
+
+<span class="c1"># Upper Right: Quiver plot of (DRP - galaxy_catalog) positions on the sky.</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">drp_catalog</span><span class="p">[</span><span class="s1">&#39;coord_ra&#39;</span><span class="p">]),</span>
+           <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">drp_catalog</span><span class="p">[</span><span class="s1">&#39;coord_dec&#39;</span><span class="p">]),</span>
+           <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;RA (deg)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Dec (deg)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Lower left: Difference in magnitudes vs true magnitude (mag_gc).</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">gc_mag</span><span class="p">,</span> <span class="n">delta_mag</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;True mag </span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">_gc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filter_</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mag difference (</span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">_gc - </span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">_drp)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Difference in magnitudes vs separation.</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">sep</span><span class="p">,</span> <span class="n">delta_mag</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;separation (mas)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mag difference (</span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">_gc - </span><span class="si">{</span><span class="n">filter_</span><span class="si">}</span><span class="s1">_drp)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="going-further">
+<h3>Going Further<a class="headerlink" href="#going-further" title="Link to this heading">#</a></h3>
+<p>The available columns in a <code class="docutils literal notranslate"><span class="pre">SourceCatalog</span></code> can be seen by printing the info from the schema that it carries around with it. The cells below show you what you have available. The drp_catalog and galaxy_catalog that we made to do the spatial matching only have positions and magnitudes in them - but the parent catalogs have many more quantities.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">drp_catalog</span><span class="o">.</span><span class="n">schema</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">getDoc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">galaxy_catalog</span><span class="o">.</span><span class="n">schema</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">getDoc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All the DRP measurements:</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">catalog</span><span class="o">.</span><span class="n">schema</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">getDoc</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All the cosmoDC2 parameters:</span>
+<span class="c1"># help(gc)</span>
+<span class="n">gc</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "desc-stack"
+        },
+        kernelOptions: {
+            name: "desc-stack",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-stack'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="matching_fof.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Match truth and object catalogs for DC2 Run 2.2i</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="object_gcr_1_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set Up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-source-catalog">How To Create a Source Catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-galaxies">Selecting Galaxies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matching-experiments">Matching Experiments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-or-objects">Sources or Objects?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focusing-on-well-measured-galaxies">Focusing on Well-measured Galaxies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-the-truth-info">Extracting the Truth Info</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#doing-the-matching">Doing the Matching</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#going-further">Going Further</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

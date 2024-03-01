@@ -1,0 +1,917 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Plotting the DC2 Run2.1i skyMap &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/dm_butler_skymap';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/dm_butler_skymap.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs" href="extragalactic_gcr_cluster_colors.html" />
+    <link rel="prev" title="DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog" href="dm_butler_postage_stamps_for_object_catalogs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/dm_butler_skymap.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/dm_butler_skymap.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/dm_butler_skymap.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Plotting the DC2 Run2.1i skyMap</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set Up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-functions">Plotting Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-the-plot">Making the Plot</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="plotting-the-dc2-run2-1i-skymap">
+<h1>Plotting the DC2 Run2.1i skyMap<a class="headerlink" href="#plotting-the-dc2-run2-1i-skymap" title="Link to this heading">#</a></h1>
+<p><br>Owner: <strong>Jim Chiang</strong> (<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;jchiang87">&#64;jchiang87</a>)
+<br>Last Verified to Run: <strong>2018-11-11</strong> (by &#64;yymao)</p>
+<p>In this notebook, we show how to use the data butler to obtain information on the skyMap used in the coadd analyses performed by the DRP pipeline.  These skyMaps are composed of tracts and patches on the sky.  Each tract is a rectangular region of the sky with a common map projection; each tract is further divided into rectangular patches, which use the same tract coordinate system and which are a convenient size for processing the coadd data.  A more complete description of the skyMap geometry is given in the HSC Software Pipeline paper (<a class="reference external" href="https://arxiv.org/abs/1705.06766">Bosch et al. 2017</a>).</p>
+<p>Equipped with the info from the skyMap, we plot the tracts and patches that were used with the Run2.1p processing and overlay the WFD and uDDF simulation regions.  We also use the butler to access the visit-level data and show how one can access the calexp (calibrated exposure) image data to obtain the PSF, zero-point, etc. as measured by the Stack for a given exposure.  Finally, we show how to plot the sky region imaged on the focal plane for a given visit in two ways: the first using the CCD coordinates available from the calexps and the other using the lsst_sims code to compute those coordinates from the pointing information for the visit.</p>
+<section id="set-up">
+<h2>Set Up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">lsst.afw.geom</span> <span class="k">as</span> <span class="nn">afw_geom</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.cameraGeom</span> <span class="k">as</span> <span class="nn">cameraGeom</span>
+<span class="kn">import</span> <span class="nn">lsst.daf.persistence</span> <span class="k">as</span> <span class="nn">dp</span>
+<span class="c1"># The lsst_sims code issues some ignorable warnings regarding ids used for querying the object</span>
+<span class="c1"># databases.</span>
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">lsst.sims.coordUtils</span>
+    <span class="kn">from</span> <span class="nn">lsst.sims.catUtils.utils</span> <span class="kn">import</span> <span class="n">ObservationMetaDataGenerator</span>
+    <span class="kn">from</span> <span class="nn">lsst.sims.utils</span> <span class="kn">import</span> <span class="n">getRotSkyPos</span>
+    
+<span class="kn">from</span> <span class="nn">desc_dc2_dm_data</span> <span class="kn">import</span> <span class="n">REPOS</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting-functions">
+<h2>Plotting Functions<a class="headerlink" href="#plotting-functions" title="Link to this heading">#</a></h2>
+<p>First, we define some functions to plot the tract, patch, and CCD regions on the sky.  These are copied from <a class="reference external" href="https://github.com/yalsayyad/dm_notebooks/blob/master/desc-ssim/DESC-SSim%20Patch%20Geometry.ipynb">example code</a> that Yusra AlSayyad presented at the <a class="reference external" href="https://confluence.slac.stanford.edu/pages/viewpage.action?pageId=224461017">2017-06-29 SSim meeting</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_patch</span><span class="p">(</span><span class="n">vertexList</span><span class="p">,</span> <span class="n">wcs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a Path in sky coords from vertex list in pixel coords.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vertexList: list of coordinates</span>
+<span class="sd">        These are the corners of the region to be plotted either in pixel coordinates or</span>
+<span class="sd">        sky coordinates.</span>
+<span class="sd">    wcs: lsst.afw.geom.skyWcs.skyWcs.SkyWcs [None]</span>
+<span class="sd">        The WCS object used to convert from pixel to sky coordinates.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.path.Path: The encapsulation of the vertex info that matplotlib uses to</span>
+<span class="sd">    plot a patch.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">wcs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">skyPatchList</span> <span class="o">=</span> <span class="p">[</span><span class="n">wcs</span><span class="o">.</span><span class="n">pixelToSky</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">afw_geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">vertexList</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">skyPatchList</span> <span class="o">=</span> <span class="n">vertexList</span>
+    <span class="n">verts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">skyPatchList</span><span class="p">]</span>
+    <span class="n">verts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="o">.</span><span class="n">MOVETO</span><span class="p">,</span>
+             <span class="n">Path</span><span class="o">.</span><span class="n">LINETO</span><span class="p">,</span>
+             <span class="n">Path</span><span class="o">.</span><span class="n">LINETO</span><span class="p">,</span>
+             <span class="n">Path</span><span class="o">.</span><span class="n">LINETO</span><span class="p">,</span>
+             <span class="n">Path</span><span class="o">.</span><span class="n">CLOSEPOLY</span><span class="p">,</span>
+             <span class="p">]</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">verts</span><span class="p">,</span> <span class="n">codes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_skymap_tract</span><span class="p">(</span><span class="n">skyMap</span><span class="p">,</span> <span class="n">tract</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot a tract from a skyMap.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    skyMap: lsst.skyMap.SkyMap</span>
+<span class="sd">        The SkyMap object containing the tract and patch information.</span>
+<span class="sd">    tract: int [0]</span>
+<span class="sd">        The tract id of the desired tract to plot.</span>
+<span class="sd">    title: str [None]</span>
+<span class="sd">        Title of the tract plot.  If None, the use `tract &lt;id&gt;`.</span>
+<span class="sd">    ax: matplotlib.axes._subplots.AxesSubplot [None]</span>
+<span class="sd">        The subplot object to contain the tract plot.  If None, then make a new one.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot: The subplot containing the tract plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;tract </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tract</span><span class="p">)</span>
+    <span class="n">tractInfo</span> <span class="o">=</span> <span class="n">skyMap</span><span class="p">[</span><span class="n">tract</span><span class="p">]</span>
+    <span class="n">tractBox</span> <span class="o">=</span> <span class="n">afw_geom</span><span class="o">.</span><span class="n">Box2D</span><span class="p">(</span><span class="n">tractInfo</span><span class="o">.</span><span class="n">getBBox</span><span class="p">())</span>
+    <span class="n">tractPosList</span> <span class="o">=</span> <span class="n">tractBox</span><span class="o">.</span><span class="n">getCorners</span><span class="p">()</span>
+    <span class="n">wcs</span> <span class="o">=</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span>
+    <span class="n">xNum</span><span class="p">,</span> <span class="n">yNum</span> <span class="o">=</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getNumPatches</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+    <span class="n">tract_center</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">pixelToSky</span><span class="p">(</span><span class="n">tractBox</span><span class="o">.</span><span class="n">getCenter</span><span class="p">())</span>\
+                      <span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">afw_geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">tract_center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tract_center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">tract</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">xNum</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">yNum</span><span class="p">):</span>
+            <span class="n">patchInfo</span> <span class="o">=</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getPatchInfo</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+            <span class="n">patchBox</span> <span class="o">=</span> <span class="n">afw_geom</span><span class="o">.</span><span class="n">Box2D</span><span class="p">(</span><span class="n">patchInfo</span><span class="o">.</span><span class="n">getOuterBBox</span><span class="p">())</span>
+            <span class="n">pixelPatchList</span> <span class="o">=</span> <span class="n">patchBox</span><span class="o">.</span><span class="n">getCorners</span><span class="p">()</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">make_patch</span><span class="p">(</span><span class="n">pixelPatchList</span><span class="p">,</span> <span class="n">wcs</span><span class="p">)</span>
+            <span class="n">patch</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">PathPatch</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">pixelToSky</span><span class="p">(</span><span class="n">patchBox</span><span class="o">.</span><span class="n">getCenter</span><span class="p">())</span>\
+                        <span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">afw_geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">,</span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+
+    <span class="n">skyPosList</span> <span class="o">=</span> <span class="p">[</span><span class="n">wcs</span><span class="o">.</span><span class="n">pixelToSky</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">afw_geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+                  <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">tractPosList</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">skyPosList</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="nb">min</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">skyPosList</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">skyPosList</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="nb">max</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">skyPosList</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;RA (deg.)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Dec (deg.)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following function loops over the available calexps as returned by the data butler to determine which CCDs to draw.  Unfortunately, looping over those calexps using the butler is rather slow, but would be necessary if we wanted to access CCD-level information, like the PSF, from the calexps.
+We include this function here for your edification, but then provide a faster function below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_focal_plane</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">visit</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the CCDs in the LSST focal plane using the coordinate information in the calexps.</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    By looping over the available calexps, we only plot the CCDs for which image data</span>
+<span class="sd">    are available.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    butler: lsst.daf.persistence.Butler</span>
+<span class="sd">        The data butler serving up data from the desired repo.</span>
+<span class="sd">    visit: int</span>
+<span class="sd">        The visit or obsHistID number.</span>
+<span class="sd">    ax: matplotlib.axes._subplots.AxesSubplot</span>
+<span class="sd">        The matplotlib subplot object onto which to plot the focal plane.</span>
+<span class="sd">    color: str [&#39;red&#39;]</span>
+<span class="sd">        Color to use for plotting the individual CCDs.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot: The subplot object used for plotting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We use the `subset` method to obtain all of the `datarefs` (i.e., references to calexp</span>
+    <span class="c1"># data in this case) that satisfy an &quot;incomplete&quot; dataId.   For visit-level calexp data,</span>
+    <span class="c1"># a unique dataset would specify visit, raft, and sensor.  If we just give the visit, then</span>
+    <span class="c1"># references to the available data for all of the CCDs would be returned.</span>
+    <span class="n">dataId</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visit</span><span class="o">=</span><span class="n">visit</span><span class="p">)</span>
+    <span class="n">datarefs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">butler</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="s1">&#39;calexp&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataid</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dataref</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datarefs</span><span class="p">):</span>
+        <span class="n">calexp</span> <span class="o">=</span> <span class="n">dataref</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;calexp&#39;</span><span class="p">)</span>
+        <span class="c1"># We&#39;re not going to do anything with it here, but we can get the PSF from the calexp</span>
+        <span class="c1"># like this:</span>
+        <span class="c1"># psf = calexp.getPsf()</span>
+        <span class="c1"># and we can get the zero-point (in ADU) like this</span>
+        <span class="c1"># zero_point = calexp.getCalib().getFluxMag0()</span>
+        <span class="n">ccd_box</span> <span class="o">=</span> <span class="n">afw_geom</span><span class="o">.</span><span class="n">Box2D</span><span class="p">(</span><span class="n">calexp</span><span class="o">.</span><span class="n">getBBox</span><span class="p">())</span>
+        <span class="n">wcs</span> <span class="o">=</span> <span class="n">calexp</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">make_patch</span><span class="p">(</span><span class="n">ccd_box</span><span class="o">.</span><span class="n">getCorners</span><span class="p">(),</span> <span class="n">wcs</span><span class="p">)</span>
+        <span class="n">ccd</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">PathPatch</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">ccd</span><span class="p">)</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">pixelToSky</span><span class="p">(</span><span class="n">ccd_box</span><span class="o">.</span><span class="n">getCenter</span><span class="p">())</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">afw_geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following fast version of the focal plane plotting code uses the lsst_sims package to obtain the location and orientation of the CCDs based on the pointing information for the desired visit.  That pointing information is extracted from the dithered minion_1016 OpSim db that has been prepared for DC2.  Since this code does not access the individual calexps for each CCD, it runs much faster.  However, it assumes that the obs_lsstSim package was used in the analysis of the data, and it needs to use the inferred locations of the calexp files to determine if calexp data for a given CCD is available.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_focal_plane_fast</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">visit</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">opsimdb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the CCDs in the LSST focal plane using CCD coordinates derived from the pointing</span>
+<span class="sd">    info using the lsst.sims code.  </span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function assumes that the obs_lsstSims package was used to define the camera geometry </span>
+<span class="sd">    for the analysis of the simulated image data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    butler: lsst.daf.persistence.Butler</span>
+<span class="sd">        The data butler serving up data from the desired repo.</span>
+<span class="sd">    visit: int</span>
+<span class="sd">        The visit or obsHistID number.</span>
+<span class="sd">    ax: matplotlib.axes._subplots.AxesSubplot</span>
+<span class="sd">        The matplotlib subplot object onto which to plot the focal plane.</span>
+<span class="sd">    color: str [&#39;red&#39;]</span>
+<span class="sd">        Color to use for plotting the individual CCDs.</span>
+<span class="sd">    opsimDb: str [None]</span>
+<span class="sd">        Filename of the OpSim sqlite database.  If None, then the dithered opsim db for Run1.1p</span>
+<span class="sd">        is used.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    matplotlib.axes._subplots.AxesSubplot: The subplot object used for plotting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">opsimdb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">opsimdb</span> <span class="o">=</span> <span class="s1">&#39;/global/projecta/projectdirs/lsst/groups/SSim/DC2/minion_1016_desc_dithered_v4.db&#39;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">opsimdb</span><span class="p">)</span>
+    <span class="n">obs_gen</span> <span class="o">=</span> <span class="n">ObservationMetaDataGenerator</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">opsimdb</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s1">&#39;sqlite&#39;</span><span class="p">)</span>
+
+    <span class="c1"># The dithered pointing info was added to the baseline minion_1016 db.  We query for the values</span>
+    <span class="c1"># used for the desired visit.</span>
+    <span class="n">curs</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;select descDitheredRA, descDitheredDec, descDitheredRotTelPos</span>
+<span class="s1">                        from summary where obshistid=</span><span class="si">{}</span><span class="s1">&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">visit</span><span class="p">))</span>
+    <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">rottelpos</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">curs</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># An ObservationMetaData object used to pass the pointing info to the function in</span>
+    <span class="c1"># lsst.sims.coordUtils that provides the CCD coordinates.</span>
+    <span class="n">obs_md</span> <span class="o">=</span> <span class="n">obs_gen</span><span class="o">.</span><span class="n">getObservationMetaData</span><span class="p">(</span><span class="n">obsHistID</span><span class="o">=</span><span class="n">visit</span><span class="p">,</span> <span class="n">boundType</span><span class="o">=</span><span class="s1">&#39;circle&#39;</span><span class="p">,</span> <span class="n">boundLength</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">obs_md</span><span class="o">.</span><span class="n">pointingRA</span> <span class="o">=</span> <span class="n">ra</span>
+    <span class="n">obs_md</span><span class="o">.</span><span class="n">pointingDec</span> <span class="o">=</span> <span class="n">dec</span>
+    <span class="n">obs_md</span><span class="o">.</span><span class="n">OpsimMetaData</span><span class="p">[</span><span class="s1">&#39;rotTelPos&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rottelpos</span>
+
+    <span class="c1"># Convert the rotation angle of the sky relative to the telescope to the sky angle relative to</span>
+    <span class="c1"># the camera.</span>
+    <span class="n">obs_md</span><span class="o">.</span><span class="n">rotSkyPos</span> <span class="o">=</span> <span class="n">getRotSkyPos</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">obs_md</span><span class="p">,</span> <span class="n">rottelpos</span><span class="p">)</span>
+    
+    <span class="c1"># Use the butler to get the camera appropriate for this observation.  If the data were from a</span>
+    <span class="c1"># different camera, e.g., DECam or HSC, the corresponding camera objects with the associated</span>
+    <span class="c1"># CCD geometries would be returned.</span>
+    <span class="n">camera</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;camera&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Grab one of the calexps via its dataref so that we can ask for its filename and thereby infer</span>
+    <span class="c1"># the location on disk of all of the calexps for this visit.</span>
+    <span class="n">dataref</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">butler</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="s1">&#39;calexp&#39;</span><span class="p">,</span> <span class="n">visit</span><span class="o">=</span><span class="n">visit</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">calexp_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dataref</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;calexp_filename&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+    
+    <span class="c1"># The following code is specific to the obs_lsstSim package and how it names CCDs</span>
+    <span class="c1"># (e.g., &quot;R:2,2 S:1,1&quot;) and formulates the path components for writing to disk.  This</span>
+    <span class="c1"># code would not work for a different obs_ package/camera implementation.</span>
+    
+    <span class="c1"># Re-order the CCD vertex list returned by the lsst_sims code so that a rectangle is plotted.</span>
+    <span class="n">corner_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),)</span>
+    <span class="k">for</span> <span class="n">det</span> <span class="ow">in</span> <span class="n">camera</span><span class="p">:</span>
+        <span class="c1"># Skip the WAVEFRONT and GUIDER CCDs</span>
+        <span class="k">if</span> <span class="n">det</span><span class="o">.</span><span class="n">getType</span><span class="p">()</span> <span class="o">!=</span> <span class="n">cameraGeom</span><span class="o">.</span><span class="n">SCIENCE</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">detname</span> <span class="o">=</span> <span class="n">det</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+        <span class="n">raft</span><span class="p">,</span> <span class="n">sensor</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;R:?(\d,?\d)[_ ]S:?(\d,?\d)&#39;</span><span class="p">,</span> <span class="n">detname</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+        <span class="n">raft</span> <span class="o">=</span> <span class="s1">&#39;R&#39;</span> <span class="o">+</span> <span class="n">raft</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">sensor</span> <span class="o">=</span> <span class="s1">&#39;S</span><span class="si">{}</span><span class="s1">.fits&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sensor</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">calexp_path</span><span class="p">,</span> <span class="n">raft</span><span class="p">,</span> <span class="n">sensor</span><span class="p">)):</span>
+            <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lsst</span><span class="o">.</span><span class="n">sims</span><span class="o">.</span><span class="n">coordUtils</span><span class="o">.</span><span class="n">getCornerRaDec</span><span class="p">(</span><span class="n">detname</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">obs_md</span><span class="p">))</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">make_patch</span><span class="p">(</span><span class="n">corners</span><span class="p">[</span><span class="n">corner_index</span><span class="p">])</span>
+            <span class="n">ccd</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">PathPatch</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">ccd</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following function just plots the boundaries of the Run1.1p regions as described in the <a class="reference external" href="https://docs.google.com/document/d/18nNVImxGioQ3tcLFMRr67G_jpOzCIOdar9bjqChueQg/edit">Run 2.1i Specifications document</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_Run2_1i_region</span><span class="p">(</span><span class="n">ax</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the WFD and uDDF regions for Run2.1i.&quot;&quot;&quot;</span>
+    <span class="n">uddf_ra</span> <span class="o">=</span> <span class="p">[</span><span class="mf">53.764</span><span class="p">,</span> <span class="mf">52.486</span><span class="p">,</span> <span class="mf">52.479</span><span class="p">,</span> <span class="mf">53.771</span><span class="p">,</span> <span class="mf">53.764</span><span class="p">]</span>
+    <span class="n">uddf_dec</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">27.533</span><span class="p">,</span> <span class="o">-</span><span class="mf">27.533</span><span class="p">,</span> <span class="o">-</span><span class="mf">28.667</span><span class="p">,</span> <span class="o">-</span><span class="mf">28.667</span><span class="p">,</span> <span class="o">-</span><span class="mf">27.533</span><span class="p">]</span>
+
+    <span class="n">wfd_ra</span> <span class="o">=</span> <span class="p">[</span><span class="mf">71.46</span><span class="p">,</span> <span class="mf">52.25</span><span class="p">,</span> <span class="mf">49.92</span><span class="p">,</span> <span class="mf">73.79</span><span class="p">,</span> <span class="mf">71.46</span><span class="p">]</span>
+    <span class="n">wfd_dec</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">27.25</span><span class="p">,</span> <span class="o">-</span><span class="mf">27.25</span><span class="p">,</span> <span class="o">-</span><span class="mf">44.33</span><span class="p">,</span> <span class="o">-</span><span class="mf">44.33</span><span class="p">,</span> <span class="o">-</span><span class="mf">27.25</span><span class="p">]</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">wfd_ra</span><span class="p">,</span> <span class="n">wfd_dec</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;WFD boundary&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">uddf_ra</span><span class="p">,</span> <span class="n">uddf_dec</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;uDDF boundary&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">find_available_tract_numbers</span></code> function finds all tract numbers that are actually available.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_available_tract_numbers</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">known_existing_tract</span><span class="o">=</span><span class="mi">4851</span><span class="p">,</span> <span class="n">known_existing_patch</span><span class="o">=</span><span class="s1">&#39;0,0&#39;</span><span class="p">,</span> <span class="n">known_existing_filter</span><span class="o">=</span><span class="s1">&#39;i&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a hack to search the coadd folder for the tracts that have data.</span>
+<span class="sd">    Unfortunately, this information is not directly accessible from the data butler. </span>
+<span class="sd">    </span>
+<span class="sd">    In order for this hack to work, one needs to provide a known existing tract, patch, filter. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+ 
+    <span class="n">ref_path</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">getUri</span><span class="p">(</span><span class="s1">&#39;deepCoadd_forced_src&#39;</span><span class="p">,</span> <span class="n">tract</span><span class="o">=</span><span class="n">known_existing_tract</span><span class="p">,</span> <span class="n">patch</span><span class="o">=</span><span class="n">known_existing_patch</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">known_existing_filter</span><span class="p">)</span>
+
+    <span class="n">ref_path</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ref_path</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;/</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">known_existing_tract</span><span class="p">,</span> <span class="n">known_existing_patch</span><span class="p">))</span>
+    <span class="n">tract_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;(\d+)$&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+        <span class="n">ref_path</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ref_path</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39;/</span><span class="si">{}</span><span class="s1">_t</span><span class="si">{}</span><span class="s1">_p</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">known_existing_filter</span><span class="p">,</span> <span class="n">known_existing_tract</span><span class="p">,</span> <span class="n">known_existing_patch</span><span class="p">))</span>
+        <span class="n">tract_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;\w_t(\d+)_p&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;cannot regonize path format&#39;</span><span class="p">)</span>
+
+    <span class="n">coadd_path_subdirs</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ref_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ref_path</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span> <span class="ow">and</span> <span class="n">tract_pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">d</span><span class="p">)]</span>
+    <span class="n">tract_numbers</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">tract_pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">coadd_path_subdirs</span><span class="p">]</span>
+    <span class="n">tracts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tract_numbers</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">tracts</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="making-the-plot">
+<h2>Making the Plot<a class="headerlink" href="#making-the-plot" title="Link to this heading">#</a></h2>
+<p>We now use the above functions to plot the tracts and patches on the sky.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">repo</span> <span class="o">=</span> <span class="n">REPOS</span><span class="p">[</span><span class="s1">&#39;2.1i&#39;</span><span class="p">]</span>
+<span class="n">butler</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">Butler</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+
+<span class="c1"># First, loop over all the tracts, plotting them as gray, numbered, rectangles:</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">skyMap</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deepCoadd_skyMap&#39;</span><span class="p">)</span>
+<span class="n">tracts</span> <span class="o">=</span> <span class="n">find_available_tract_numbers</span><span class="p">(</span><span class="n">butler</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">tract</span> <span class="ow">in</span> <span class="n">tracts</span><span class="p">:</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_skymap_tract</span><span class="p">(</span><span class="n">skyMap</span><span class="p">,</span> <span class="n">tract</span><span class="o">=</span><span class="n">tract</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="c1"># Now overlay a single focal plane, for the chosen visit, in violet:</span>
+<span class="n">visit</span> <span class="o">=</span> <span class="mi">219978</span>
+<span class="n">plot_focal_plane_fast</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">visit</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;violet&quot;</span><span class="p">)</span>
+
+<span class="c1"># Finally, overlay the Run 2.1i main survey and uDDF regions, and then adjust the axes:</span>
+<span class="n">plot_Run2_1i_region</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">47.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">25.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "desc-stack"
+        },
+        kernelOptions: {
+            name: "desc-stack",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-stack'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dm_butler_postage_stamps_for_object_catalogs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="extragalactic_gcr_cluster_colors.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set Up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-functions">Plotting Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#making-the-plot">Making the Plot</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

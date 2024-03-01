@@ -1,0 +1,1382 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/dia_source_object_stamp';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/dia_source_object_stamp.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Accessing the Coadd data using the Data Butler" href="dm_butler_lensing_cuts.html" />
+    <link rel="prev" title="DIA Analysis: Supernovae from the Run 1.2p Test" href="dia_sn_vs_truth.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/dia_source_object_stamp.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/dia_source_object_stamp.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/dia_source_object_stamp.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-and-key-concepts">Introduction and Key Concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diaobject-statistics">DIAObject statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-lightcurve">A Lightcurve</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#match-to-truth-catalog">Match to Truth Catalog</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postage-stamp-for-dia-object">Postage Stamp for DIA Object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-these-data-products-were-generated">How these data products were generated</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dia-analysis-source-object-and-postage-stamps-for-run-1-2p-test">
+<h1>DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test<a class="headerlink" href="#dia-analysis-source-object-and-postage-stamps-for-run-1-2p-test" title="Link to this heading">#</a></h1>
+<p>Michael Wood-Vasey
+Last Verified to Run: 2019-07-12</p>
+<p>After completing this Notebook, the users will be able to</p>
+<ol class="arabic simple">
+<li><p>Plot statistics of DIAObject and DIASource tables.</p></li>
+<li><p>Select and plot lightcurve of DIA Object.</p></li>
+<li><p>Locate that DIA Object in the truth catalog of input variables</p></li>
+<li><p>Describe how DIASource and DIAObject tables are constructed.</p></li>
+<li><p>Display and inspect postage stamps of a selected DIAObject.</p></li>
+</ol>
+<section id="introduction-and-key-concepts">
+<h2>Introduction and Key Concepts<a class="headerlink" href="#introduction-and-key-concepts" title="Link to this heading">#</a></h2>
+<p>LSST Science Pipeline code includes the ability to compare images for new or variable sources.  LSST DESC uses a package called <code class="docutils literal notranslate"><span class="pre">dia_pipe</span></code> to execute this image subtraction and analysis code.<br />
+In the vocabulary of LSST these are called Difference Image Analysis (DIA) products.</p>
+<ul class="simple">
+<li><p>Detections on a subtracted image are called “DIA Sources”</p></li>
+<li><p>DIA Sources are spatially associated across subtracted images into “DIA Objects”.</p></li>
+<li><p>The above two data products are made available in the <code class="docutils literal notranslate"><span class="pre">DIASource</span></code> and <code class="docutils literal notranslate"><span class="pre">DIAObject</span></code> tables.  These tables follow the definitions in the <a class="reference external" href="https://ls.st/dpdd">LSST Data Products Definition Document</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DIASource</span></code> and <code class="docutils literal notranslate"><span class="pre">DIAObject</span></code> tables for Run 1.2p are available through the GCR interface.</p></li>
+<li><p>The processing data repository (<code class="docutils literal notranslate"><span class="pre">repo</span></code> below) is where the processing was done.  Using the collated <code class="docutils literal notranslate"><span class="pre">DIASource</span></code> and <code class="docutils literal notranslate"><span class="pre">DIAObject</span></code> tables is much more convenient to use then loading up each of the individual files from the processing repo each time, we <em>will</em> need to use the data repository to access the image pixels.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inject gcr-catalogs that supports DIA source into path.</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">lsst.afw.display</span> <span class="k">as</span> <span class="nn">afwDisplay</span>
+<span class="kn">from</span> <span class="nn">lsst.afw.math</span> <span class="kn">import</span> <span class="n">Warper</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.geom</span> <span class="k">as</span> <span class="nn">afwGeom</span>
+<span class="kn">from</span> <span class="nn">lsst.daf.persistence</span> <span class="kn">import</span> <span class="n">Butler</span>
+<span class="kn">from</span> <span class="nn">lsst.geom</span> <span class="kn">import</span> <span class="n">SpherePoint</span>
+<span class="kn">import</span> <span class="nn">lsst.geom</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The DIA analysis is still in test phase.   The current test repo, based on Run 1.2p, is here:</span>
+<span class="n">repo</span> <span class="o">=</span> <span class="s1">&#39;/global/cscratch1/sd/rearmstr/new_templates/diffim_template&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diaSrc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;dc2_dia_source_run1.2p_test&#39;</span><span class="p">)</span>
+<span class="n">diaObject</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;dc2_dia_object_run1.2p_test&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>(We presently will get a warning from the catalog reader in the initalization above because there is no u-band in the subtractions.)</p>
+<p>Let’s star with some simple questions:</p>
+<ol class="arabic simple">
+<li><p>How many DIA Sources are there?</p></li>
+<li><p>What’s the distribution in RA, Dec?</p></li>
+<li><p>What’s the mag vs. mag_err plot</p></li>
+<li><p>Can we get out the filter information?</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;There are </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">diaSrc</span><span class="p">)</span><span class="si">}</span><span class="s1"> DIA Sources and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">diaObject</span><span class="p">)</span><span class="si">}</span><span class="s1"> DIA Objects in this test sample&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scatter_radec</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;RA&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Dec&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># While we&#39;re doing a rectangular plot of the local tangent, we can at least get the local scale right</span>
+    <span class="n">median_ra</span><span class="p">,</span> <span class="n">median_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="n">aspect</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">median_dec</span><span class="p">)))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">scatter_radec</span><span class="p">(</span><span class="n">diaSrc</span><span class="p">,</span> <span class="n">ax1</span><span class="p">)</span>
+<span class="n">scatter_radec</span><span class="p">(</span><span class="n">diaObject</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hexbin_radec</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">])</span>
+    <span class="c1"># I don&#39;t know how to do colorbar from the axis</span>
+    <span class="c1">#    ax.colorbar()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;RA&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Dec&#39;</span><span class="p">)</span>
+
+    <span class="c1"># While we&#39;re doing a rectangular plot of the local tangent, we can at least get the local scale right</span>
+    <span class="n">median_ra</span><span class="p">,</span> <span class="n">median_dec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="n">aspect</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">median_dec</span><span class="p">)))</span>
+    
+<span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">hexbin_radec</span><span class="p">(</span><span class="n">diaSrc</span><span class="p">,</span> <span class="n">ax1</span><span class="p">)</span>
+<span class="n">hexbin_radec</span><span class="p">(</span><span class="n">diaObject</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diaSrc_r</span> <span class="o">=</span> <span class="n">diaSrc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_err&#39;</span><span class="p">,</span> <span class="s1">&#39;psFlux&#39;</span><span class="p">,</span> <span class="s1">&#39;psFluxErr&#39;</span><span class="p">],</span>
+                           <span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;filter&#39;</span><span class="p">),</span> <span class="s1">&#39;mag_err &lt; 0.1&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hexbin_radec</span><span class="p">(</span><span class="n">diaSrc_r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scatter_mag</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">mag</span><span class="p">,</span> <span class="n">mag_err</span> <span class="o">=</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">],</span> <span class="n">cat</span><span class="p">[</span><span class="s1">&#39;mag_err&#39;</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mag</span><span class="p">,</span> <span class="n">mag_err</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Mag&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Mag Err&#39;</span><span class="p">)</span>
+
+<span class="n">scatter_mag</span><span class="p">(</span><span class="n">diaSrc_r</span><span class="p">)</span>
+<span class="c1"># Oh, there is no mag yet for diaObject.</span>
+<span class="c1"># scatter_mag(diaObject) </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat_by_filter</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">filter_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_err&#39;</span><span class="p">,</span> <span class="s1">&#39;psFlux&#39;</span><span class="p">,</span> <span class="s1">&#39;psFluxErr&#39;</span><span class="p">,</span> <span class="s1">&#39;visit&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filter_names</span><span class="p">:</span> 
+    <span class="n">cat_by_filter</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">diaSrc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span>
+                                          <span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;filter&#39;</span><span class="p">),</span> <span class="s1">&#39;mag_err &lt; 0.1&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">this_cat</span> <span class="ow">in</span> <span class="n">cat_by_filter</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">this_cat</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">],</span> <span class="n">this_cat</span><span class="p">[</span><span class="s1">&#39;mag_err&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;mag&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mag_err&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diaSrc</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diaObject</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">diaSrc</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">diaSrc</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="n">aspect</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;x, y on patch&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">diaSrc</span><span class="p">[</span><span class="s1">&#39;fluxmag0&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="diaobject-statistics">
+<h2>DIAObject statistics<a class="headerlink" href="#diaobject-statistics" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;nobs&#39;</span><span class="p">],</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of DIA Source Observations in DIA Object&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;DIA Objects per bin&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reduced_chi2_r</span> <span class="o">=</span> <span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;psFluxChi2_r&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;psFluxNdata_r&#39;</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">log10_reduced_chi2_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">reduced_chi2_r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">log10_reduced_chi2_r</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">10.25</span><span class="p">,</span> <span class="mi">21</span><span class="p">));</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\log_</span><span class="si">{10}</span><span class="s1">(\chi^2/{\rm dof})$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;#/bin&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;magMean_r&#39;</span><span class="p">],</span> <span class="n">log10_reduced_chi2_r</span><span class="p">,</span>
+           <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;nobs&#39;</span><span class="p">]))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&lt;r&gt; [mag]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\log_</span><span class="si">{10}</span><span class="s1">{\chi^2/{\rm dof}}&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;log10(nobs)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;magMean_r&#39;</span><span class="p">],</span> <span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;nobs&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">log10_reduced_chi2_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&lt;r&gt; [mag]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;nobs&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;magMean_r&#39;</span><span class="p">],</span> <span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;magMeanStd_r&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&lt;r&gt; [mag]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;std(r) [mag]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-lightcurve">
+<h2>A Lightcurve<a class="headerlink" href="#a-lightcurve" title="Link to this heading">#</a></h2>
+<p>Let’s pick an object with lots of observations and <span class="math notranslate nohighlight">\(\chi^2/{\rm dof}\)</span> significantly greater than one.</p>
+<p>(Some of the <code class="docutils literal notranslate"><span class="pre">reduced_chi2</span></code> are non-positive, so we expect that we will get some “invalid value” warnings below when looking at the <code class="docutils literal notranslate"><span class="pre">log10_reduced_chi2</span></code> values.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">w</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;nobs&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">log10_reduced_chi2_r</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">log10_reduced_chi2_r</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">objectIds</span> <span class="o">=</span> <span class="p">(</span><span class="n">diaObject</span><span class="p">[</span><span class="s1">&#39;diaObjectId&#39;</span><span class="p">][</span><span class="n">w</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">objectIds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">this_diaObjectId</span> <span class="o">=</span> <span class="n">objectIds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">this_diaObject_diaSrc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diaSrc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;diaObjectId&#39;</span><span class="p">,</span> <span class="s1">&#39;visit&#39;</span><span class="p">,</span> <span class="s1">&#39;detector&#39;</span><span class="p">,</span> <span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;mjd&#39;</span><span class="p">,</span> <span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_err&#39;</span><span class="p">,</span> <span class="s1">&#39;psFlux&#39;</span><span class="p">,</span> <span class="s1">&#39;psFluxErr&#39;</span><span class="p">],</span> <span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="n">this_diaObjectId</span><span class="p">,</span> <span class="s1">&#39;diaObjectId&#39;</span><span class="p">)]))</span>
+<span class="n">this_diaObject</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diaObject</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">filters</span><span class="o">=</span><span class="p">[(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="n">this_diaObjectId</span><span class="p">,</span> <span class="s1">&#39;diaObjectId&#39;</span><span class="p">)]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">this_diaObject_diaSrc</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_lightcurve</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot a lightcurve from a DataFrame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># At lexigraphical order, if not wavelength order.</span>
+    <span class="n">filters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;filter&#39;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">plot</span> <span class="o">==</span> <span class="s1">&#39;flux&#39;</span><span class="p">:</span>
+        <span class="n">flux_col</span> <span class="o">=</span> <span class="s1">&#39;psFlux&#39;</span>
+        <span class="n">flux_err_col</span> <span class="o">=</span> <span class="s1">&#39;psFluxErr&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">flux_col</span> <span class="o">=</span> <span class="s1">&#39;mag&#39;</span>
+        <span class="n">flux_err_col</span> <span class="o">=</span> <span class="s1">&#39;mag_err&#39;</span>
+        
+    <span class="k">for</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+        <span class="n">this_filter</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;filter == &quot;</span><span class="si">{</span><span class="n">filt</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+        <span class="c1"># This if sequence is a little silly.</span>
+        <span class="k">if</span> <span class="n">flux_err_col</span> <span class="ow">in</span> <span class="n">this_filter</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">this_filter</span><span class="p">[</span><span class="s1">&#39;mjd&#39;</span><span class="p">],</span> <span class="n">this_filter</span><span class="p">[</span><span class="n">flux_col</span><span class="p">],</span> <span class="n">this_filter</span><span class="p">[</span><span class="n">flux_err_col</span><span class="p">],</span>
+                         <span class="n">linestyle</span><span class="o">=</span><span class="n">linestyle</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+                         <span class="n">label</span><span class="o">=</span><span class="n">filt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">marker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">this_filter</span><span class="p">[</span><span class="s1">&#39;mjd&#39;</span><span class="p">],</span> <span class="n">this_filter</span><span class="p">[</span><span class="n">flux_col</span><span class="p">],</span>
+                         <span class="n">linestyle</span><span class="o">=</span><span class="n">linestyle</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+                         <span class="n">label</span><span class="o">=</span><span class="n">filt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> 
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">this_filter</span><span class="p">[</span><span class="s1">&#39;mjd&#39;</span><span class="p">],</span> <span class="n">this_filter</span><span class="p">[</span><span class="n">flux_col</span><span class="p">],</span>
+                            <span class="n">linestyle</span><span class="o">=</span><span class="n">linestyle</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+                            <span class="n">label</span><span class="o">=</span><span class="n">filt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;MJD&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">plot</span> <span class="o">==</span> <span class="s1">&#39;flux&#39;</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;psFlux [nJy]&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mag [AB]&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plot_lightcurve</span><span class="p">(</span><span class="n">this_diaObject_diaSrc</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;diaObjectId: </span><span class="si">{</span><span class="n">this_diaObject_diaSrc</span><span class="p">[</span><span class="s2">&quot;diaObjectId&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">26.5</span><span class="p">,</span> <span class="mi">17</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plot_lightcurve</span><span class="p">(</span><span class="n">this_diaObject_diaSrc</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="s1">&#39;flux&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;diaObjectId: </span><span class="si">{</span><span class="n">this_diaObject_diaSrc</span><span class="p">[</span><span class="s2">&quot;diaObjectId&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="match-to-truth-catalog">
+<h3>Match to Truth Catalog<a class="headerlink" href="#match-to-truth-catalog" title="Link to this heading">#</a></h3>
+<p>This variable AGN presumably came from a variable source in the simulations.  Let’s see if we can find it.  For more details on matching to the Truth Variable catalog, see
+the <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/master/tutorials/truth_gcr_variables.ipynb">GCR Truth for Variables Tutorial</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth_cat</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;dc2_truth_run1.2_variable_summary&#39;</span><span class="p">)</span>
+<span class="n">truth_cat</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">(</span><span class="n">include_native</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">this_diaObject</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">this_diaObject</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth_positions</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">truth_cat</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">truth_cat</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Match on RA, Dec</span>
+<span class="kn">from</span> <span class="nn">astropy.coordinates</span> <span class="kn">import</span> <span class="n">SkyCoord</span>
+
+<span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">this_diaObject</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">this_diaObject</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="n">truth_cat</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;uniqueId&#39;</span><span class="p">])</span>
+
+<span class="n">agn_position</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+<span class="n">truth_positions</span> <span class="o">=</span> <span class="n">SkyCoord</span><span class="p">(</span><span class="n">truth</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">truth</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+
+<span class="n">idx</span><span class="p">,</span> <span class="n">sep2d</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">agn_position</span><span class="o">.</span><span class="n">match_to_catalog_sky</span><span class="p">(</span><span class="n">truth_positions</span><span class="p">)</span>
+<span class="n">matchId</span> <span class="o">=</span> <span class="n">truth</span><span class="p">[</span><span class="s1">&#39;uniqueId&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The truth object </span><span class="si">{</span><span class="n">matchId</span><span class="si">}</span><span class="s1"> is </span><span class="si">{</span><span class="n">sep2d</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">0.6f</span><span class="si">}</span><span class="s1"> away&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth_match</span> <span class="o">=</span> <span class="n">truth_cat</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift&#39;</span><span class="p">,</span> <span class="s1">&#39;agn&#39;</span><span class="p">,</span> <span class="s1">&#39;uniqueId&#39;</span><span class="p">,</span> <span class="s1">&#39;sprinkled&#39;</span><span class="p">,</span> <span class="s1">&#39;galaxy_id&#39;</span><span class="p">,</span> <span class="s1">&#39;sn&#39;</span><span class="p">],</span>
+                                       <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;uniqueId == </span><span class="si">{</span><span class="n">matchId</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the match!  Yes, it’s an AGN in the truth catalog (‘agn’==1)!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">truth_match</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>How did we do with the lightcurve?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;dc2_truth_run1.2_variable_lightcurve&#39;</span><span class="p">)</span>
+<span class="n">lc</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">(</span><span class="n">include_native</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using `native_filters` for the truth lightcurve is critical to performance here</span>
+<span class="c1"># If you use `native_filters` then it does a match for `uniqueId` in the summary table </span>
+<span class="c1"># and just searches the lightcurve table for that id.</span>
+<span class="c1"># If you accidentally use `filters`, the GCR will search for all ids in the summary table</span>
+<span class="c1"># and then repeatedly search the entire lightcurve table for each ID that also matches uniqueId</span>
+<span class="n">truth_lc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">lc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;mjd&#39;</span><span class="p">,</span> <span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="s1">&#39;filter&#39;</span><span class="p">],</span>
+                                          <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;uniqueId == </span><span class="si">{</span><span class="n">matchId</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth_lc</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;filter&#39;</span><span class="p">:</span> <span class="s1">&#39;filter_code&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth_lc</span> <span class="o">=</span> <span class="n">truth_lc</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;mjd&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Translate filter codes to filter names</span>
+<span class="n">filter_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]</span>
+<span class="n">truth_lc</span><span class="p">[</span><span class="s1">&#39;filter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">filter_names</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">truth_lc</span><span class="p">[</span><span class="s1">&#39;filter_code&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plot_lightcurve</span><span class="p">(</span><span class="n">truth_lc</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="s1">&#39;mag&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">plot_lightcurve</span><span class="p">(</span><span class="n">this_diaObject_diaSrc</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="s1">&#39;mag&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="postage-stamp-for-dia-object">
+<h2>Postage Stamp for DIA Object<a class="headerlink" href="#postage-stamp-for-dia-object" title="Link to this heading">#</a></h2>
+<p>For a fuller primer on making postage stamps, please see the
+<a class="reference internal" href="dm_butler_postage_stamps.html"><span class="std std-doc">DM Butler Postage Stamp Notebook</span></a></p>
+<p>But let’s take a moment to discuss in more detail how the DIA products we’re looking at were generated:</p>
+</section>
+<section id="how-these-data-products-were-generated">
+<h2>How these data products were generated<a class="headerlink" href="#how-these-data-products-were-generated" title="Link to this heading">#</a></h2>
+<p>These DIA products were generated using an existing set of Run 1.2p data that had been processed through the DM Science Pipelines.  Then <code class="docutils literal notranslate"><span class="pre">dia_pipe</span></code> was run to produce the image and individual catalog products, and code in <code class="docutils literal notranslate"><span class="pre">DC2-production</span></code> was wrun to collate these products and format them in a DPDD-like data product.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dia_pipe</span></code></p>
+<ul class="simple">
+<li><p>To run an image subtraction, one needs to identify a reference (or “Template”) image.  The baseline model is that these Template images will be based on coadditions of images with the best seeing in a region.  In the DM processing these coadds are referred to as <code class="docutils literal notranslate"><span class="pre">datasetType='deepCoadd'</span></code>[1].</p></li>
+<li><p>For each Visit, the DIA processing subtracts the Template image from the Visit image.  This resulting image and associated information (calibration, PSF, masking) is stored by the DM Butler in <code class="docutils literal notranslate"><span class="pre">datasetType='deepDiff_differenceExp'</span></code>.</p></li>
+</ul>
+<p>You will see each of these datasetTypes below when we make postage stamps.</p>
+<p>The detections on each subtracted images are called <code class="docutils literal notranslate"><span class="pre">DIASource</span></code>s and measurements on the subtracted image are stored in <code class="docutils literal notranslate"><span class="pre">datasetType='deepDiff_diaSrc'</span></code>.</p>
+<p>Once the subtractions are run on all the images, the <code class="docutils literal notranslate"><span class="pre">DIASource</span></code>s are spatially associated into <code class="docutils literal notranslate"><span class="pre">DIAObject</span></code>s.  Basic aggregrate quantities are calculated for the DIAObjects, but they’re just a prototype placeholder.</p>
+<p>Here ends the code in <code class="docutils literal notranslate"><span class="pre">dia_pipe</span></code>.</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">DC2-production</span></code></p>
+<p>We then merged these <code class="docutils literal notranslate"><span class="pre">diaSrc</span></code> catalogs into a single <code class="docutils literal notranslate"><span class="pre">DIASource</span></code> table largely following the definitions laid out in the DPDD[2].  The associated catalogs were then merged into a <code class="docutils literal notranslate"><span class="pre">DIAObject</span></code> table.  Update aggregate quantities are then calculated per-filter for the <code class="docutils literal notranslate"><span class="pre">DIAObject</span></code> table.  These two tables are made available through the GCR interface.</p>
+<p>The dividing line above will move downward as the <code class="docutils literal notranslate"><span class="pre">dia_pipe</span></code> develope and eventually gets merged into the main LSST code base.</p>
+<p>Endnotes:
+[1] The discussion in this Notebook includes some specific about the current test processing done by Bob Armstrong.  Details are likely to change.  In particular the choice of template process and name will likely change.  The processing here uses the <code class="docutils literal notranslate"><span class="pre">datasetType=='deepCoadd'</span></code> to refer to a good-seeing coadd, even though that same <code class="docutils literal notranslate"><span class="pre">datasetType</span></code> could refer to the full coadd in other processing.  By 2020 this nomenclature will evolve to hopefully a less confusing place.</p>
+<p>[2] DPDD
+If you’re interested in the definition of a column, learning more about the data products, or just having trouble sleeping, I encourage you to spend some quality time with</p>
+<p><a class="reference external" href="https://ls.st/dpdd">The LSST Data Products Definition Document</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">butler</span> <span class="o">=</span> <span class="n">Butler</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_coadd_id_for_ra_dec</span><span class="p">(</span><span class="n">skymap</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a dict suitable for use as a data ID for a DM Butler</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    skymap: lsst.afw.skyMap.SkyMap [optional] </span>
+<span class="sd">        Pass in to avoid the Butler read.  Useful if you have lots of such reads.</span>
+<span class="sd">        The skymap is just used to get the appropriate tract, patch.</span>
+<span class="sd">        If you want to warp to a different frame, see `wcs`.</span>
+<span class="sd">    ra: float</span>
+<span class="sd">        Right ascension of the center of the cutout, degrees</span>
+<span class="sd">    dec: float</span>
+<span class="sd">        Declination of the center of the cutout, degrees</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict  - Suitable for use as a DM Butler data ID.</span>
+<span class="sd">    &quot;&quot;&quot;</span>   
+    <span class="c1"># Look up the tract, patch for the RA, Dec</span>
+    <span class="n">radec</span> <span class="o">=</span> <span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="n">tract_info</span> <span class="o">=</span> <span class="n">skymap</span><span class="o">.</span><span class="n">findTract</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    <span class="n">patch_info</span> <span class="o">=</span> <span class="n">tract_info</span><span class="o">.</span><span class="n">findPatch</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    <span class="n">coadd_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tract&#39;</span><span class="p">:</span> <span class="n">tract_info</span><span class="o">.</span><span class="n">getId</span><span class="p">(),</span> <span class="s1">&#39;patch&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patch_info</span><span class="o">.</span><span class="n">getIndex</span><span class="p">()}</span>
+
+    <span class="k">return</span> <span class="n">coadd_id</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cutout_ra_dec</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">data_id</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">dataset_type</span><span class="o">=</span><span class="s1">&#39;deepDiff_differenceExp&#39;</span><span class="p">,</span>
+                  <span class="n">cutout_size</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">warp_to_exposure</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Produce a cutout from dataset_type from the given butler at the given ra, dec</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Trivial wrapper around &#39;cutout_spherepoint&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    butler: lsst.daf.persistence.Butler</span>
+<span class="sd">        Loaded DM Butler providing access to a data repository</span>
+<span class="sd">    data_id: Butler data ID</span>
+<span class="sd">        E.g., {&#39;visit&#39;: 1181556, &#39;detector&#39;: 45, &#39;filter&#39;: &#39;r&#39;}</span>
+<span class="sd">    ra: float</span>
+<span class="sd">        Right ascension of the center of the cutout, degrees</span>
+<span class="sd">    dec: float</span>
+<span class="sd">        Declination of the center of the cutout, degrees</span>
+<span class="sd">    cutout_size: int [optional] </span>
+<span class="sd">        Side of the cutout region in pixels.  Region will be cutout_size x cutout_size.</span>
+<span class="sd">    warp_to_exposure: optional</span>
+<span class="sd">        Warp coadd to system of specified &#39;exposure&#39;, e.g., the visit image, to warp the coadd to</span>
+<span class="sd">        before making the cutout.  The goal is to that a cut out of a coadd image</span>
+<span class="sd">        and a cutout of a visit image should line up.</span>
+<span class="sd">        &#39;warp_to_exposure&#39; overrides setting of &#39;cutout_size&#39;.</span>
+<span class="sd">         </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MaskedImage</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cutout_extent</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">ExtentI</span><span class="p">(</span><span class="n">cutout_size</span><span class="p">,</span> <span class="n">cutout_size</span><span class="p">)</span>
+    <span class="n">radec</span> <span class="o">=</span> <span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+   
+    <span class="n">image</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dataset_type</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">data_id</span><span class="p">)</span>
+
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">PointI</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">))</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">BoxI</span><span class="p">(</span><span class="n">xy</span> <span class="o">-</span> <span class="n">cutout_extent</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">cutout_extent</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">warp_to_exposure</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">warper</span> <span class="o">=</span> <span class="n">Warper</span><span class="p">(</span><span class="n">warpingKernelName</span><span class="o">=</span><span class="s1">&#39;lanczos4&#39;</span><span class="p">)</span>
+        <span class="n">cutout_image</span> <span class="o">=</span> <span class="n">warper</span><span class="o">.</span><span class="n">warpExposure</span><span class="p">(</span><span class="n">warp_to_exposure</span><span class="o">.</span><span class="n">getWcs</span><span class="p">(),</span> <span class="n">image</span><span class="p">,</span>
+                                           <span class="n">destBBox</span><span class="o">=</span><span class="n">warp_to_exposure</span><span class="o">.</span><span class="n">getBBox</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cutout_image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">getCutout</span><span class="p">(</span><span class="n">radec</span><span class="p">,</span> <span class="n">cutout_extent</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">cutout_image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">data_id</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span>
+                      <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span>
+                      <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">saveplot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">savefits</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                      <span class="n">zscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">dataset_type</span><span class="o">=</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">,</span>
+                      <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate and optionally display and save a postage stamp for a given RA, Dec.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    butler: lsst.daf.persistence.Butler</span>
+<span class="sd">        Servant providing access to a data repository</span>
+<span class="sd">    data_id:</span>
+<span class="sd">        DM Butler Data Id</span>
+<span class="sd">    ra: float</span>
+<span class="sd">        Right ascension of the center of the cutout, degrees</span>
+<span class="sd">    dec: float</span>
+<span class="sd">        Declination of the center of the cutout, degrees</span>
+<span class="sd">    filter: string </span>
+<span class="sd">        Filter of the image to load</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MaskedImage</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Uses lsst.afw.display with matplotlib to generate stamps.  Saves FITS file if requested.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cutout_image</span> <span class="o">=</span> <span class="n">cutout_ra_dec</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">data_id</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">dataset_type</span><span class="o">=</span><span class="n">dataset_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">savefits</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">savefits</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">savefits</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;postage-stamp.fits&#39;</span>
+        <span class="n">cutout_image</span><span class="o">.</span><span class="n">writeFits</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    
+    <span class="n">radec</span> <span class="o">=</span> <span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">cutout_image</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">display</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">display</span> <span class="o">=</span> <span class="n">afwDisplay</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">)</span>
+
+    <span class="n">display</span><span class="o">.</span><span class="n">mtv</span><span class="p">(</span><span class="n">cutout_image</span><span class="p">)</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;zscale&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">xy</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span> <span class="n">ctype</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="n">display</span><span class="o">.</span><span class="n">show_colorbar</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">saveplot</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">saveplot</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">saveplot</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;postage-stamp.png&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">cutout_image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">this_diaObject</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">this_diaObject</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff_visit</span> <span class="o">=</span> <span class="n">this_diaObject_diaSrc</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">diff_id</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># We have to convert from int64 to int to get the formatting to work right in the Gen 2 template string.</span>
+<span class="n">diff_id</span><span class="p">[</span><span class="s1">&#39;visit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">diff_visit</span><span class="p">[</span><span class="s1">&#39;visit&#39;</span><span class="p">])</span>
+<span class="n">diff_id</span><span class="p">[</span><span class="s1">&#39;filter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff_visit</span><span class="p">[</span><span class="s1">&#39;filter&#39;</span><span class="p">]</span>
+<span class="n">diff_id</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">diff_visit</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataset_type</span> <span class="o">=</span> <span class="s1">&#39;deepCoadd&#39;</span>
+
+<span class="n">skymap</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_skyMap&quot;</span> <span class="o">%</span> <span class="n">dataset_type</span><span class="p">)</span>
+<span class="n">coadd_id</span> <span class="o">=</span> <span class="n">get_coadd_id_for_ra_dec</span><span class="p">(</span><span class="n">skymap</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">)</span>
+<span class="n">coadd_id</span><span class="p">[</span><span class="s1">&#39;filter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff_id</span><span class="p">[</span><span class="s1">&#39;filter&#39;</span><span class="p">]</span>
+
+<span class="n">coadd_cutout</span> <span class="o">=</span> <span class="n">make_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">coadd_id</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">dataset_type</span><span class="o">=</span><span class="n">dataset_type</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">make_cutout_image</span></code> is using <code class="docutils literal notranslate"><span class="pre">lsst.afw.display</span></code> to show the image.  So thus, even though the image is a cutout, it knows what the original pixel coordinates were and displays those.</p>
+<p>Also note that the orientation is in x, y of the deepCoadd image.  Because the coadds are done based on the tract+patch, x, y line up with RA, Dec.  For our science image cutouts that we’ll see below we will choose to use the <code class="docutils literal notranslate"><span class="pre">warp_to_exposure</span></code> option to map each science and subtracted image to these same coordinates to make comparisons easy.  Note that in the actually processing, the subtraction was in fact done by warping the coadd to the science image, but showing each image in its own orientation will make it much harder to understand the stamps.</p>
+<p>The above image is in fact gray scale.  It looks blue, because the “footprint” of the galaxy, i.e. all of the pixels associated with the measurement of the galaxy, covers the entire postage stamp region, and by default we are displaying the mask planes. A ‘mask’ doesn’t mean good or bad, it’s a plane of information about a particular property.  While many mask bits refer to problems, or potential problems, one of the key mask bits is DETECTED, which defines the footprint of the object.</p>
+<p>We can look up what those mask planes are but creating just a dummy display and asking what the mask plane bits are for our image:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">afwDisplay</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="n">frame</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;coadd&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">maskName</span><span class="p">,</span> <span class="n">maskBit</span> <span class="ow">in</span> <span class="n">coadd_cutout</span><span class="o">.</span><span class="n">mask</span><span class="o">.</span><span class="n">getMaskPlaneDict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">maskName</span><span class="p">,</span> <span class="n">display</span><span class="o">.</span><span class="n">getMaskPlaneColor</span><span class="p">(</span><span class="n">maskName</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And you can see that <code class="docutils literal notranslate"><span class="pre">DETECTED</span></code> is blue.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">science_cutout</span> <span class="o">=</span> <span class="n">make_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">diff_id</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">dataset_type</span><span class="o">=</span><span class="s1">&#39;calexp&#39;</span><span class="p">,</span>
+                                   <span class="n">warp_to_exposure</span><span class="o">=</span><span class="n">coadd_cutout</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;science image&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that the mask plane is displaying all pixels that are part of footprints of something.  Thus it is showing more than just the specific footprint of the object we’re centered on.</p>
+<p>Note that the pixel coordinates for this postage stamp are those of the <em>coadd</em> image because that’s what we warped to.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cutout_image</span> <span class="o">=</span> <span class="n">make_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">diff_id</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">dataset_type</span><span class="o">=</span><span class="s1">&#39;deepDiff_differenceExp&#39;</span><span class="p">,</span>
+                                 <span class="n">warp_to_exposure</span><span class="o">=</span><span class="n">coadd_cutout</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The detected <code class="docutils literal notranslate"><span class="pre">diaSource</span></code> footprint is in blue.</p>
+<p>You also might notice a significant green stripe going up and to the left.  This (I believe) are interpolated pixels <code class="docutils literal notranslate"><span class="pre">INTRP</span></code>, where the interpolation contamination has been convolved out to a very large area by the effective size of the convoultion kernel.  The threshold for determining when a pixel is affeted by a given mask plane bit as its grown out like this is configurable.</p>
+<p>Somewhat confusingly, <code class="docutils literal notranslate"><span class="pre">DETECTED_NEGATIVE</span></code> is also green.  You’ll see some examples of negative detections below in the postage stamps of the difference images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">this_diaObject_diaSrc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A given science+difference image pair is oriented the same way, because the coadd is matched to the orientation of the science image.  But because each visit is oriented differently, each postage stamp below will be oriented differently.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># TODO:</span>
+<span class="c1"># Catch attempts to make stamps to near the edge of the image to complete.</span>
+<span class="c1"># There are diaSources smaller than this.</span>
+<span class="c1"># Our choice of cutout size is slightly arbitrary and is also much larger than a point source.</span>
+<span class="c1"># An improvement would be to get the postage stamp to return a full image with the mask plane set appropriately </span>
+<span class="c1"># for the missing pixels.</span>
+
+<span class="kn">from</span> <span class="nn">lsst.pex.exceptions</span> <span class="kn">import</span> <span class="n">LengthError</span>
+
+<span class="k">for</span> <span class="n">diff_visit</span> <span class="ow">in</span> <span class="n">this_diaObject_diaSrc</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+    <span class="n">diff_id</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># We have to convert from int64 to int to get the formatting to work right in the Gen 2 template string.</span>
+    <span class="n">diff_id</span><span class="p">[</span><span class="s1">&#39;visit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">diff_visit</span><span class="o">.</span><span class="n">visit</span><span class="p">)</span>
+    <span class="n">diff_id</span><span class="p">[</span><span class="s1">&#39;filter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff_visit</span><span class="o">.</span><span class="n">filter</span>
+    <span class="n">diff_id</span><span class="p">[</span><span class="s1">&#39;detector&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">diff_visit</span><span class="o">.</span><span class="n">detector</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;diaObjectId: </span><span class="si">{</span><span class="n">diff_visit</span><span class="o">.</span><span class="n">diaObjectId</span><span class="si">}</span><span class="s1">  MJD: </span><span class="si">{</span><span class="n">diff_visit</span><span class="o">.</span><span class="n">mjd</span><span class="si">}</span>
+<span class="s1">        visit: </span><span class="si">{</span><span class="n">diff_visit</span><span class="o">.</span><span class="n">visit</span><span class="si">}</span><span class="s1"> filter: </span><span class="si">{</span><span class="n">diff_visit</span><span class="o">.</span><span class="n">filter</span><span class="si">}</span><span class="s1"> detector: </span><span class="si">{</span><span class="n">diff_visit</span><span class="o">.</span><span class="n">detector</span><span class="si">}</span><span class="s1">&#39;&#39;&#39;</span>
+    <span class="n">mjd</span> <span class="o">=</span> <span class="n">diff_visit</span><span class="o">.</span><span class="n">mjd</span>
+    <span class="n">diaObjectId</span> <span class="o">=</span> <span class="n">diff_visit</span><span class="o">.</span><span class="n">diaObjectId</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">make_cutout_image</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">diff_id</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">dataset_type</span><span class="o">=</span><span class="s1">&#39;deepDiff_differenceExp&#39;</span><span class="p">,</span> 
+                          <span class="n">warp_to_exposure</span><span class="o">=</span><span class="n">coadd_cutout</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">LengthError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Too near edge of image to get full postage stamp.  Skipping </span><span class="si">{dataId}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "desc-stack"
+        },
+        kernelOptions: {
+            name: "desc-stack",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-stack'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dia_sn_vs_truth.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DIA Analysis: Supernovae from the Run 1.2p Test</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="dm_butler_lensing_cuts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Accessing the Coadd data using the Data Butler</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-and-key-concepts">Introduction and Key Concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diaobject-statistics">DIAObject statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-lightcurve">A Lightcurve</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#match-to-truth-catalog">Match to Truth Catalog</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#postage-stamp-for-dia-object">Postage Stamp for DIA Object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-these-data-products-were-generated">How these data products were generated</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

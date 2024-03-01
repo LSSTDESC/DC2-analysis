@@ -1,0 +1,976 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/object_gcr_2_lensing_cuts';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/object_gcr_2_lensing_cuts.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges" href="object_gcr_3_challenges.html" />
+    <link rel="prev" title="DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access" href="object_gcr_1_intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/object_gcr_2_lensing_cuts.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/object_gcr_2_lensing_cuts.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/object_gcr_2_lensing_cuts.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-useful-sample-of-galaxies-lensing-cuts-from-hsc-dr1">Selecting a useful sample of galaxies: lensing cuts from HSC DR1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-selection">Sample selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-at-the-depth-of-the-survey">Looking at the depth of the survey</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impact-of-blendedness">Impact of blendedness</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#so-one-thing-may-jump-to-eye-these-objects-are-supposed-to-be-large-extremely-well-resolved-yet-they-often-look-fairly-small-but-they-have-a-lot-of-sometimes-very-bright-neighbours-this-is-very-suspicious-and-may-indicate-a-problem-with-the-dm-deblender">So, one thing may jump to eye, these objects are supposed to be large, extremely well resolved, yet they often look fairly small… but they have a lot of sometimes very bright neighbours. This is very suspicious and may indicate a problem with the DM deblender.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dc2-object-catalog-run2-2i-gcr-tutorial-part-ii-lensing-cuts">
+<h1>DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts<a class="headerlink" href="#dc2-object-catalog-run2-2i-gcr-tutorial-part-ii-lensing-cuts" title="Link to this heading">#</a></h1>
+<p>Owners: <strong>Francois Lanusse <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;EiffL">&#64;EiffL</a>, Javier Sanchez <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;fjaviersanchez">&#64;fjaviersanchez</a></strong><br />
+Last Verified to Run: <strong>2020-07-02</strong> (by &#64;jrbogart)</p>
+<p>This notebook is the second part of the tutorial (<a class="reference internal" href="object_gcr_1_intro.html"><span class="std std-doc">Part I here</span></a>). Here, we present more advanced features of the  DPDD-like object catalog, which contains the detected objects at the coadd level, through the Generic Catalog Reader <a class="reference external" href="https://github.com/yymao/generic-catalog-reader">GCR</a> and build a lensing sample which we compare to the published <a class="reference external" href="https://hsc-release.mtk.nao.ac.jp/doc/">HSC Y1 sample</a>. The final goal is to show how the different filtering mechanisms, features of <code class="docutils literal notranslate"><span class="pre">GCR</span></code>, and the samples presented here can be useful for your science.</p>
+<p><strong>Learning objectives</strong>:</p>
+<p>After going through this notebook, you should be able to:</p>
+<ol class="arabic simple">
+<li><p>Select a clean sample of galaxies for weak lensing.</p></li>
+<li><p>Compute a depth map for a given SNR threshold.</p></li>
+<li><p>Load both the DC2 Run2.2i catalog and a selection from the HSC Public Data Release XMM field.</p></li>
+<li><p>Directly access the coadd images to investigate suspicious objects.</p></li>
+</ol>
+<p><strong>Logistics</strong>: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter-dev.nersc.gov">https://jupyter-dev.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC</a></p>
+<p><strong>Other notes</strong>: This notebook uses the <a class="reference external" href="https://pipelines.lsst.io/">LSST DM stack</a> (see on the top right corner that we are using the <code class="docutils literal notranslate"><span class="pre">desc-stack</span></code> kernel)</p>
+<section id="selecting-a-useful-sample-of-galaxies-lensing-cuts-from-hsc-dr1">
+<h2>Selecting a useful sample of galaxies: lensing cuts from HSC DR1<a class="headerlink" href="#selecting-a-useful-sample-of-galaxies-lensing-cuts-from-hsc-dr1" title="Link to this heading">#</a></h2>
+<p>In this notebook, we will build step by step a sample of galaxies from the DC2 run2.2i object catalog, and compare it to an equivalent sample built from the HSC DR1 catalog. See more info on <a class="reference external" href="http://adsabs.harvard.edu/abs/2018PASJ...70S...8A">Aihara et al. 2018</a></p>
+<section id="sample-selection">
+<h3>Sample selection<a class="headerlink" href="#sample-selection" title="Link to this heading">#</a></h3>
+<p>We will start from a set of basic sanity cuts that will select extended objects and reject problematic sources, including those for which shape measurement has failed.</p>
+<p>One subtlety is that shape measurement is only run for the <em>reference band</em>, which is most of the time the i-band, but not always, we will further restrict the sample to objects for which we have i-band shapes using the <code class="docutils literal notranslate"><span class="pre">merge_measurement_i</span></code> flag.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="kn">from</span> <span class="nn">GCR</span> <span class="kn">import</span> <span class="n">GCRQuery</span>
+<span class="c1"># Load the object catalog</span>
+<span class="n">run</span> <span class="o">=</span> <span class="s1">&#39;run2.2i_dr3&#39;</span>
+<span class="n">tract_s</span> <span class="o">=</span> <span class="s1">&#39;3081&#39;</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dc2_object_</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basic_cuts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;extendedness &gt; 0&#39;</span><span class="p">),</span>     <span class="c1"># Extended objects</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;mag_i&#39;</span><span class="p">)),</span> <span class="c1"># Select objects that have i-band magnitudes</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">),</span> <span class="c1"># The source has no flagged pixels (interpolated, saturated, edge, clipped...) </span>
+                       <span class="c1"># and was not skipped by the deblender</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;xy_flag == 0&#39;</span><span class="p">),</span>                                      <span class="c1"># Flag for bad centroid measurement</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_flag == 0&#39;</span><span class="p">),</span>            <span class="c1"># Error code returned by shape measurement code</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_sigma&#39;</span><span class="p">)),</span> <span class="c1"># Shape measurement uncertainty should not be NaN</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In addition to these basic cuts, we will want to apply a set of cuts based on object properties, to ensure we are selecting well resolved and well measured galaxies. One of these properties is the measured total distortion, which is not directly defined in the schema, but can be derived from the measured <span class="math notranslate nohighlight">\(e1\)</span>, <span class="math notranslate nohighlight">\(e2\)</span> distortion components according to <span class="math notranslate nohighlight">\(|e| = \sqrt{e_1^2 + e_2^2 }\)</span></p>
+<p>The GCR provides a convenience function, <code class="docutils literal notranslate"><span class="pre">add_quantity_modifier</span></code>, to add this quantity to the schema on the fly, so that we can use it afterwards to build our cuts:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adds the new derived column </span>
+<span class="n">catalog</span><span class="o">.</span><span class="n">add_quantity_modifier</span><span class="p">(</span><span class="s1">&#39;shape_hsm_regauss_etot&#39;</span><span class="p">,</span> 
+                              <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_e1&#39;</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_e2&#39;</span><span class="p">),</span> 
+                              <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define lensing cuts on galaxy properties </span>
+<span class="n">properties_cuts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;snr_i_cModel &gt; 10&#39;</span><span class="p">),</span>                              <span class="c1"># SNR &gt; 10</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;mag_i_cModel &lt; 24.5&#39;</span><span class="p">),</span>                            <span class="c1"># cModel imag brighter than 24.5</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution &gt;= 0.3&#39;</span><span class="p">),</span> <span class="c1"># Sufficiently resolved galaxies compared to PSF</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;shape_hsm_regauss_etot &lt; 2&#39;</span><span class="p">),</span>                     <span class="c1"># Total distortion in reasonable range</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_sigma &lt;= 0.4&#39;</span><span class="p">),</span>      <span class="c1"># Shape measurement errors reasonable</span>
+<span class="p">]</span>
+
+<span class="c1"># We can now extract our lensing sample </span>
+<span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;snr_i_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;shape_hsm_regauss_etot&#39;</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution&#39;</span><span class="p">]</span>
+<span class="n">data_basic</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">quantities</span><span class="p">,</span> 
+                                    <span class="n">filters</span><span class="o">=</span><span class="n">basic_cuts</span><span class="o">+</span><span class="n">properties_cuts</span><span class="p">,</span> 
+                                    <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;tract == </span><span class="si">{</span><span class="n">tract_s</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data_basic</span><span class="p">[</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band resolution&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data_basic</span><span class="p">[</span><span class="s1">&#39;snr_i_cModel&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band cmodel S/N&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data_basic</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band cmodel mag&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data_basic</span><span class="p">[</span><span class="s1">&#39;shape_hsm_regauss_etot&#39;</span><span class="p">],</span><span class="mi">100</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Ellipticity magniture |e|&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can compare this plot to Fig 12. in <a class="reference external" href="http://adsabs.harvard.edu/abs/2018PASJ...70S..25M">Mandelbaum et al. 2018</a>:
+<img src="https://github.com/LSSTDESC/DC2-analysis/raw/master/tutorials/assets/fig12_mandelbaum2017.png"></p>
+<p>A quick visual comparison will highlight two things:</p>
+<ul class="simple">
+<li><p>We are missing a lot of galaxies between about 24.2 and 24.5 mag</p></li>
+<li><p>We have a bump near resolution of 1</p></li>
+</ul>
+<p>We are going to investigate to understand these differences below.</p>
+</section>
+<section id="looking-at-the-depth-of-the-survey">
+<h3>Looking at the depth of the survey<a class="headerlink" href="#looking-at-the-depth-of-the-survey" title="Link to this heading">#</a></h3>
+<p>One obvious reason why we would be missing some faint galaxies is if DC2 run2.2i is shallower than HSC. We will test this here by measuring the depths of both Run2.2i and the HSC DR1 XMM field. More generally, it is also a concern for most science analysis to have spatially uniform sampled data, which can be checked by looking at the depth of the sample.</p>
+<p>There are several ways to do this, in this case, we are going to check what’s the magnitude which has a median SNR closest to 10, the SNR cut of our lensing sample.</p>
+<p>Code to do this calculation for the HSC DR1 XMM field is commented out below because that catalog is not currently available, but we know the answer from previous runs. That is printed out for comparison with the calculated number for DC2 run2.2i</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import an efficient alternative to binned_statistic_2d, defined in utils/cic.py</span>
+<span class="kn">from</span> <span class="nn">utils.cic</span> <span class="kn">import</span> <span class="n">binned_statistic</span>
+    
+<span class="kn">import</span> <span class="nn">healpy</span> <span class="k">as</span> <span class="nn">hp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">depth_map_snr</span> <span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">mags</span><span class="p">,</span> <span class="n">snr</span><span class="p">,</span><span class="n">snr_threshold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">nside</span><span class="o">=</span><span class="mi">2048</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs a depth map on a healpix grid for a given SNR threshold.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ra, dec: Array of coordinates on the sky (in deg.)</span>
+<span class="sd">    mags, snr : measured magnitude and snr for the sample</span>
+<span class="sd">    snr_threshold: SNR</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Remove potentially problematic entries</span>
+    <span class="n">good</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ra</span><span class="p">)),</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">dec</span><span class="p">)))</span>
+    <span class="c1"># Create array of healpix pixel indices corresponding to coordinates </span>
+    <span class="n">pix_nums</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">ang2pix</span><span class="p">(</span><span class="n">nside</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">dec</span><span class="p">[</span><span class="n">good</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">,</span><span class="n">ra</span><span class="p">[</span><span class="n">good</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span>
+    
+    <span class="c1"># Create output map</span>
+    <span class="n">map_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">12</span><span class="o">*</span><span class="n">nside</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># Bins in magnitudes</span>
+    <span class="n">bin_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">22</span><span class="o">+</span><span class="mi">6</span><span class="o">/</span><span class="mf">30.</span><span class="p">,</span><span class="mi">28</span><span class="o">-</span><span class="mi">6</span><span class="o">/</span><span class="mf">30.</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span>
+    
+    <span class="c1"># For each healpix pixel</span>
+    <span class="k">for</span> <span class="n">px</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">pix_nums</span><span class="p">):</span>
+        <span class="c1"># Select all objects within this pixel</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">px</span><span class="o">==</span><span class="n">pix_nums</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Compute median snr in bins of magnitude</span>
+            <span class="n">median_snr</span> <span class="o">=</span> <span class="n">binned_statistic</span><span class="p">(</span><span class="n">mags</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span><span class="n">snr</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">,</span><span class="n">nbins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span><span class="mi">28</span><span class="p">))</span>
+            <span class="n">mask2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">median_snr</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span>
+            <span class="c1"># Find magnitude corresponding to snr threshold</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">mask2</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">depth</span> <span class="o">=</span> <span class="n">bin_centers</span><span class="p">[</span><span class="n">mask2</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">median_snr</span><span class="p">[</span><span class="n">mask2</span><span class="p">]</span> <span class="o">-</span> <span class="n">snr_threshold</span><span class="p">))]</span>
+                <span class="n">map_out</span><span class="p">[</span><span class="n">px</span><span class="p">]</span><span class="o">=</span><span class="n">depth</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">map_out</span><span class="p">[</span><span class="n">px</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">map_out</span><span class="p">[</span><span class="n">px</span><span class="p">]</span><span class="o">=</span><span class="mf">0.</span>
+    <span class="k">return</span> <span class="n">map_out</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;snr_i_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution&#39;</span><span class="p">]</span>
+
+<span class="c1"># Data from DC2 run2.2i</span>
+<span class="n">data_dc2</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">quantities</span><span class="p">,</span> 
+                                  <span class="n">filters</span><span class="o">=</span><span class="n">basic_cuts</span><span class="p">,</span> <span class="c1"># Note the only apply the basic_cuts</span>
+                                  <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;tract == </span><span class="si">{</span><span class="n">tract_s</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+
+<span class="c1"># Data from HSC DR1 XMM field </span>
+<span class="c1"># cat_hsc = GCRCatalogs.load_catalog(&#39;hsc-pdr1-xmm&#39;)</span>
+<span class="c1"># data_hsc = cat_hsc.get_quantities(quantities,</span>
+<span class="c1">#                                  filters=basic_cuts)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Note</strong>: Runtime warning will arise due to objects with incorrect fluxes but the results are unaffected by them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute i-band depth maps for Run2.2i, print median</span>
+<span class="n">m10map_dc2</span> <span class="o">=</span> <span class="n">depth_map_snr</span><span class="p">(</span><span class="n">data_dc2</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">data_dc2</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">data_dc2</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">],</span> <span class="n">data_dc2</span><span class="p">[</span><span class="s1">&#39;snr_i_cModel&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s2"> median i-band 10-sigma depth &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">m10map_dc2</span><span class="p">[</span><span class="n">m10map_dc2</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">]))</span>
+
+<span class="c1"># Print the corresponding value for the HSC data, computed previously</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HSC XMM median i-band 10-sigma depth &quot;</span><span class="p">,</span> <span class="mf">25.2896551722413795</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="k">def</span> <span class="nf">save_map</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">depth_map</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">depth_map</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Uncomment the following to save the depth map.  It&#39;s used in the next tutorial</span>
+<span class="c1"># There is no need to save unless you&#39;ve changed run or tract</span>
+<span class="c1"># map_dir = &#39;your_choice_goes_here&#39;</span>
+<span class="c1"># save_map(f&#39;{map_dir}/m10map_{run}_{tract_s}.pklz&#39;, m10map_dc2)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And now we see the difference between the two samples, HSC is deeper. (In the case of Run 1.1p, this is partly due to the fact that it was interrupted mid-run so it doesn’t reach the full depth of DC2.  For Run2.2i_dr3, about 500 visits in the center of the field were omitted.  If we had picked a tract in this deficit area the plots and the depth measurement would look considerably worse.)</p>
+</section>
+<section id="impact-of-blendedness">
+<h3>Impact of blendedness<a class="headerlink" href="#impact-of-blendedness" title="Link to this heading">#</a></h3>
+<p>The second discrepancy between our sample and the Mandelbaum et al. plot is an excess of galaxies appearing very well resolved compared to the PSF (resolution &gt; 0.9). To understand this difference, we are going to select a few of these objects and extract postage stamps from the DM stack for visual inspection.</p>
+<p>We begin by selecting galaxies in our lensing sample which are near perfectly resolved by adding a cut on resolution:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_cut</span> <span class="o">=</span> <span class="n">basic_cuts</span> <span class="o">+</span> <span class="n">properties_cuts</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution &gt;= 0.98&#39;</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution&#39;</span><span class="p">],</span> 
+                              <span class="n">filters</span><span class="o">=</span><span class="n">sample_cut</span><span class="p">,</span>
+                              <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract == 3081&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we will extract a few postage stamps at these coordinates, to do so we will reuse some of the code from the <a class="reference internal" href="#/DC2%20Postage%20Stamps.ipynb"><span class="xref myst">DC2 Postage Stamps tutorial</span></a>. Please have a look at that tutorial to fully understand the function we will be using here, but in a nustshell we are going to query the DM data Butler to retrieve cutouts of the Deep Coadd exposures of these objects in the i-band.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">desc_dc2_dm_data</span> <span class="kn">import</span> <span class="n">REPOS</span>
+
+<span class="kn">import</span> <span class="nn">lsst.daf.persistence</span> <span class="k">as</span> <span class="nn">dafPersist</span>
+<span class="kn">import</span> <span class="nn">lsst.geom</span> <span class="k">as</span> <span class="nn">afwGeom</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.coord</span> <span class="k">as</span> <span class="nn">afwCoord</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.image</span> <span class="k">as</span> <span class="nn">afwImage</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.display</span> <span class="k">as</span> <span class="nn">afwDisplay</span>
+
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">from</span> <span class="nn">astropy.visualization</span> <span class="kn">import</span> <span class="n">ZScaleInterval</span>
+
+<span class="c1"># Please check the DC2 Postage Stamps tutorial for all the details of how this works</span>
+<span class="k">def</span> <span class="nf">cutout_coadd_ra_dec</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">filt</span><span class="o">=</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">datasetType</span><span class="o">=</span><span class="s1">&#39;deepCoadd&#39;</span><span class="p">,</span> 
+                        <span class="n">skymap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cutoutSideLength</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Produce a cutout from a coadd at the given ra,dec coordinates</span>
+<span class="sd">    </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    --</span>
+<span class="sd">    butler - lsst.daf.persistence.Butler of the data repository</span>
+<span class="sd">    ra, dec - coordinates of the center of the cutout (in degrees).</span>
+<span class="sd">    filter - Filter of the image to load</span>
+<span class="sd">    datasetType - &#39;deepCoadd&#39;  Which type of coadd to load.  Doesn&#39;t support &#39;calexp&#39;</span>
+<span class="sd">    </span>
+<span class="sd">    skymap - [optional] Pass in to avoid the Butler read.  Useful if you have lots of them.</span>
+<span class="sd">    cutoutSideLength - [optional] Side of the cutout region in pixels.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    --</span>
+<span class="sd">    MaskedImage</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create a lsst.afw.geom.SpherePoint coordinates object</span>
+    <span class="n">radec</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="n">cutoutSize</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">ExtentI</span><span class="p">(</span><span class="n">cutoutSideLength</span><span class="p">,</span> <span class="n">cutoutSideLength</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">skymap</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">skymap</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deepCoadd_skyMap&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Retrieves the tract, patch info for these coordinates from the skymap</span>
+    <span class="n">tractInfo</span> <span class="o">=</span> <span class="n">skymap</span><span class="o">.</span><span class="n">findTract</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    <span class="n">patchInfo</span> <span class="o">=</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">findPatch</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    
+    <span class="c1"># Get pixel coordinates on the tract</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">PointI</span><span class="p">(</span><span class="n">tractInfo</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">))</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">afwGeom</span><span class="o">.</span><span class="n">BoxI</span><span class="p">(</span><span class="n">xy</span> <span class="o">-</span> <span class="n">cutoutSize</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">cutoutSize</span><span class="p">)</span>
+
+    <span class="n">coaddId</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tract&#39;</span><span class="p">:</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getId</span><span class="p">(),</span> <span class="s1">&#39;patch&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">,</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">patchInfo</span><span class="o">.</span><span class="n">getIndex</span><span class="p">(),</span> <span class="s1">&#39;filter&#39;</span><span class="p">:</span> <span class="n">filt</span><span class="p">}</span>
+    
+    <span class="n">cutout_image</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">datasetType</span><span class="o">+</span><span class="s1">&#39;_sub&#39;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span> <span class="n">immediate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">coaddId</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">cutout_image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With this tool to extract cutouts in hand, let’s have a look at a few examples in our sample:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the data butler for our run data repository</span>
+<span class="n">repo</span> <span class="o">=</span> <span class="n">REPOS</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">[</span><span class="mi">3</span><span class="p">:]]</span>
+<span class="n">butler</span> <span class="o">=</span> <span class="n">dafPersist</span><span class="o">.</span><span class="n">Butler</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">ax_this</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
+    <span class="c1"># Extract the cutout using the data butler</span>
+    <span class="n">cutout_image</span> <span class="o">=</span> <span class="n">cutout_coadd_ra_dec</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">filt</span><span class="o">=</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Plot the postage stamp on the same scales, with some arcsinh range compression </span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">(</span><span class="n">cutout_image</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">array</span><span class="p">),</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;binary&#39;</span><span class="p">);</span>
+    
+    <span class="c1"># Let&#39;s add a crosshair to guide the eye</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="so-one-thing-may-jump-to-eye-these-objects-are-supposed-to-be-large-extremely-well-resolved-yet-they-often-look-fairly-small-but-they-have-a-lot-of-sometimes-very-bright-neighbours-this-is-very-suspicious-and-may-indicate-a-problem-with-the-dm-deblender">
+<h4>So, one thing may jump to eye, these objects are supposed to be large, extremely well resolved, yet they often look fairly small… but they have a lot of sometimes very bright neighbours. This is very suspicious and may indicate a problem with the DM deblender.<a class="headerlink" href="#so-one-thing-may-jump-to-eye-these-objects-are-supposed-to-be-large-extremely-well-resolved-yet-they-often-look-fairly-small-but-they-have-a-lot-of-sometimes-very-bright-neighbours-this-is-very-suspicious-and-may-indicate-a-problem-with-the-dm-deblender" title="Link to this heading">#</a></h4>
+<p>Looking at the <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs/blob/master/GCRCatalogs/SCHEMA.md#schema-for-dc2-coadd-catalogs">SCHEMA.md</a> one may notice a field named <code class="docutils literal notranslate"><span class="pre">blendedness</span></code>. This is a metric produced by the DM stack defined  for deblended objects and “measures the fraction of the total flux in the neighborhood of a source that belongs to its neighbors” <a class="reference external" href="http://adsabs.harvard.edu/abs/2018PASJ...70S...5B">(Bosch et. 2018)</a>.</p>
+<p>Let’s have a look at the <code class="docutils literal notranslate"><span class="pre">blendedness</span></code> values of the examples in our sample:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;blendedness&#39;</span><span class="p">],</span> 
+                                   <span class="n">filters</span><span class="o">=</span><span class="n">sample_cut</span><span class="p">,</span>
+                                   <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract == 3081&#39;</span><span class="p">]))</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;blendedness&#39;</span><span class="p">][:</span><span class="mi">16</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As one would expect, they mostly have large values, close to 1, indicating that these objects belong to very blended neighborhoods. Because the deblender seems to be failing for these objects, we can use this metric to try to exclude them from our sample.</p>
+<p>As a matter of fact, this is what was done in the (<a class="reference external" href="http://adsabs.harvard.edu/abs/2018PASJ...70S..25M">Mandelbaum et al., 2018</a>) paper where an additional cut on blendedness was introduced to guard against deblender failures.</p>
+<p>Let’s try to rebuild our sample following the same approach:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">properties_cuts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;snr_i_cModel &gt; 10&#39;</span><span class="p">),</span>                              <span class="c1"># SNR &gt; 10</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;mag_i_cModel &lt; 24.5&#39;</span><span class="p">),</span>                            <span class="c1"># cModel imag brighter than 24.5</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution &gt;= 0.3&#39;</span><span class="p">),</span> <span class="c1"># Sufficiently resolved galaxies compared to PSF</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;shape_hsm_regauss_etot &lt; 2&#39;</span><span class="p">),</span>                     <span class="c1"># Total distortion in reasonable range</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_sigma &lt;= 0.4&#39;</span><span class="p">),</span>      <span class="c1"># Shape measurement errors reasonable</span>
+    <span class="c1"># New cut on blendedness:</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;blendedness &lt; 10**(-0.375)&#39;</span><span class="p">)</span>                      <span class="c1"># Avoid spurious detections and those contaminated by blends</span>
+<span class="p">]</span>
+
+<span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;snr_i_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;shape_hsm_regauss_etot&#39;</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">quantities</span><span class="p">,</span> 
+                              <span class="n">filters</span><span class="o">=</span><span class="n">basic_cuts</span> <span class="o">+</span> <span class="n">properties_cuts</span><span class="p">,</span> 
+                              <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract == 3081&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;New cuts&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band resolution&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;snr_i_cModel&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;New cuts&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band cmodel S/N&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;New cuts&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band cmodel mag&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;shape_hsm_regauss_etot&#39;</span><span class="p">],</span><span class="mi">100</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;New cuts&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Ellipticity magniture |e|&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data_basic</span><span class="p">[</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original cuts&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band resolution&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data_basic</span><span class="p">[</span><span class="s1">&#39;snr_i_cModel&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original cuts&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band cmodel S/N&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data_basic</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">],</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original cuts&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;i-band cmodel mag&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data_basic</span><span class="p">[</span><span class="s1">&#39;shape_hsm_regauss_etot&#39;</span><span class="p">],</span><span class="mi">100</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original cuts&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Ellipticity magniture |e|&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>\o/ The excess of high resolution objects has disappeared, mystery solved!</p>
+<p><strong>If you want, you can check out <a class="reference internal" href="object_gcr_3_challenges.html"><span class="std std-doc">Part III: Challenges</span></a>!</strong></p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "desc-stack"
+        },
+        kernelOptions: {
+            name: "desc-stack",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-stack'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="object_gcr_1_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="object_gcr_3_challenges.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-useful-sample-of-galaxies-lensing-cuts-from-hsc-dr1">Selecting a useful sample of galaxies: lensing cuts from HSC DR1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-selection">Sample selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-at-the-depth-of-the-survey">Looking at the depth of the survey</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#impact-of-blendedness">Impact of blendedness</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#so-one-thing-may-jump-to-eye-these-objects-are-supposed-to-be-large-extremely-well-resolved-yet-they-often-look-fairly-small-but-they-have-a-lot-of-sometimes-very-bright-neighbours-this-is-very-suspicious-and-may-indicate-a-problem-with-the-dm-deblender">So, one thing may jump to eye, these objects are supposed to be large, extremely well resolved, yet they often look fairly small… but they have a lot of sometimes very bright neighbours. This is very suspicious and may indicate a problem with the DM deblender.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,761 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DC2 Tutorials &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/README';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/README.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DIA Analysis: Supernovae from the Run 1.2p Test" href="dia_sn_vs_truth.html" />
+    <link rel="prev" title="DC2 Analysis" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/README.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/README.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DC2 Tutorials</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-for-tutorial-users">Notes for Tutorial Users</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-for-tutorial-contributors">Notes for Tutorial Contributors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semi-continuous-integration">Semi-continuous Integration</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="dc2-tutorials">
+<h1>DC2 Tutorials<a class="headerlink" href="#dc2-tutorials" title="Link to this heading">#</a></h1>
+<p>This directory contains tutorial and demonstration notebooks convering how to access and use the DC2 datasets.
+See the index table below for links to the notebook code, and an auto-rendered view of the notebook with outputs.</p>
+<section id="notes-for-tutorial-users">
+<h2>Notes for Tutorial Users<a class="headerlink" href="#notes-for-tutorial-users" title="Link to this heading">#</a></h2>
+<p><em>(Notes for tutorial contributors are at the bottom of the page.)</em></p>
+<ul class="simple">
+<li><p>If you are unsure on exactly how to start to use these tutorials, you may want to look at
+this <a class="reference external" href="https://confluence.slac.stanford.edu/x/Xgg4Dg">step-by-step guide</a> <em>(requires Confluence login)</em>.</p></li>
+<li><p>If you want to obtain an overview of the different types of DC2 data products and their access methods,
+take a look at <a class="reference external" href="https://confluence.slac.stanford.edu/x/oJgHDg">DC2 Data Product Overview</a> <em>(requires Confluence login)</em>.</p></li>
+<li><p>Many of the tutorials below use the Generic Catalog Reader (GCR) to access the catalogs.
+To learn more about GCR, visit <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs">LSSTDESC/gcr-catalogs</a> and see the information therein.</p></li>
+<li><p>You are very encouraged to use these tutorials as a starting point for your own projects!
+And you can contribute your analysis notebooks following <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/master/contributed/README.md">the instruction here</a>.
+It is expected that some of your analysis notebooks would be based on these tutorials
+and hence have duplicated code snippets.
+You don’t need to worry about that for now;
+we can always identify commonly used pieces and refactor them as standalone tools at a later time.</p></li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Notebook</p></th>
+<th class="head"><p>Short description</p></th>
+<th class="head"><p>Links</p></th>
+<th class="head"><p>Owner</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Object catalog GCR Tutorial Part I: GCR access</p></td>
+<td><p>Use the GCR for simple access to the object catalogs</p></td>
+<td><p><a class="reference external" href="object_gcr_1_intro.ipynb">ipynb</a>, <a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_1_intro.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_1_intro.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_1_intro.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_1_intro.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;EiffL">Francois Lanusse</a>, <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;fjaviersanchez">Javier Sanchez</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Object catalog GCR Tutorial Part II: Lensing Cuts</p></td>
+<td><p>Use the GCR to access the object catalog and build a lensing sample similar to the HSC Y1 shape catalog</p></td>
+<td><p><a class="reference external" href="object_gcr_2_lensing_cuts.ipynb">ipynb</a>, <a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_2_lensing_cuts.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_2_lensing_cuts.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_2_lensing_cuts.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_2_lensing_cuts.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;EiffL">Francois Lanusse</a>, <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;fjaviersanchez">Javier Sanchez</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Object catalog GCR Tutorial Part III: Guided Challenges</p></td>
+<td><p>Use the GCR to access the object catalog and solve some typical data analysis problems</p></td>
+<td><p><a class="reference external" href="object_gcr_3_challenges.ipynb">ipynb</a>, <a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_3_challenges.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_3_challenges.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_3_challenges.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_3_challenges.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;EiffL">Francois Lanusse</a>, <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;fjaviersanchez">Javier Sanchez</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Object catalog GCR Tutorial Part IV: Photo-z information</p></td>
+<td><p>Use the GCR to access the Photo-z information that are provided as an “add-on” to the object catalog</p></td>
+<td><p><a class="reference external" href="object_gcr_4_photoz.ipynb">ipynb</a>, <a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_gcr_4_photoz.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_4_photoz.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_4_photoz.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_gcr_4_photoz.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">Yao-Yuan Mao</a>, <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;sschmidt23">Sam Schmidt</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Object catalog with Spark</p></td>
+<td><p>Introduction of using Spark to access the object catalogs</p></td>
+<td><p><a class="reference external" href="object_spark_1_intro.ipynb">ipynb</a>, <a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_spark_1_intro.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_spark_1_intro.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_spark_1_intro.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_spark_1_intro.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;JulienPeloton">Julien Peloton</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Object catalog with pandas, color-color stellar locus</p></td>
+<td><p>Directly access the Run 1.1p object catalogs using pandas and explore the stellar locus</p></td>
+<td><p><a class="reference external" href="object_pandas_stellar_locus.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/object_pandas_stellar_locus.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_pandas_stellar_locus.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_pandas_stellar_locus.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/object_pandas_stellar_locus.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;wmwv">Michael Wood-Vasey</a></p></td>
+</tr>
+<tr class="row-even"><td><p>DM DeepCoadd Catalog with Butler Access: lensing cuts</p></td>
+<td><p>Use the Butler to build a lensing sample similar to the HSC Y1 shape catalog</p></td>
+<td><p><a class="reference external" href="dm_butler_lensing_cuts.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dm_butler_lensing_cuts.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_lensing_cuts.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_lensing_cuts.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_lensing_cuts.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;jchiang87">Jim Chiang</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>DM Postage Stamps with Butler</p></td>
+<td><p>Make some small cutout images and visualize them</p></td>
+<td><p><a class="reference external" href="dm_butler_postage_stamps.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dm_butler_postage_stamps.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_postage_stamps.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_postage_stamps.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_postage_stamps.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;wmwv">Michael Wood-Vasey</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Plotting skymap in DM catalogs using Butler</p></td>
+<td><p>Use the data butler to obtain information on the skyMap used in the coadd analyses performed by the DRP pipeline.</p></td>
+<td><p><a class="reference external" href="dm_butler_skymap.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dm_butler_skymap.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_skymap.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_skymap.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/dm_butler_skymap.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;jchiang87">Jim Chiang</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Matching catalogs using the LSST Stack matching code</p></td>
+<td><p>Spatial matching of objects using the DM Stack</p></td>
+<td><p><a class="reference external" href="matching_stack.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/matching_stack.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_stack.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_stack.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_stack.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;jchiang87">Jim Chiang</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Matching catalogs using FoF algorithm</p></td>
+<td><p>Using the Friends-of-Friends algorithm to match the extragalactic, truth, and object catalogs</p></td>
+<td><p><a class="reference external" href="matching_fof.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/matching_fof.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_fof.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_fof.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/matching_fof.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">Yao-Yuan Mao</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Truth Catalog with GCR</p></td>
+<td><p>Example of accessing DC2 truth catalog with GCR</p></td>
+<td><p><a class="reference external" href="truth_gcr_intro.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/truth_gcr_intro.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_intro.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_intro.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_intro.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;danielsf">Scott Daniel</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Truth Catalog with GCR: variables and transients</p></td>
+<td><p>Example of accessing variables and transient objects in the truth catalog with GCR</p></td>
+<td><p><a class="reference external" href="truth_gcr_variables.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/truth_gcr_variables.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_variables.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_variables.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/truth_gcr_variables.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">Yao-Yuan Mao</a>,
+<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;danielsf">Scott Daniel</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Extragalactic catalog with GCR: redshift distributions</p></td>
+<td><p>Extract, plot and explore the differential number counts of galaxies</p></td>
+<td><p><a class="reference external" href="extragalactic_gcr_redshift_dist.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_redshift_dist.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_redshift_dist.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_redshift_dist.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_redshift_dist.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;evevkovacs">Eve Kovacs</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Extragalactic catalog with GCR: Halo Occupation Distribution</p></td>
+<td><p>Compute and plot the HOD for the extragalactic catalog</p></td>
+<td><p><a class="reference external" href="extragalactic_gcr_hod.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_hod.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_hod.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_hod.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_hod.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">Yao-Yuan Mao</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Extragalactic catalog with GCR: mass relations</p></td>
+<td><p>Compute and plot the relations between halo mass and other quantities in the extragalactic catalog</p></td>
+<td><p><a class="reference external" href="extragalactic_gcr_mass_relations.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_mass_relations.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_mass_relations.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_mass_relations.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_mass_relations.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">Yao-Yuan Mao</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Extragalactic catalog with GCR: cluster colors</p></td>
+<td><p>Access the extragalactic catalog with the GCR, and explore colors in galaxy clusters</p></td>
+<td><p><a class="reference external" href="extragalactic_gcr_cluster_colors.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_cluster_colors.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_colors.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_colors.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_colors.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;dkorytov">Dan Korytov</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Extragalactic catalog with GCR: cluster members</p></td>
+<td><p>Extract cluster member galaxies from the extragalactic catalog and plot them on the sky</p></td>
+<td><p><a class="reference external" href="extragalactic_gcr_cluster_members.ipynb">ipynb</a>,
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_cluster_members.nbconvert.ipynb">rendered</a></p>
+<a class="reference external image-reference" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_members.log"><img alt="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_members.svg" src="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/log/extragalactic_gcr_cluster_members.svg" /></a>
+</td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;dkorytov">Dan Korytov</a></p></td>
+</tr>
+<tr class="row-even"><td><p>DC2 Run 2.1i DR1 Object Catalog</p></td>
+<td><p>Preliminary Validation of DR1 Object Catalog</p></td>
+<td><p><a class="reference external" href="../validation/validate_dc2_run2.1i_object_table.ipynb">ipynb</a>,
+<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/validation/validate_dc2_run2.1i_object_table.ipynb">rendered</a></p></td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;wmwv">Michael Wood-Vasey</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Difference Image Analysis - Stamps and Lightcurves</p></td>
+<td><p>Exploring a test Run 1.2p DIA run on (tract, patch) = (4849, ‘6,6’)</p></td>
+<td><p><a class="reference external" href="dia_source_object_stamp.ipynb">ipynb</a>,
+<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dia_source_object_stamp.ipynb">rendered</a></p></td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;wmwv">Michael Wood-Vasey</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Difference Image Analysis - Supernova Example</p></td>
+<td><p>Comparing supernova lightcurves to variable+transient truth catalog for test Run 1.2p DIA run on (tract, patch) = (4849, ‘6,6’)</p></td>
+<td><p><a class="reference external" href="dia_sn_vs_truth.ipynb">ipynb</a>,
+<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/dia_sn_vs_truth.ipynb">rendered</a></p></td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;wmwv">Michael Wood-Vasey</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Using PostgreSQL Introduction - Object table</p></td>
+<td><p>Use object table as first example of how to access PostgreSQL database. Also includes mini SQL primer</p></td>
+<td><p><a class="reference external" href="postgres_object_1_intro.ipynb">ipynb</a>,
+<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/postgres_object_1_intro.ipynb">rendered</a></p></td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;JoanneBogart">Joanne Bogart</a></p></td>
+</tr>
+<tr class="row-even"><td><p>PostgreSQL - Object table part 2</p></td>
+<td><p>More advanced queries of object table</p></td>
+<td><p><a class="reference external" href="postgres_object_2.ipynb">ipynb</a>,
+<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/postgres_object_2.ipynb">rendered</a></p></td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;JoanneBogart">Joanne Bogart</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>PostgreSQL - Forced source</p></td>
+<td><p>Use PostgreSQL fourcedsource view to access forced source, plot light curves</p></td>
+<td><p><a class="reference external" href="postgres_forcedsource.ipynb">ipynb</a>,
+<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/postgres_forcedsource.ipynb">rendered</a></p></td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;JoanneBogart">Joanne Bogart</a></p></td>
+</tr>
+<tr class="row-even"><td><p>PostgreSQL - Truth data</p></td>
+<td><p>Use PostgreSQL to access star truth summary and variability tables</p></td>
+<td><p><a class="reference external" href="postgres_truth.ipynb">ipynb</a>,
+<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/rendered/tutorials/postgres_truth.ipynb">rendered</a></p></td>
+<td><p><a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;JoanneBogart">Joanne Bogart</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="notes-for-tutorial-contributors">
+<h2>Notes for Tutorial Contributors<a class="headerlink" href="#notes-for-tutorial-contributors" title="Link to this heading">#</a></h2>
+<p>Both tutorial and demo notebooks are hugely useful resources - pull requests are most welcome! A detailed instruction can be found <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/master/contributed/README.md">here</a>.</p>
+<ul class="simple">
+<li><p>Before you commit a notebook, please make sure that a) it runs to completion and b) the outputs are cleared (to avoid both repo bloat and conflicts on every run due to semantically equivalent but bitwise-distinct output blobs).</p></li>
+<li><p>Please update the index table above, carefully copying and adapting the URLs, and making sure that all the lines in the table are correctly aligned (or else the table will not display). <em>Pro-tip: use the “preview changes” tab in the online GitHub editor to check that the table is correct before committing.</em>  Adding your notebook to the table will trigger the automatic testing of it once your PR is merged (see the “Semi-continuous Integration” section below).</p></li>
+<li><p>The “owner” of a notebook (that’s you, as its contributor!) is responsible for accepting proposed modifications to it (by collaboration), and making sure that it does not go stale (by fixing issues posted about it).</p></li>
+<li><p>Every tutorial notebook needs an owner/last verified header, a statement of its goals (learning objectives) in the first markdown cell, and enough explanatory markdown (with links to docs, papers etc) to make the notebook make sense.</p></li>
+<li><p>Before August 2018, these tutorials were developed in the <a class="reference external" href="https://github.com/LSSTDESC/DC2-production">DC2-production</a> repo.You can <a class="reference external" href="https://github.com/LSSTDESC/DC2-production/search?q=label%3ATutorial&amp;type=Issues">follow this link</a> to see issues and PRs that were related to these tutorials before they being moved here.</p></li>
+</ul>
+</section>
+<section id="semi-continuous-integration">
+<h2>Semi-continuous Integration<a class="headerlink" href="#semi-continuous-integration" title="Link to this heading">#</a></h2>
+<p>All the notebooks listed in the table above (and on the master branch) can be run on Cori using the <a class="reference external" href="https://github.com/LSSTDESC/beavis-ci">beavis-ci</a> script, which then pushes them to an orphan “rendered” branch so that the outputs can be viewed.  Our ideal is that this will be run automatically daily, but that is not currently active.</p>
+<blockquote>
+<div><p>If the link to a rendered notebook yields a 404 error, please check the corresponding log file (by clicking on the “build:failing” badge) and issue the notebook’s owner. If it looks like something has gone wrong overall (like, none of the notebook builds are passing, or the logs indicate some problem with the run environment, <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;drphilmarshall">issue &#64;drphilmarshall</a>.</p>
+</div></blockquote>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DC2 Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="dia_sn_vs_truth.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DIA Analysis: Supernovae from the Run 1.2p Test</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-for-tutorial-users">Notes for Tutorial Users</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-for-tutorial-contributors">Notes for Tutorial Contributors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semi-continuous-integration">Semi-continuous Integration</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

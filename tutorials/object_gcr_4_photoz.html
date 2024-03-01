@@ -1,0 +1,837 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/object_gcr_4_photoz';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/object_gcr_4_photoz.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p" href="object_pandas_stellar_locus.html" />
+    <link rel="prev" title="DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges" href="object_gcr_3_challenges.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/object_gcr_4_photoz.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/object_gcr_4_photoz.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/object_gcr_4_photoz.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-catalog">Load the catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photo-z-access-methods">Photo-z access methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dc2-object-catalog-run2-2i-gcr-tutorial-part-iv-accessing-photo-z">
+<h1>DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z<a class="headerlink" href="#dc2-object-catalog-run2-2i-gcr-tutorial-part-iv-accessing-photo-z" title="Link to this heading">#</a></h1>
+<p>Owners: <strong>Yao-Yuan Mao <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">&#64;yymao</a></strong>,
+<strong>Sam Schmidt <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;sschmidt23">&#64;sschmidt23</a></strong></p>
+<p>Last Verifed to Run: <strong>2020-06-09</strong> (by &#64;sschmidt23)</p>
+<p>This notebook will show you how to access the “add-on” columns that provide the photometric redshift (photo-z) information for the DC2 Object Catalog (Run 2.2i).</p>
+<p><strong>Learning objectives</strong>: After going through this notebook, you should be able to:</p>
+<ol class="arabic simple">
+<li><p>Load and efficiently access a DC2 object catalog (+ photo-z) with the GCR</p></li>
+<li><p>Understand how the photo-z data are stored / represented</p></li>
+<li><p>Look at an example of galaxy photo-z distributions</p></li>
+</ol>
+<p><strong>Logistics</strong>: This notebook is intended to be run through the Jupyter Lab NERSC interface available here: <a class="reference external" href="https://jupyter.nersc.gov/">https://jupyter.nersc.gov/</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC</a></p>
+<p><strong>Other notes</strong>:
+If you restart your kernel, or if it automatically restarts for some reason, all imports and variables will become undefined so, you will have to re-run everything.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="kn">from</span> <span class="nn">GCR</span> <span class="kn">import</span> <span class="n">GCRQuery</span>
+<span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="load-the-catalog">
+<h2>Load the catalog<a class="headerlink" href="#load-the-catalog" title="Link to this heading">#</a></h2>
+<p>Loading the object catalog with photo-z add-on. The catalog name is <code class="docutils literal notranslate"><span class="pre">dc2_object_run2.2i_with_photoz</span></code>.</p>
+<p>It takes a few seconds for the catalog instance to initiate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;dc2_object_run2.2i_dr3_with_photoz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="photo-z-access-methods">
+<h2>Photo-z access methods<a class="headerlink" href="#photo-z-access-methods" title="Link to this heading">#</a></h2>
+<p>There are several photo-z related quantities available in the catalog, a summary of which can be found on this Confluence page:
+<a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/List+of+available+DC2+catalogs+created+by+PhotoZ">https://confluence.slac.stanford.edu/display/LSSTDESC/List+of+available+DC2+catalogs+created+by+PhotoZ</a></p>
+<p>There are photo-z estimates in the form of both a single number “point estimate” for each galaxy, as well as a 1D redshift probability density function (PDF) representing the posterior probability of the galaxy being at a given redshift calculated on a specific redshift grid.</p>
+<p>There are multiple single point estimates:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code>: the mode of the redshift PDF, the highest peak of the posterior probability</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_mean</span></code>: the weighted mean of the redshift PDF.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_median</span></code>: the redshift where the redshift CDF is equal to 0.5.</p></li>
+</ol>
+<p>The redshift pdf is stored in the multi-valued column <code class="docutils literal notranslate"><span class="pre">photoz-pdf</span></code>.  The grid of redshifts at which the posterior probability is evaluated is stored in the catalog with the special attribute of <code class="docutils literal notranslate"><span class="pre">photoz_pdf_bin_centers</span></code>.  You can access this attribute for catalog cat with something like <code class="docutils literal notranslate"><span class="pre">zgrid</span> <span class="pre">=</span> <span class="pre">cat.photoz_pdf_bin_centers</span></code></p>
+<p>There are three additional columns that can be used as various quality flags:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_odds</span></code> (see Benitez 2000) is a measure of the integrated amount or probaility within a fixed distance around <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code>.  If the redshift posterior is single peaked and narrow this number will be close to 1.0, if the posterior is multi-peaked and/or broad it is likely to be smaller.  Thus, high values of <code class="docutils literal notranslate"><span class="pre">photoz_odds</span></code> can be used as an indicator of photo-z quality.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_mode_ml_red_chi2</span></code> is the reduced chi-squared value for the maximum likelihood estimate of the best fit template at the photo-z mode.  If this chi-squared value is very large, it indicates that none of the SED templates employed by the photo-z code were good fits to the observed colors, and thus the redshift may be suspect. High values may also occur for very bright galaxies where photometric errors are small and thus chi-squared values can grow large.</p></li>
+</ol>
+<p>We will demonstrate access methods for several of these quantities in detail. You can notice that all the photo-z columns have a prefix of <code class="docutils literal notranslate"><span class="pre">photoz_</span></code>.</p>
+<p>Let’s first make sure that these columns are indeed available.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">q</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">cat</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">()</span> <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;photoz_&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now try access the photo-z data! Everything you already about the GCR access of object catalogs will still apply.
+Including the use of <code class="docutils literal notranslate"><span class="pre">filters</span></code> and <code class="docutils literal notranslate"><span class="pre">native_filters</span></code> (<code class="docutils literal notranslate"><span class="pre">native_filters</span></code> is used for selecting tracts mostly). We will access the single tract 4850.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">],</span> 
+                          <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;photoz_mode &lt; 0.2&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_i &lt; 26&#39;</span><span class="p">],</span> 
+                          <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract==4850&#39;</span><span class="p">])</span>
+
+<span class="c1"># check if the filters work</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, if you want to make a plot of the PDF for a galaxy or galaxies, you will need to access the <code class="docutils literal notranslate"><span class="pre">photoz_pdf</span></code> column. Note that each entry stores an array, so use with care!</p>
+<p>As an example, let’s just load one tract (using the <code class="docutils literal notranslate"><span class="pre">return_iterator</span></code> feature) of the full PDFs and also peak and mean values at the same time.  The first few tracts have very few objects, some of which are only detected in a handful of bands, so we’ll load the 14th tract:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xcat</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;photoz_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;photoz_mean&#39;</span><span class="p">],</span> <span class="n">return_iterator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">14</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">xcat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are 684,634 objects in this tract, and there are 301 bins in the photo-z PDF. The photoz_pdf data is a 1D array has a shape of (684634,), <em>but</em> each entry stores an array of 301 values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s plot 10 example PDFs.  We will plot every 100th PDF as this shows a bit more variety in PDF shapes.
+The PDFs were evaluated on a set grid of redshift values.  For run2.2 this grid extends to z=3.0.<br>
+To get the array of bin center values, you can access the <code class="docutils literal notranslate"><span class="pre">photoz_pdf_bin_centers</span></code> attribute, as demonstrated below.<br />
+We overplot the <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> and <code class="docutils literal notranslate"><span class="pre">photoz_mean</span></code> values as well.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">pdf</span><span class="p">,</span> <span class="n">z_peak</span><span class="p">,</span> <span class="n">z_mean</span><span class="p">,</span> <span class="n">ax_this</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">][::</span><span class="mi">100</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">][::</span><span class="mi">100</span><span class="p">],</span>
+                                        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mean&#39;</span><span class="p">][::</span><span class="mi">100</span><span class="p">],</span> <span class="n">ax</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">ax_this</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">photoz_pdf_bin_centers</span><span class="p">,</span> <span class="n">pdf</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;p(z)&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">z_peak</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_color</span><span class="p">(),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">z_mean</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mean&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$z$&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(z)$&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> does, indeed, correspond to the mode/peak of the posterior.  <code class="docutils literal notranslate"><span class="pre">photoz_mean</span></code> lies at the weighted mean redshift.  For multi-peaked posteriors this position can actually be in a location of relatively low probability between two peaks.  We see a variety of PDF shapes: narrow unimodal; broad and/or tailed; and multimodal distributions.  This is due to a combination of the galaxy’s observed colors and magnitude uncertainties.</p>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>Now that we have learned all the access methods, let’s try to work out an example!</p>
+<p>First of all, let’s define a set of reasonable cuts to give us galaxies</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cuts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;extendedness &gt; 0&#39;</span><span class="p">),</span>     <span class="c1"># Extended objects</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;mag_i&#39;</span><span class="p">)),</span> <span class="c1"># Select objects that have i-band magnitudes</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">),</span> <span class="c1"># The source has no flagged pixels (interpolated, saturated, edge, clipped...) </span>
+                       <span class="c1"># and was not skipped by the deblender</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;snr_i_cModel &gt; 20&#39;</span><span class="p">),</span>    <span class="c1"># SNR &gt; 20</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;snr_r_cModel &gt; 20&#39;</span><span class="p">),</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;snr_g_cModel &gt; 20&#39;</span><span class="p">),</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;mag_i_cModel &lt; 23&#39;</span><span class="p">),</span>    <span class="c1"># cModel imag brighter than 23</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;mag_i_cModel &gt; 20&#39;</span><span class="p">)</span>     <span class="c1"># cModel imag fainter than 20 (exclude super bright objects)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s make some plots!  Let’s compare the histogram of photoz_mode values to the sum of the individual PDF values, the “stacked” PDF being a common (but not statistically correct) way of estimating redshift distributions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">],</span> <span class="n">filters</span><span class="o">=</span><span class="n">cuts</span><span class="p">,</span> <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract==4850&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can construct a rough estimate for the N(z) by summing the individual galaxy PDFs in <code class="docutils literal notranslate"><span class="pre">photoz_pdf</span></code>, and compare the results of this sum to the histogram of the single point <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sumpdf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;photo-z mode&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">photoz_pdf_bin_centers</span><span class="p">,</span> <span class="n">sumpdf</span><span class="o">*</span><span class="mf">3.</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;summed $p(z)$&quot;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> and <code class="docutils literal notranslate"><span class="pre">photoz_pdf</span></code> shapes roughly agree, though we see a more smooth distribution with the full posteriors.  We also see a reduction of the anomalous high redshift features that appear with <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code>, where the posteriors are multi-peaked: using the full PDFs properly puts some of this probability at lower redshift rather than assigning to the single high redshift value.</p>
+<p>Let’s also plot a color-color diagram and color code by the <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> value</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$g-r$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$r-i$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">);</span>
+
+<span class="c1"># Food for thought: Look at how the photo-z values are distributed in this color-color space. Is this behavior expected?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see a strong correlation between redshift and position in color space, however the colors are determined by both the SED shape and redshift, so we also see degenerate areas, particularly at the blue end near color = 0.0 where low and high redshift solutions are close in the observed color space.</p>
+<p>Now let’s examine a tomographic slice selected in terms of photoz_mode:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bin_cut</span> <span class="o">=</span> <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;photoz_mode &gt; 0.6&#39;</span><span class="p">,</span> <span class="s1">&#39;photoz_mode &lt; 0.8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sumpdf_bin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">3.01</span><span class="p">,</span><span class="mf">.01</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;photo-z mode, $0.6 &lt; z_{\rm mode} &lt; 0.8$&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">photoz_pdf_bin_centers</span><span class="p">,</span> <span class="n">sumpdf_bin</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;summed $p(z)$, $0.6 &lt; z_{\rm mode} &lt; 0.8$&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">1.25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that, while the <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> values have been selected in a narrow range, the summed PDF values show “tails” that extend beyond the nominal bin.  This illustrates the uncertain values in photo-z estimates that are not easily summed up in a single number like <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code>.</p>
+<p>Let’s look at the location of galaxies within this tomographic bin in color space:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;all galaxies&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$0.6&lt;z\_mode&lt;0.8$&#39;</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$g-r$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$r-i$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that the range of colors for this tomographic bin is restricted compared to the overall distribution.  Users may want to modify bin definitions by looking at color distributions to avoid common degeneracies.  As an example of such a degenracy, let’s attempt to select galaxies with <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> between 2.0 and 2.5:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bin_cut</span> <span class="o">=</span> <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;photoz_mode &gt; 2.0&#39;</span><span class="p">,</span> <span class="s1">&#39;photoz_mode &lt; 2.5&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sumpdf_bin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">3.01</span><span class="p">,</span><span class="mf">.01</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;photo-z mode, $0.6 &lt; z_{\rm mode} &lt; 0.8$&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">photoz_pdf_bin_centers</span><span class="p">,</span> <span class="n">sumpdf_bin</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;summed $p(z)$, $0.6 &lt; z_{\rm mode} &lt; 0.8$&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Number&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">);</span>
+<span class="c1">#plt.xlim(0.25,1.25)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that the sum of the PDFs indicates that there are potential degenerate solutions at both z~0.2 and 1.4 with non-negligible probability.  We also see that the relative height fo the two peaks in the 2&lt;z&lt;2.5 bin is rather different between the <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> histogram and the sum of <code class="docutils literal notranslate"><span class="pre">photoz_pdf</span></code>.  Let’s plot the colors of these galaxies:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;all galaxies&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">][</span><span class="n">bin_cut</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$2.0&lt;z\_mode&lt;2.5$&#39;</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$g-r$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$r-i$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that galaxies with <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> between 2.0 and 2.5 reside in several areas of color space, including an area of potential degeneracy near g-r ~ r-i ~ 0 where galaxies at both low and high redshift reside.  This is not uncommon for high redshift galaxies, which tend to have very blue, power-law-like SEDs, which tend to have blue colors at nearly all redshifts, and are thus prone to degeneracies.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "desc-python-dev",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-python-dev'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="object_gcr_3_challenges.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="object_pandas_stellar_locus.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-catalog">Load the catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photo-z-access-methods">Photo-z access methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

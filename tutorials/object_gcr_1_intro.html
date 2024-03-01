@@ -1,0 +1,820 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/object_gcr_1_intro';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/object_gcr_1_intro.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts" href="object_gcr_2_lensing_cuts.html" />
+    <link rel="prev" title="Using the LSST Stack tools to do positional matching on coadd and src catalogs" href="matching_stack.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/object_gcr_1_intro.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/object_gcr_1_intro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/object_gcr_1_intro.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-the-object-catalog-with-the-gcr">Accessing the object catalog with the GCR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dc2-object-catalog-schema">DC2 object catalog Schema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-the-data">Accessing the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-filters-and-cuts">Applying filters and cuts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-filtering-star-galaxy-separation">Example of filtering: Star/galaxy separation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dc2-object-catalog-run2-2i-gcr-tutorial-part-i-gcr-access">
+<h1>DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access<a class="headerlink" href="#dc2-object-catalog-run2-2i-gcr-tutorial-part-i-gcr-access" title="Link to this heading">#</a></h1>
+<p>Owners: <strong>Francois Lanusse <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;EiffL">&#64;EiffL</a>, Javier Sanchez <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;fjaviersanchez">&#64;fjaviersanchez</a></strong><br />
+Last Verifed to Run: <strong>2020-07-02</strong> (by &#64;jrbogart)</p>
+<p>This notebook will illustrate the basics of accessing the DPDD-like object catalog, which contains the detected objects at the coadd level, through the Generic Catalog Reader (GCR, <a class="github reference external" href="https://github.com/yymao/generic-catalog-reader">yymao/generic-catalog-reader</a>) as well as how to select useful samples of stars/galaxies from the DM outputs.</p>
+<p><strong>Learning objectives</strong>:</p>
+<p>After going through this notebook, you should be able to:</p>
+<ol class="arabic simple">
+<li><p>Load and efficiently access a DC2 object catalog with the GCR</p></li>
+<li><p>Understand and have references for the catalog schema</p></li>
+<li><p>Apply cuts to the catalog using GCR functionalities</p></li>
+<li><p>Have an example of quality cuts and simple star/galaxy separation cut</p></li>
+<li><p>Load the HSC Public Data Release catalog in the XMM field [Advanced]</p></li>
+</ol>
+<p><strong>Logistics</strong>: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter-dev.nersc.gov">https://jupyter-dev.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC</a></p>
+<p><strong>Other notes</strong>:</p>
+<ul class="simple">
+<li><p>If you restart your kernel, or if it automatically restarts for some reason, all imports and variables will become undefined so, you probably will have to re-run everything.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="accessing-the-object-catalog-with-the-gcr">
+<h2>Accessing the object catalog with the GCR<a class="headerlink" href="#accessing-the-object-catalog-with-the-gcr" title="Link to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs">GCRCatalogs</a> package is a DESC project which aims at gathering in one convenient location various simulation/data catalogs made available to the collaboration.<br />
+In this section, we illustrate how to use this tool to access the object catalogs from DC2 Run2.2i.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="c1"># Load the object catalog</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;dc2_object_run2.2i_dr3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A significant numbers of catalogs besides the DC2 object catalogs are already available, use <code class="docutils literal notranslate"><span class="pre">sorted(GCRCatalogs.get_available_catalogs(False))</span></code> to see a full list and visit the <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/DC2+Data+Product+Overview">DC2 Data Product</a> page to see all the DC2 related catalogs.</p>
+<section id="dc2-object-catalog-schema">
+<h3>DC2 object catalog Schema<a class="headerlink" href="#dc2-object-catalog-schema" title="Link to this heading">#</a></h3>
+<p>To see the quantities available in the catalog, you can use the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">catalog</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The meaning of these fields is documented in the <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs/blob/master/GCRCatalogs/SCHEMA.md#schema-for-dc2-coadd-catalogs">SCHEMA.md</a> file of the <code class="docutils literal notranslate"><span class="pre">LSSTDESC/gcr-catalogs</span></code> repository.<br />
+As explained in that link, the values exposed here are not the native quantities produced by the Data Management stack, but instead this schema strives to follow the standard nomenclature of the LSST Data Products Definition Document <a class="reference external" href="http://ls.st/dpdd">DPDD</a>.</p>
+<p>The DPDD is an effort made by the LSST project to standardize the format of the official Data Release Products (DRP). While the native outputs of the DM stack are succeptible to change, the DPDD will be more stable. An early adoption of these conventions by the DESC will save time and energy down the road.</p>
+<p>This being said, not all use-cases and relevant quantities are covered by these conventions yet, so the GCR preserves access to the underlying native DM stack fieds, all 2046 of which can be listed using:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">catalog</span><span class="o">.</span><span class="n">list_all_native_quantities</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that the catalog includes:</p>
+<ul class="simple">
+<li><p>Positions</p></li>
+<li><p>Fluxes and magnitudes (PSF and <a class="reference external" href="https://www.sdss.org/dr12/algorithms/magnitudes/#cmodel">CModel</a>)</p></li>
+<li><p>Shapes (using <a class="reference external" href="http://galsim-developers.github.io/GalSim/namespacegalsim_1_1hsm.html">GalSim’s HSM</a>)</p></li>
+<li><p>Quality flags: e.g, does the source have any interpolated pixels? Has any of the measurement algorithms returned an error?</p></li>
+<li><p>Other useful quantities: <code class="docutils literal notranslate"><span class="pre">blendedness</span></code>, measure of how flux is affected by neighbors: (1 - flux.child/flux.parent) (see 4.9.11 of <a class="reference external" href="http://adsabs.harvard.edu/abs/2018PASJ...70S...5B">Bosch et al. 2018</a>); <code class="docutils literal notranslate"><span class="pre">extendedness</span></code>, classifies sources as extended or psf-like.</p></li>
+</ul>
+</section>
+<section id="accessing-the-data">
+<h3>Accessing the data<a class="headerlink" href="#accessing-the-data" title="Link to this heading">#</a></h3>
+<p>Run2.2i is considerably larger than Run1.2i; accessing the full dataset can be challenging. In order to access the data efficiently, it is important to understand how it is physically stored and how to access it, one piece at the time.</p>
+<p>The coadds produced by the DM stack are structured in terms of large <code class="docutils literal notranslate"><span class="pre">tracts</span></code> and smaller <code class="docutils literal notranslate"><span class="pre">patches</span></code>, illustrated here for DC2 Run1.1i (Run2.2i covers 300 square degrees and has 165 tracts):
+<img src="assets/dc2_skymap.png">
+Here the tracts have large blue numbers, and the patches are denoted with an <code class="docutils literal notranslate"><span class="pre">(x,y)</span></code> format. (In the illustration each tract has 8x8 patches. In later runs, including 2.2i, each tract has 7x7 patches.)</p>
+<p>You can learn more about how to make such a plot of the tract and patches <a class="reference internal" href="dm_butler_skymap.html"><span class="std std-doc">here</span></a></p>
+<p>The <strong>GCR object catalog preserves the tract structure of the data</strong> so that any particular quantity can be accessed on a per-tract basis. The tracts available in the catalog can be listed using the following command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Query all available tracts, only displays the first 5</span>
+<span class="n">catalog</span><span class="o">.</span><span class="n">available_tracts</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The DM stack includes functionality to get the tract and patch number corresponding to a certain position <code class="docutils literal notranslate"><span class="pre">(RA,DEC)</span></code>. However, it is out of the scope of this tutorial.</p>
+<p>GCR provides the following <code class="docutils literal notranslate"><span class="pre">native_filters</span></code> mechanism, which you can use to speed up data access if you only need certain chunks of the dataset.
+For the object catalog, the chunks are broken into <code class="docutils literal notranslate"><span class="pre">tract</span></code>, and hence that is what you can use in values for   <code class="docutils literal notranslate"><span class="pre">native_filters</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Retrieve the ra,dec coordinates of all sources within tract number 4430</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract == 4430&#39;</span><span class="p">])</span>
+
+<span class="c1"># Plot a 2d histogram of sources</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span><span class="mi">100</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Number of objects&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;RA [deg]&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec [deg]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">native_filters</span></code> can be used to filter a catalog by some specific quantities that are related to its underlying data format
+(use <code class="docutils literal notranslate"><span class="pre">catalog._native_filter_quantities</span></code> to see them). You have more information <a class="reference external" href="https://yymao.github.io/generic-catalog-reader/">here</a></p>
+<p>The data returned by the GCR is structured as a native Python dictionary:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>But it can also easily be converted into a <a class="reference external" href="https://pandas.pydata.org">Pandas DataFrame</a>, if you are so inclined ;-)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
+<span class="n">pdata</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">pdata</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a simple test, you can show the advantage of loading one tract at a time compared to the entire catalog:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span> data = catalog.get_quantities([&#39;ra&#39;, &#39;dec&#39;], native_filters=[&#39;tract == 4431&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span> data = catalog.get_quantities([&#39;ra&#39;, &#39;dec&#39;]) #This cell takes a bit to execute so, if you are in a hurry you can skip this
+</pre></div>
+</div>
+</div>
+</div>
+<p>In order to make accessing chunks of data convenient to the user, the <code class="docutils literal notranslate"><span class="pre">catalog.get_quantities</span></code> also provides the option to <a class="reference external" href="https://yymao.github.io/generic-catalog-reader/#GCR.BaseGenericCatalog.get_quantities">return an iterator</a>. This allows you to only read and work on one piece of data at a time while looping through the entire catalog. Remember that catalogs can be very large and might not fit in memory if you try to load the entire catalog at once. In the DC2 object catalog for Run2.2i, as we follow the DM structure of data, the catalog will iterate over <code class="docutils literal notranslate"><span class="pre">tract</span></code> when using <code class="docutils literal notranslate"><span class="pre">return_iterator</span></code>.</p>
+<p>You can find more general information about iterators <a class="reference external" href="https://stackoverflow.com/questions/3294889/iterating-over-dictionaries-using-for-loops">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loop through a few tracts using an iterator</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">],</span>
+                                <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract &gt;= 2900&#39;</span><span class="p">,</span> <span class="s1">&#39;tract &lt; 3000&#39;</span><span class="p">],</span>
+                                <span class="n">return_iterator</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="c1"># Here we only handle a tract at a time</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;RA&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Dec&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;2900 &lt;= Tract &lt; 3000&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="applying-filters-and-cuts">
+<h3>Applying filters and cuts<a class="headerlink" href="#applying-filters-and-cuts" title="Link to this heading">#</a></h3>
+<p>In order to avoid returning unecessary data, the GCR has a functionality to filter out entries as it reads the files. Note that this is different from the <code class="docutils literal notranslate"><span class="pre">native_filters</span></code> discussed above, which avoids reading part of the data altogether.</p>
+<p>Defining these filters requires the <code class="docutils literal notranslate"><span class="pre">GCRQuery</span></code> module of the GCR package and can then be applied during the call to <code class="docutils literal notranslate"><span class="pre">get_quantities</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">GCR</span> <span class="kn">import</span> <span class="n">GCRQuery</span>
+
+<span class="c1"># Simple cut to remove unreliable detections</span>
+<span class="c1"># More cuts can be added, as a logical AND, by appending GCRQuery objects to this list</span>
+<span class="n">simple_cuts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">),</span> <span class="c1"># The source has no flagged pixels (interpolated, saturated, edge, clipped...) </span>
+                       <span class="c1"># and was not skipped by the deblender</span>
+<span class="p">]</span>
+
+<span class="c1"># Loads the data after cut</span>
+<span class="n">data_cut</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">],</span> 
+                              <span class="n">filters</span> <span class="o">=</span> <span class="n">simple_cuts</span><span class="p">,</span> 
+                              <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract == 3830&#39;</span><span class="p">])</span>
+
+<span class="c1"># Loads data without cuts</span>
+<span class="n">data_full</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">],</span> 
+                              <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract == 3830&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_cut</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]),</span><span class="nb">len</span><span class="p">(</span><span class="n">data_full</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot a 2d histogram of sources</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">data_full</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">data_full</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span><span class="mi">256</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">);</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;RA [deg]&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec [deg]&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Full sample&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Number of objects&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">data_cut</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">data_cut</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span><span class="mi">256</span><span class="p">);</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;RA [deg]&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;dec [deg]&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Clean objects&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Number of objects&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Admittedly, this plot is a little underwhelming, these quality cuts only remove a very small number of objects. This is due in part to the fact that there are relatively few pixel defects in the DC2 simulations that would be flagged by Instrument Signature Removal (ISR).  In general, the number of objects that are affected by pixel defects will grow as the coadds get deeper, but the total number of objects will also increase with depth.</p>
+<p>To get a sense of the impact of these quality flags on real data, we can compare with a tract of the HSC PDR1 data (<a class="reference external" href="http://adsabs.harvard.edu/abs/2018PASJ...70S...8A">Aihara et al (2018)</a>) which had been available on cori. Note that this HSC catalog follows the same schema as Run 1.2i. This tract is part of the XMM subfield of HSC (find out more about the HSC data release <a class="reference external" href="https://hsc-release.mtk.nao.ac.jp/doc/">here</a> and <a class="reference external" href="http://adsabs.harvard.edu/abs/2018PASJ...70S...8A">here</a>).</p>
+<p>While this catalog was available, it was loaded, the same cuts were applied, and the data were plotted. Here is the result:</p>
+<img src="../tutorials/assets/GCR-obj-1-hsc-plot.png"><p>This is a more dramatic plot, and illustrates the importance of selecting clean samples of objets.</p>
+</section>
+</section>
+<section id="example-of-filtering-star-galaxy-separation">
+<h2>Example of filtering: Star/galaxy separation<a class="headerlink" href="#example-of-filtering-star-galaxy-separation" title="Link to this heading">#</a></h2>
+<p>For now, we have <code class="docutils literal notranslate"><span class="pre">extendedness</span> <span class="pre">==</span> <span class="pre">base_ClassificationExtendedness_value</span></code> as a tool for star/galaxy classification. An object is considered extended if the the difference between the <code class="docutils literal notranslate"><span class="pre">PSF</span></code> magnitude and the <a class="reference external" href="https://www.sdss.org/dr12/algorithms/magnitudes/#cmodel"><code class="docutils literal notranslate"><span class="pre">CModel</span></code> magnitude</a> is beyond certain threshold (0.0164). To know more about this see <a class="reference external" href="http://adsabs.harvard.edu/abs/2018PASJ...70S...5B">Bosch et al. 2018</a> section 4.9.10</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">star_cuts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">),</span> <span class="c1"># The source has no flagged pixels (interpolated, saturated, edge, clipped...) </span>
+                       <span class="c1"># and was not skipped by the deblender</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;extendedness==0&#39;</span><span class="p">),</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">)),</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">)),</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">]</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">quantities</span><span class="p">,</span> 
+                           <span class="n">filters</span><span class="o">=</span><span class="n">star_cuts</span><span class="p">,</span> 
+                           <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tract == 3830&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Note</strong>: The cell above will output some runtime warnings related to objects that have negative or zero measured fluxes but we can safely ignore the warning since those objects will not appear in our 2D histogram.</p>
+<p>So now, we are selected what we think are stars. Let’s take a look at the colors of these objects</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;mag_g_cModel&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">],</span>
+           <span class="n">d</span><span class="p">[</span><span class="s1">&#39;mag_r_cModel&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">],</span> 
+           <span class="n">bins</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$g-r$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$r-i$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;log(Number of objects)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Q: What else can you do to improve the star selection?</p>
+<p><strong>If you want to see more go to <a class="reference internal" href="object_gcr_2_lensing_cuts.html"><span class="std std-doc">Part II</span></a></strong></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "desc-python",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-python'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="matching_stack.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Using the LSST Stack tools to do positional matching on coadd and src catalogs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="object_gcr_2_lensing_cuts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-the-object-catalog-with-the-gcr">Accessing the object catalog with the GCR</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dc2-object-catalog-schema">DC2 object catalog Schema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-the-data">Accessing the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-filters-and-cuts">Applying filters and cuts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-filtering-star-galaxy-separation">Example of filtering: Star/galaxy separation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

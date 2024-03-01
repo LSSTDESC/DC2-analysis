@@ -1,0 +1,1013 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/postgres_truth';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/postgres_truth.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Accessing Truth Catalog Information" href="truth_gcr_intro.html" />
+    <link rel="prev" title="Accessing DC2 data in PostgreSQL at NERSC part 2" href="postgres_object_2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/postgres_truth.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/postgres_truth.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/postgres_truth.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conventions">Conventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-query">Sample Query</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#area-searches">Area searches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#light-curves">Light curves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-light-curves-for-one-star">Plot light curves for one star</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-data">Get the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-it-in-the-object-table">Is it in the object table?</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="accessing-dc2-truth-and-simulated-observations-data-in-postgresql-at-nersc">
+<h1>Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC<a class="headerlink" href="#accessing-dc2-truth-and-simulated-observations-data-in-postgresql-at-nersc" title="Link to this heading">#</a></h1>
+<p>Owner: <strong>Joanne Bogart <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;jrbogart">&#64;jrbogart</a></strong><br />
+Last Verified to Run: <strong>2020-11-24</strong></p>
+<p>This notebook demonstrates access to truth catalog data via the PostgreSQL database at NERSC.  Currently (May 1, 2020) two kinds of truth catalogs are available: star truth and supernova truth.  This notebook will concentrate on star truth. The minion observation database is also available, as well as the Run2.2i dr6 object catalog (dpdd columns approximating specification in <a class="reference external" href="https://lse-163.lsst.io/">LSE-163</a> only).</p>
+<p><strong>Learning objectives</strong>:</p>
+<p>After going through this notebook, you should be able to:</p>
+<ol class="arabic simple">
+<li><p>Find out what star truth and simulated observation information is available and query it.</p></li>
+<li><p>Make use of standard tools to, e.g., plot light curves</p></li>
+</ol>
+<p><strong>Logistics</strong>: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter.nersc.gov">https://jupyter.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here:
+<a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC</a></p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>See <a class="reference external" href="https://confluence.slac.stanford.edu/x/s4joE">Getting Started with PostgreSQL at NERSC</a>, especially the “Preliminaries” section</p></li>
+<li><p>Some minimal acquaintance with SQL is helpful. See the “SQL Primer” section of the above document</p></li>
+</ul>
+</section>
+<section id="conventions">
+<h2>Conventions<a class="headerlink" href="#conventions" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>SQL keywords have been written in ALL CAPS only to make them stand out in queries. (The database server ignores case in queries for keywords, column names and table names.)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">psycopg2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Make the db connection</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbname</span> <span class="o">=</span> <span class="s1">&#39;desc_dc2_drp&#39;</span>
+<span class="n">dbuser</span> <span class="o">=</span> <span class="s1">&#39;desc_dc2_drp_user&#39;</span>
+<span class="n">dbhost</span> <span class="o">=</span> <span class="s1">&#39;nerscdb03.nersc.gov&#39;</span>
+<span class="n">dbconfig</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dbname&#39;</span> <span class="p">:</span> <span class="n">dbname</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span> <span class="p">:</span> <span class="n">dbuser</span><span class="p">,</span> <span class="s1">&#39;host&#39;</span> <span class="p">:</span> <span class="n">dbhost</span><span class="p">}</span>
+<span class="n">dbconn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">**</span><span class="n">dbconfig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_schema</span> <span class="o">=</span> <span class="s1">&#39;minion_test&#39;</span>
+<span class="n">truth_schema</span> <span class="o">=</span> <span class="s1">&#39;star_truth&#39;</span>
+<span class="n">object_schema</span> <span class="o">=</span> <span class="s1">&#39;run22i_dr6_wfd_v1&#39;</span>
+<span class="c1">#truth_schema = &#39;sne_truth&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Initial steps in this notebook can be run for supernova truth instead of star truth
+just by changing the value for <code class="docutils literal notranslate"><span class="pre">truth_schema</span></code> above, but the section labeled <strong>Sample Query</strong>
+and the light curve queries need more adjustments.</p>
+<p>Convenience utilities, defined here so as not to clutter
+up the main line.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_schema_tables</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns 1-d numpy array of table names</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT DISTINCT table_name FROM information_schema.columns </span>
+<span class="s2">         WHERE table_schema=&#39;</span><span class="si">{</span><span class="n">schema</span><span class="si">}</span><span class="s2">&#39; </span>
+<span class="s2">         ORDER BY table_name&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">tables</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">records</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">tables</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_table_columns</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns a pandas dataframe with columns column_name, datatype</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT column_name, data_type FROM information_schema.columns </span>
+<span class="s2">        WHERE table_schema=&#39;</span><span class="si">{</span><span class="n">schema</span><span class="si">}</span><span class="s2">&#39; AND table_name=&#39;</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">&#39; </span>
+<span class="s2">        ORDER BY column_name&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">))</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;column_name&#39;</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">df</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another convenience routine.
+It makes use of the public function <code class="docutils literal notranslate"><span class="pre">conesearch</span></code> and provides a place to document its arguments.
+See also a <a class="reference external" href="https://github.com/LSSTDESC/DC2-PostgreSQL/blob/master/postgres-objcatalog/README_functions.md">more comprehensive list</a> of such functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">format_cone_search</span><span class="p">(</span><span class="n">coord_column</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    coord_column:  name of column of type earth in the table</span>
+<span class="sd">    ra:  ra value at center of cone (degrees)</span>
+<span class="sd">    dec:  dec value at center of cone (degrees)</span>
+<span class="sd">    radius: radius of cone (arcseconds)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    Condition to be inserted into WHERE clause for the query</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">cond</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;conesearch(</span><span class="si">{</span><span class="n">coord_column</span><span class="si">}</span><span class="s2">,&#39;</span><span class="si">{</span><span class="n">ra</span><span class="si">}</span><span class="s2">&#39;,&#39;</span><span class="si">{</span><span class="n">dec</span><span class="si">}</span><span class="s2">&#39;,&#39;</span><span class="si">{</span><span class="n">radius</span><span class="si">}</span><span class="s2">&#39;)&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cond</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Display all tables belonging to the schema.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">schemas</span> <span class="o">=</span> <span class="p">[</span><span class="n">truth_schema</span><span class="p">,</span> <span class="n">obs_schema</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">schemas</span><span class="p">:</span>
+    <span class="n">tables</span> <span class="o">=</span> <span class="n">get_schema_tables</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tables for schema </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tables</span><span class="p">:</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Display all columns belonging to a couple tables</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth_summary_info</span> <span class="o">=</span> <span class="n">get_table_columns</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">truth_schema</span><span class="p">,</span> <span class="s1">&#39;truth_summary&#39;</span> <span class="p">)</span>
+<span class="n">truth_summary_info</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;left&#39;</span><span class="p">})</span>
+<span class="n">truth_summary_info</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stellar_variability_info</span> <span class="o">=</span> <span class="n">get_table_columns</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">truth_schema</span><span class="p">,</span> <span class="s1">&#39;stellar_variability_truth&#39;</span> <span class="p">)</span>
+<span class="n">stellar_variability_info</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;left&#39;</span><span class="p">})</span>
+<span class="n">stellar_variability_info</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The most generally useful table in the obs database is <code class="docutils literal notranslate"><span class="pre">summary</span></code>.  Note ra and dec are stored in radians in this table.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs_summary_info</span> <span class="o">=</span> <span class="n">get_table_columns</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">obs_schema</span><span class="p">,</span> <span class="s1">&#39;summary&#39;</span> <span class="p">)</span>
+<span class="n">obs_summary_info</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;column_name&quot;</span><span class="p">,</span> <span class="s2">&quot;data_type&quot;</span><span class="p">],</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;text-align&#39;</span><span class="p">:</span> <span class="s1">&#39;right&#39;</span><span class="p">})</span>
+<span class="n">obs_summary_info</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sample-query">
+<h2>Sample Query<a class="headerlink" href="#sample-query" title="Link to this heading">#</a></h2>
+<p>Find delta flux readings for stars which are expected to be in the field of view for a particular visit. This sort of query returns practically instantly. In the <code class="docutils literal notranslate"><span class="pre">stellar_variability_truth</span></code> both of the columns mentioned in the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause - <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">obshistid</span></code> - are indexed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obshistid</span> <span class="o">=</span> <span class="mi">731791</span>
+<span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;stellar_variability_truth&#39;</span>
+<span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&#39;835183&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;31303590103&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;31102013522&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;31303588649&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;30317268917&#39;&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;&#39;30825472052&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;835279&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;31102039372&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;30825477672&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;31102046245&#39;&quot;</span><span class="p">,</span> 
+       <span class="s2">&quot;&#39;30321363109&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;31102051190&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;31102061342&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;30321363877&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&#39;31102061079&#39;&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;&#39;31411663457&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;31107813412&#39;&quot;</span><span class="p">]</span>
+<span class="n">id_list</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+
+<span class="n">flux_q</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT id, delta_flux FROM </span><span class="si">{</span><span class="n">truth_schema</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2"> </span>
+<span class="s2">         WHERE (obshistid=</span><span class="si">{</span><span class="n">obshistid</span><span class="si">}</span><span class="s2">)</span>
+<span class="s2">         AND id IN (</span><span class="si">{</span><span class="n">id_list</span><span class="si">}</span><span class="s2">);&quot;&quot;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">flux_q</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">dbconn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">flux_q</span><span class="p">)</span>
+    <span class="n">f_records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">df_flux</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">f_records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;delta_flux&#39;</span><span class="p">])</span> 
+<span class="n">df_flux</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="area-searches">
+<h2>Area searches<a class="headerlink" href="#area-searches" title="Link to this heading">#</a></h2>
+<p>The column <code class="docutils literal notranslate"><span class="pre">coord</span></code> in table <code class="docutils literal notranslate"><span class="pre">truth_summary</span></code> and columns with “coord” in their names in the observation summary table are of a special type <code class="docutils literal notranslate"><span class="pre">earth</span></code>.  The value is a triple of double precision numbers describing the position on a unit sphere corresponding to <code class="docutils literal notranslate"><span class="pre">ra</span></code> and <code class="docutils literal notranslate"><span class="pre">dec</span></code>. Indexes have been defined on these columns to speed up area searches.</p>
+<p>The observation with obshistid=14 has desc dithered ra, dec = (1.69831745204, -0.59856) <em>in radians</em>. Find all observations within a radius (expressed in arcseconds).</p>
+<p><strong>Warning:</strong> All ra, dec in the observation summary table are in radians. ra and dec in <code class="docutils literal notranslate"><span class="pre">truth_summary</span></code> are in degrees. <code class="docutils literal notranslate"><span class="pre">format_cone_search</span></code> needs ra, dec in degrees.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">radius</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">ra_deg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">((</span><span class="mf">1.69831745204</span><span class="p">,))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dec_deg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">((</span><span class="o">-</span><span class="mf">0.59856</span><span class="p">,))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dec</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.59856</span>
+<span class="n">cond</span> <span class="o">=</span> <span class="n">format_cone_search</span><span class="p">(</span><span class="s1">&#39;descditheredcoord&#39;</span><span class="p">,</span> <span class="n">ra_deg</span><span class="p">,</span> <span class="n">dec_deg</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+<span class="n">obs_query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT obshistid,descditheredra,descdithereddec FROM </span><span class="si">{</span><span class="n">obs_schema</span><span class="si">}</span><span class="s2">.summary</span>
+<span class="s2">            WHERE </span><span class="si">{</span><span class="n">cond</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="c1"># Uncomment the following to confirm that the query looks reasonable</span>
+<span class="c1">#print(obs_query)</span>
+<span class="k">with</span> <span class="n">dbconn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">time</span> cursor.execute(obs_query)
+    <span class="n">records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">df_obs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;obshistid&#39;</span><span class="p">,</span> <span class="s1">&#39;ra_radians&#39;</span><span class="p">,</span> <span class="s1">&#39;dec_radians&#39;</span><span class="p">])</span>
+<span class="n">df_obs</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="light-curves">
+<h2>Light curves<a class="headerlink" href="#light-curves" title="Link to this heading">#</a></h2>
+<p>Find length of light curves for variable stars near a particular location</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pick a location that probably gets lots of visits</span>
+<span class="c1"># for (70.0, -30.0, 80)  get 3; for (60.0, -30.0, 80) get 1</span>
+<span class="n">ra</span> <span class="o">=</span> <span class="mf">60.0</span>       <span class="c1"># 70.0     </span>
+<span class="n">dec</span> <span class="o">=</span> <span class="o">-</span><span class="mf">30.0</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">150</span>    
+<span class="n">tbl_spec</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT S.id, S.ra, S.dec, max(abs(V.delta_flux)),count(V.bandpass) AS visit_count </span>
+<span class="s2">           FROM </span><span class="si">{</span><span class="n">truth_schema</span><span class="si">}</span><span class="s2">.truth_summary AS S JOIN </span>
+<span class="s2">           </span><span class="si">{</span><span class="n">truth_schema</span><span class="si">}</span><span class="s2">.stellar_variability_truth AS V ON S.id=V.id &quot;&quot;&quot;</span>
+<span class="n">where</span> <span class="o">=</span> <span class="s2">&quot;WHERE &quot;</span> <span class="o">+</span> <span class="n">format_cone_search</span><span class="p">(</span><span class="s1">&#39;S.coord&#39;</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; AND S.is_variable=1 &quot;</span>
+<span class="n">group_by</span> <span class="o">=</span> <span class="s2">&quot; GROUP BY S.id,S.ra,S.dec&quot;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">tbl_spec</span> <span class="o">+</span> <span class="n">where</span> <span class="o">+</span> <span class="n">group_by</span>
+
+<span class="c1"># This takes a couple minutes to complete</span>
+<span class="k">with</span> <span class="n">dbconn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">time</span> cursor.execute(q)
+    <span class="n">records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_lengths</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;ra&#39;</span><span class="p">,</span><span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;max_delta_flux&#39;</span><span class="p">,</span><span class="s1">&#39;count&#39;</span><span class="p">])</span>
+<span class="n">df_lengths</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similar to above, but this time don’t count visits. Get the delta_flux values instead</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ra</span> <span class="o">=</span> <span class="mf">70.0</span>     
+<span class="n">dec</span> <span class="o">=</span> <span class="o">-</span><span class="mf">30.0</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">80</span> 
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;S.id&#39;</span><span class="p">,</span> <span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;bandpass&#39;</span><span class="p">,</span> <span class="s1">&#39;delta_flux&#39;</span><span class="p">]</span>
+<span class="n">col_list</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">tbl_spec</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT </span><span class="si">{</span><span class="n">col_list</span><span class="si">}</span><span class="s2"> </span>
+<span class="s2">           FROM </span><span class="si">{</span><span class="n">truth_schema</span><span class="si">}</span><span class="s2">.truth_summary AS S JOIN </span>
+<span class="s2">           </span><span class="si">{</span><span class="n">truth_schema</span><span class="si">}</span><span class="s2">.stellar_variability_truth AS V ON S.id=V.id &quot;&quot;&quot;</span>
+<span class="n">where</span> <span class="o">=</span> <span class="s2">&quot;WHERE &quot;</span> <span class="o">+</span> <span class="n">format_cone_search</span><span class="p">(</span><span class="s1">&#39;S.coord&#39;</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; and S.is_variable=1 &quot;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">tbl_spec</span> <span class="o">+</span> <span class="n">where</span>
+
+<span class="k">with</span> <span class="n">dbconn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">time</span> cursor.execute(q)
+    <span class="n">records_lc</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_cone_lcs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">records_lc</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">df_cone_lcs</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-light-curves-for-one-star">
+<h2>Plot light curves for one star<a class="headerlink" href="#plot-light-curves-for-one-star" title="Link to this heading">#</a></h2>
+<p>Pick the second object from the results of the first query in this section (id=1568931714) since max_delta_flux is large</p>
+<section id="get-the-data">
+<h3>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">#</a></h3>
+<p>Get delta_flux and time values for the plot and some summary information about the star. Use <code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span></code> clause so that data are presented conveniently for plotting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span> <span class="o">=</span> <span class="mi">1568931714</span>
+<span class="n">var_tbl</span> <span class="o">=</span> <span class="s1">&#39;stellar_variability_truth&#39;</span>
+<span class="n">lc_q</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT bandpass,mjd,delta_flux FROM </span><span class="si">{</span><span class="n">truth_schema</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">var_tbl</span><span class="si">}</span>
+<span class="s2">       WHERE id=&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39; ORDER BY bandpass, mjd;&quot;&quot;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lc_q</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">dbconn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">time</span> cursor.execute(lc_q)
+    <span class="n">lc_records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lc_records</span><span class="p">))</span>
+<span class="n">df_single_lc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">lc_records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bandpass&#39;</span><span class="p">,</span><span class="s1">&#39;mjd&#39;</span><span class="p">,</span><span class="s1">&#39;delta_flux&#39;</span><span class="p">])</span>
+<span class="n">df_single_lc</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sum_tbl</span> <span class="o">=</span> <span class="s1">&#39;truth_summary&#39;</span>
+<span class="n">sum_fluxes</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;flux_</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]])</span>
+<span class="n">sum_q</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT ra,dec,</span><span class="si">{</span><span class="n">sum_fluxes</span><span class="si">}</span><span class="s2"> FROM </span><span class="si">{</span><span class="n">truth_schema</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">sum_tbl</span><span class="si">}</span><span class="s2"> </span>
+<span class="s2">         WHERE id=&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39;;&quot;&quot;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sum_q</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">dbconn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">time</span> cursor.execute(sum_q)
+    <span class="n">sum_record</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+<span class="n">lc_ra</span> <span class="o">=</span> <span class="n">sum_record</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">lc_dec</span> <span class="o">=</span> <span class="n">sum_record</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ra=</span><span class="si">{</span><span class="n">lc_ra</span><span class="si">}</span><span class="s1">, dec=</span><span class="si">{</span><span class="n">lc_dec</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting">
+<h3>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.time</span> <span class="kn">import</span> <span class="n">Time</span>
+<span class="k">def</span> <span class="nf">plot_band_lc</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fluxes</span><span class="p">),</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_level</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">yvalue</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">yvalue</span><span class="p">,</span> <span class="n">yvalue</span><span class="p">]),</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">format_title</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">band</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  
+    <span class="k">if</span> <span class="n">band</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Per-band light curves for star </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1"> at (ra,dec)=(</span><span class="si">{</span><span class="n">ra</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">dec</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Light curve for star </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">, band=</span><span class="si">{</span><span class="n">band</span><span class="si">}</span><span class="s1"> at (ra,dec)=(</span><span class="si">{</span><span class="n">ra</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">dec</span><span class="si">}</span><span class="s1">)&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_object</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">the_data</span><span class="p">,</span> <span class="n">band</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Plot r, g and i light &#39;curves&#39; (delta_flux as scatter plot) for an object</span>
+<span class="sd">    or plot only requested band</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    title : string</span>
+<span class="sd">    the_data : data frame which must include columns filtername, obsstart, mag</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">good_d</span> <span class="o">=</span> <span class="n">the_data</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">the_data</span><span class="o">.</span><span class="n">delta_flux</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">)]</span>
+    <span class="n">red_d</span> <span class="o">=</span> <span class="n">good_d</span><span class="p">[(</span><span class="n">good_d</span><span class="o">.</span><span class="n">bandpass</span><span class="o">==</span><span class="s2">&quot;r&quot;</span><span class="p">)]</span>
+    <span class="n">green_d</span> <span class="o">=</span> <span class="n">good_d</span><span class="p">[(</span><span class="n">good_d</span><span class="o">.</span><span class="n">bandpass</span><span class="o">==</span><span class="s2">&quot;g&quot;</span><span class="p">)]</span>
+    <span class="n">i_d</span> <span class="o">=</span> <span class="n">good_d</span><span class="p">[(</span><span class="n">good_d</span><span class="o">.</span><span class="n">bandpass</span><span class="o">==</span><span class="s2">&quot;i&quot;</span><span class="p">)]</span>
+    <span class="c1">#print(&quot;red data shape: &quot;, red_e.shape, &quot;   green data shape: &quot;, green_e.shape, &quot;  i data shape: &quot;, i_e.shape)</span>
+    <span class="n">fix</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Julian date&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Delta flux&#39;</span><span class="p">)</span>
+
+    <span class="n">params_r</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;marker&#39;</span> <span class="p">:</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span> <span class="p">:</span> <span class="s1">&#39;r band&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">}</span>
+    <span class="n">params_g</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;marker&#39;</span> <span class="p">:</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span> <span class="p">:</span> <span class="s1">&#39;g band&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">}</span>
+    <span class="n">params_i</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;marker&#39;</span> <span class="p">:</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span> <span class="p">:</span> <span class="s1">&#39;i band&#39;</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span> <span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">}</span>
+    <span class="c1">#print(&#39;In plot_object printing i-band values&#39;)</span>
+    <span class="c1">#for ival in list(i_d[&#39;mag&#39;]): print(ival)</span>
+    <span class="k">if</span> <span class="n">band</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">band</span><span class="o">==</span><span class="s1">&#39;r&#39;</span><span class="p">:</span>
+        <span class="n">plot_band_lc</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">red_d</span><span class="p">[</span><span class="s1">&#39;mjd&#39;</span><span class="p">]),</span> <span class="nb">list</span><span class="p">(</span><span class="n">red_d</span><span class="p">[</span><span class="s1">&#39;delta_flux&#39;</span><span class="p">]),</span> <span class="n">params_r</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">band</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">band</span><span class="o">==</span><span class="s1">&#39;g&#39;</span><span class="p">:</span>
+        <span class="n">plot_band_lc</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">green_d</span><span class="p">[</span><span class="s1">&#39;mjd&#39;</span><span class="p">]),</span> <span class="nb">list</span><span class="p">(</span><span class="n">green_d</span><span class="p">[</span><span class="s1">&#39;delta_flux&#39;</span><span class="p">]),</span> <span class="n">params_g</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">band</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">band</span><span class="o">==</span><span class="s1">&#39;i&#39;</span><span class="p">:</span>
+        <span class="n">plot_band_lc</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">i_d</span><span class="p">[</span><span class="s1">&#39;mjd&#39;</span><span class="p">]),</span> <span class="nb">list</span><span class="p">(</span><span class="n">i_d</span><span class="p">[</span><span class="s1">&#39;delta_flux&#39;</span><span class="p">]),</span> <span class="n">params_i</span><span class="p">)</span>
+    <span class="c1">#plot_level(axes, coadd_mag[&#39;r&#39;], {&#39;label&#39; : &#39;r coadd mag&#39;, &#39;color&#39; : &#39;red&#39;})</span>
+    <span class="c1">#plot_level(axes, coadd_mag[&#39;g&#39;], {&#39;label&#39; : &#39;g coadd mag&#39;, &#39;color&#39; : &#39;green&#39;})</span>
+    <span class="c1">#plot_level(axes, coadd_mag[&#39;i&#39;], {&#39;label&#39; : &#39;i coadd mag&#39;, &#39;color&#39; : &#39;orange&#39;})</span>
+    <span class="k">if</span> <span class="n">band</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">format_title</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">lc_ra</span><span class="p">,</span> <span class="n">lc_dec</span><span class="p">,</span> <span class="n">band</span><span class="p">)</span>
+    <span class="n">plot_object</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">df_single_lc</span><span class="p">,</span> <span class="n">band</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="is-it-in-the-object-table">
+<h3>Is it in the object table?<a class="headerlink" href="#is-it-in-the-object-table" title="Link to this heading">#</a></h3>
+<p>First get truth information for our chosen star, then try to find a match, restricting to point sources within a few arcseconds</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">truth_q</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT ra,dec,flux_g,flux_r,flux_i from </span><span class="si">{</span><span class="n">truth_schema</span><span class="si">}</span><span class="s2">.truth_summary where id=&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">truth_q</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">dbconn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">time</span> cursor.execute(truth_q)
+    <span class="n">truth_records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="c1">#truth_records</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">truth_records</span><span class="p">))</span>
+<span class="n">truth_df</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">truth_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">truth_records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;flux_g&#39;</span><span class="p">,</span> <span class="s1">&#39;flux_r&#39;</span><span class="p">,</span> <span class="s1">&#39;flux_i&#39;</span><span class="p">])</span>
+<span class="n">truth_df</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">truth_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;objectid&#39;</span><span class="p">,</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;psflux_g&#39;</span><span class="p">,</span><span class="s1">&#39;psflux_r&#39;</span><span class="p">,</span> <span class="s1">&#39;psflux_i&#39;</span><span class="p">]</span>
+<span class="n">col_spec</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+<span class="n">obj_q</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;SELECT </span><span class="si">{</span><span class="n">col_spec</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="n">object_schema</span><span class="si">}</span><span class="s2">.dpdd_object  WHERE extendedness &lt; 0.5 AND &quot;&quot;&quot;</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">20</span>   <span class="c1"># in arcseconds</span>
+<span class="n">obj_q</span> <span class="o">+=</span> <span class="n">format_cone_search</span><span class="p">(</span><span class="s1">&#39;coord&#39;</span><span class="p">,</span> <span class="n">lc_ra</span><span class="p">,</span> <span class="n">lc_dec</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">obj_q</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">dbconn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+    <span class="o">%</span><span class="k">time</span> cursor.execute(obj_q)
+    <span class="n">obj_records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="n">obj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">obj_records</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="n">obj_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "desc-python",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-python'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="postgres_object_2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Accessing DC2 data in PostgreSQL at NERSC part 2</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="truth_gcr_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Accessing Truth Catalog Information</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conventions">Conventions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-query">Sample Query</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#area-searches">Area searches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#light-curves">Light curves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-light-curves-for-one-star">Plot light curves for one star</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-data">Get the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-it-in-the-object-table">Is it in the object table?</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

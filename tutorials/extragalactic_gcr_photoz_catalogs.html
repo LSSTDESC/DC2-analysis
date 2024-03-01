@@ -1,0 +1,1002 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>cosmoDC2 extragalactic catalog photometric redshifts &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/extragalactic_gcr_photoz_catalogs';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/extragalactic_gcr_photoz_catalogs.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plot N versus z Distributions in the extragalactic catalogs" href="extragalactic_gcr_redshift_dist.html" />
+    <link rel="prev" title="Extragalactic catalogs: mass relations" href="extragalactic_gcr_mass_relations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/extragalactic_gcr_photoz_catalogs.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/extragalactic_gcr_photoz_catalogs.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/extragalactic_gcr_photoz_catalogs.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>cosmoDC2 extragalactic catalog photometric redshifts</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">cosmoDC2 extragalactic catalog photometric redshifts</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-catalog">Load the catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photo-z-access-methods">Photo-z access methods</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#flexzboost-machine-learning-photo-z-s">FlexZBoost: Machine Learning photo-z’s</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cosmodc2-extragalactic-catalog-photometric-redshifts">
+<h1>cosmoDC2 extragalactic catalog photometric redshifts<a class="headerlink" href="#cosmodc2-extragalactic-catalog-photometric-redshifts" title="Link to this heading">#</a></h1>
+<p>Owner:<strong>Sam Schmidt <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;sschmidt23">&#64;sschmidt23</a></strong></p>
+<p>Last Verifed to Run: <strong>2020-06-09</strong> (by &#64;sschmidt23)</p>
+<p>This notebook will show you how to access the “add-on” columns that provide the photometric redshift (photo-z) information for the extragalactic catalog (cosmoDC2_v1.1.4_image).</p>
+<p><strong>Learning objectives</strong>: After going through this notebook, you should be able to:</p>
+<ol class="arabic simple">
+<li><p>Load and efficiently access a DC2 extragalactic catalog (+ photo-z) via the GCR for both a template based and machine learning-based photo-z methods</p></li>
+<li><p>Understand how the photo-z data are stored / represented</p></li>
+<li><p>Look at a few examples of galaxy photo-z distributions</p></li>
+</ol>
+<p><strong>Logistics</strong>: This notebook is intended to be run through the Jupyter Lab NERSC interface available here: <a class="reference external" href="https://jupyter.nersc.gov/">https://jupyter.nersc.gov/</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC</a></p>
+<p><strong>Other notes</strong>:
+If you restart your kernel, or if it automatically restarts for some reason, all imports and variables will become undefined so, you will have to re-run everything.
+Several photo-z catalogs were renamed starting with GCRCatalogs version 0.18.0, so check that GCRCatalogs is at least this recent when running the notebook.</p>
+<p>This notebook will be very similar to the earlier tutorial on useing the object catalogs, so if you have worked through that example much of this will be very familiar.</p>
+<p>A rendered version of this notebook is available at:<br>
+<a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_photoz_catalogs.nbconvert.ipynb">https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/blob/rendered/tutorials/extragalactic_gcr_photoz_catalogs.nbconvert.ipynb</a> <br>
+if you want to follow along but do not wish to actually run the notebook live at NERSC.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="kn">from</span> <span class="nn">GCR</span> <span class="kn">import</span> <span class="n">GCRQuery</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="load-the-catalog">
+<h2>Load the catalog<a class="headerlink" href="#load-the-catalog" title="Link to this heading">#</a></h2>
+<p>Loading the cosmoDC2_v1.1.4_image catalog with photo-z add-on. The catalog name is <code class="docutils literal notranslate"><span class="pre">cosmoDC2_v1.1.4_image_with_photoz_v1</span></code>.
+This catalog contains photometric redshifts that were computed with the <code class="docutils literal notranslate"><span class="pre">BPZ</span></code> template-based code (<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2000ApJ...536..571B/abstract">https://ui.adsabs.harvard.edu/abs/2000ApJ…536..571B/abstract</a>).  Later in the notebook we will compare these results to photo-z’s produced with a machine learning based code.</p>
+<p>This catalog is a composite of three large catalogs, so it may take a minute or more for the catalog instance to initiate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">cat</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;cosmoDC2_v1.1.4_small_with_photozs_v1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="photo-z-access-methods">
+<h2>Photo-z access methods<a class="headerlink" href="#photo-z-access-methods" title="Link to this heading">#</a></h2>
+<p>There are several photo-z related quantities available in the catalog, a summary of which can be found on this Confluence page:
+<a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/List+of+available+DC2+catalogs+created+by+PhotoZ">https://confluence.slac.stanford.edu/display/LSSTDESC/List+of+available+DC2+catalogs+created+by+PhotoZ</a></p>
+<p>There are photo-z estimates in the form of both a single number “point estimate” for each galaxy, as well as a 1D redshift probability density function (PDF) representing the posterior probability of the galaxy being at a given redshift calculated on a specific redshift grid.</p>
+<p>There are multiple single point estimates:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code>: the mode of the redshift PDF, the highest peak of the posterior probability</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_mean</span></code>: the weighted mean of the redshift PDF.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_median</span></code>: the redshift where the redshift CDF is equal to 0.5.</p></li>
+</ol>
+<p>The redshift pdf is stored in the multi-valued column <code class="docutils literal notranslate"><span class="pre">photoz-pdf</span></code>.  The grid of redshifts at which the posterior probability is evaluated is stored in the catalog with the special attribute of <code class="docutils literal notranslate"><span class="pre">photoz_pdf_bin_centers</span></code>.  You can access this attribute for catalog cat with something like <code class="docutils literal notranslate"><span class="pre">zgrid</span> <span class="pre">=</span> <span class="pre">cat.photoz_pdf_bin_centers</span></code></p>
+<p>There are three additional columns that can be used as various quality flags:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_odds</span></code> (see Benitez 2000) is a measure of the integrated amount or probaility within a fixed distance around <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code>.  If the redshift posterior is single peaked and narrow this number will be close to 1.0, if the posterior is multi-peaked and/or broad it is likely to be smaller.  Thus, high values of <code class="docutils literal notranslate"><span class="pre">photoz_odds</span></code> can be used as an indicator of photo-z quality.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">photoz_mode_ml_red_chi2</span></code> is the reduced chi-squared value for the maximum likelihood estimate of the best fit template at the photo-z mode.  If this chi-squared value is very large, it indicates that none of the SED templates employed by the photo-z code were good fits to the observed colors, and thus the redshift may be suspect. High values may also occur for very bright galaxies where photometric errors are small and thus chi-squared values can grow large.</p></li>
+</ol>
+<p>We will demonstrate access methods for several of these quantities in detail. You can notice that all the photo-z columns have a prefix of <code class="docutils literal notranslate"><span class="pre">photoz_</span></code>.</p>
+<p>Let’s first make sure that these columns are indeed available.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># uncomment the line below to see a list of *all* available quantities in the composite catalog</span>
+<span class="c1"># print(&#39;\n&#39;.join(sorted(cat.list_all_quantities(False))))</span>
+<span class="c1"># or, just print the columns associated with photoz:</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">q</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">cat</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">()</span> <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;photoz_&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;photoz_mask&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_mean&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_odds&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_mode_ml_red_chi2&#39;</span><span class="p">,</span><span class="s1">&#39;mag_i_lsst&#39;</span><span class="p">,</span><span class="s1">&#39;mag_i_photoz&#39;</span><span class="p">,</span><span class="s1">&#39;redshift&#39;</span><span class="p">],</span>
+                           <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;healpix_pixel==9816&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, only a subset of the full cosmoDC2_v1.1.4_image and cosmoDC2_v1.1.4_small entries have photo-z’s computed:  the photo-z group used a simple model to create mock photometry with 10-year depth magnitude uncertainties, added these uncertainties to the fluxes to compute “observed” magnitudes and errors (which are stored in the catalog as <code class="docutils literal notranslate"><span class="pre">mag_{ugrizy}_photoz</span></code> and <code class="docutils literal notranslate"><span class="pre">mag_err_{ugrizy}_photoz</span></code>.  Only objects with <code class="docutils literal notranslate"><span class="pre">mag_i_photoz</span> <span class="pre">&lt;</span> <span class="pre">26.5</span></code> had photometric redshifts calculated.<br></p>
+<p>For efficient loading of the chunks of the catalog, the <code class="docutils literal notranslate"><span class="pre">cosmoDC2_v1.1.4_image_with_photozs_v1</span></code> and <code class="docutils literal notranslate"><span class="pre">cosmoDC2_v1.1.4_small_with_photozs_v1</span></code> catalogs load from multiple files with different numbers of rows.  In order to properly match up the subset for which photo-z’s have been computed, you will need the
+<code class="docutils literal notranslate"><span class="pre">photoz_mask</span></code> quantity,and you will have to mask the cosmoDC2_v1.1.4 quantities using this mask, which is a simple boolean flag.</p>
+<p>As an example, redshift contains almost ten times as many entries as photo-z mode before masking, but after masking the arrays are now properly the same length, and are properly matched within the data.  In our case we will have to mask mag_i_lsst, mag_i_photoz, and redshift.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">redshift</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;redshift&#39;</span><span class="p">]</span>
+<span class="n">photoz_mask</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mask&#39;</span><span class="p">]</span>
+<span class="n">photoz_mode</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">]</span>
+<span class="n">mag_i_photoz</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;mag_i_photoz&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">redshift</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">photoz_mode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">redshift</span> <span class="o">=</span> <span class="n">redshift</span><span class="p">[</span><span class="n">photoz_mask</span><span class="p">]</span>
+<span class="n">mag_i_photoz</span> <span class="o">=</span> <span class="n">mag_i_photoz</span><span class="p">[</span><span class="n">photoz_mask</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">redshift</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s put things in a pandas dataframe for simplicity.  Note that to load the photoz_pdf arrays, it’s best to do so as a list:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pzdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;specz&#39;</span><span class="p">:</span><span class="n">redshift</span><span class="p">,</span><span class="s1">&#39;zmode&#39;</span><span class="p">:</span><span class="n">photoz_mode</span><span class="p">,</span><span class="s1">&#39;zmean&#39;</span><span class="p">:</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mean&#39;</span><span class="p">],</span><span class="s1">&#39;odds&#39;</span><span class="p">:</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_odds&#39;</span><span class="p">],</span><span class="s1">&#39;ml_chi2&#39;</span><span class="p">:</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_mode_ml_red_chi2&#39;</span><span class="p">],</span>
+          <span class="s1">&#39;mag_i_photoz&#39;</span><span class="p">:</span><span class="n">mag_i_photoz</span><span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pzdict</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">magcut</span> <span class="o">=</span> <span class="mf">23.6</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start with a simple plot of the point estimate photoz_mode vs true_redshift, and compare the full mag_i_photoz&lt;26.5 sample to a higher S/N cut of mag_i_photoz&lt;23.6 for both photoz_mode and photoz_mean:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brightmask</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;mag_i_photoz&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">magcut</span><span class="p">)</span>
+<span class="n">brightdf</span><span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">brightmask</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;i&lt;26.5&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;i&lt;</span><span class="si">{</span><span class="n">magcut</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;photoz_mode distribution&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;photoz_mode&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;zmean&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;i&lt;26.5&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmean&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;i&lt;</span><span class="si">{</span><span class="n">magcut</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;photoz_mean distribution&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;photoz_mean&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see several things: first, the photo-z’s for the 25.&lt;mag_i_photoz&lt;26.5 (shown in blue) are not very good.  At low signal-to-noise in the magnitudes, the fits for the photometric redshifts become more and more uncertain.  For cosmology sample photo-z’s, a general rule is that you want S/N in at least a few bands to be &gt;~20 (you might be able to get away with S/N of around 10 but the photo-z’s will be less reliable).  For our 10-year depth error simulation, a S/N in i-band corresponds to an i magnitude of roughly 25, and the points shown in red show a much better agreement with the specz=photo-z diagonal in the above plot, with some obvious areas of degeneracy.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">photoz_odds</span></code> parameter is the integrated amount of posterior probability within a fixed interval around the mode of PDF.  If the PDF is narrow and unimodal this value will be close to or equal to 1.0, if the posterior probability is broad and or multimodal the value of ODDS will decrease.  Thus, it can be used as a quality cut.  Let’s plot the i&lt;25 galaxies and highlight which subset has high values of ODDS.</p>
+<p>Similarly, the quantity <code class="docutils literal notranslate"><span class="pre">photoz_mode_ml_red_chi2</span></code>, the reduced chi^2 of the best-fit template at the maximum likelihood redshift, may be used as a quality indicator: if the chi^2 is large even for the best template, it is an indication that none of the templates matched the photometry.  Let’s plot the subset of i&lt;25.0 galaxies with high chi^2 and examine their distribution:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oddscut</span> <span class="o">=</span> <span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;odds&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.99</span><span class="p">)</span>
+<span class="n">chicut</span> <span class="o">=</span> <span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;ml_chi2&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">20.</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;all i&lt;</span><span class="si">{</span><span class="n">magcut</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">][</span><span class="n">oddscut</span><span class="p">],</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">][</span><span class="n">oddscut</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;i&lt;</span><span class="si">{</span><span class="n">magcut</span><span class="si">}</span><span class="s2"> and ODDS&gt;0.8&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;photoz_mode&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;effect of photoz_odds cut&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;all i&lt;23.6&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">][</span><span class="n">chicut</span><span class="p">],</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">][</span><span class="n">chicut</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;i&lt;23.6 and $\chi^2$&gt;20&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;photoz_mode&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;high photoz_ml_red_chi2 cut&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that a <code class="docutils literal notranslate"><span class="pre">photoz_odds</span></code> cut does, indeed remove a good deal of the outliers, but not all of them, and it also removes a good deal of the “good” galaxies with point estimates near the true redshift.  So, caution is warranted when using ODDS.</p>
+<p>Galaxies with a very high value of  <code class="docutils literal notranslate"><span class="pre">photoz_mode_ml_red_chi2</span></code> are common at redshifts ~1-1.5.  Some have reasonable redshift predictions, but we notice that many of the large outlier islands have these high chi^2 values.  Many of these galaxies will still have a high ODDS value, so a combination of ODDS and photoz_ml_red_chi2 may eliminate more outliers  However, in both cases, this is at the expense of also eliminating some good galaxies, and the potential to introduce biases in overall distributions: both ODDS and chi^2 are correlated with template/SED type, so cuts on these values can affect the distribution of the galaxies selected. Keep this in mind if you attempt to use chi^2 as a mask in your samples.</p>
+<p>We also notice slight differences between the outlier behavior from the photoz_mode vs the photoz_mean estimate.  We will look at those degeneracies and the reasons for those differences now by examining a small number of the redshift posteriors. We’ll draw from the full i&lt;26.5 sample to show more dramatic examples that can arise with low S/N, as these better illustrate the point.  Note that switching to the i&lt;25.0 sample would result in many more unimodal and localized PDFs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># NOTE: Need to set `only_use_master_attr` to False to allow accessing add-on attributes.  </span>
+<span class="c1">#This cell is a temporary fix until this is corrected in a future gcr-catalogs version</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">only_use_master_attr</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">zgrid</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">photoz_pdf_bin_centers</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">pdf</span><span class="p">,</span> <span class="n">z_peak</span><span class="p">,</span> <span class="n">z_mean</span><span class="p">,</span> <span class="n">ax_this</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">][::</span><span class="mi">10000</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">][::</span><span class="mi">10000</span><span class="p">],</span>
+                                        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;zmean&#39;</span><span class="p">][::</span><span class="mi">10000</span><span class="p">],</span> <span class="n">ax</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">ax_this</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zgrid</span><span class="p">,</span> <span class="n">pdf</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;p(z)&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">z_peak</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_color</span><span class="p">(),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">z_mean</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mean&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$z$&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(z)$&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For narrow, unimodal, and relatively symmetric distributions like those in the top row, <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> (the maximum value of the redshift posterior) and <code class="docutils literal notranslate"><span class="pre">photoz_mean</span></code> (the redshift-weighted average value of the photo-z posterior) estimates will be very close in value.  However, for asymmetric, broad, and multimodal distributions we see that the values of z_mode and z_mean differ, and that for bimodal distributions the z_mean estimate will fall between the two peaks.  This is why the plot of photoz_mode vs redshift shows “islands” of degeneracy in positions off of the zmode == redshift diagonal at the redshift of the secondary peak, while photoz_mode shows values spread out between the positions of the two peaks, where the mean varies depending on the relative height of the two peaks.  Neither is “correct”, what the differences in the point estimates are showing is that a single number is not able to capture the complexity of the full PDF.</p>
+<p>Speaking of full PDFs, another common use case for photo-z’s is to estimate overall redshift disrtibutions for a set of objects.  A common (though technically incorrect, see papers by Alex Malz for details) way of doing this is to sum the redshift posteriors.  Let’s do that for our i&lt;25.0 sample and compare to the true redshift distribution:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">nzsum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">])</span>
+<span class="n">szbins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">3.01</span><span class="p">,</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">bins</span><span class="o">=</span><span class="n">szbins</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;true redshift distribution&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zgrid</span><span class="p">,</span><span class="mi">5</span><span class="o">*</span><span class="n">nzsum</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;i&lt;</span><span class="si">{</span><span class="n">magcut</span><span class="si">}</span><span class="s2"> sum p(z)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;N(z)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see rough agreement with the true distribution with some obvious departures, and an overprediction at high redshift.  High redshift photo-z’s in this catalog are known to have issues due to the way that the templates were constructed, using a method that did not optimize the UV portions of the template SEDs that shift into the LSST bands at higher redshifts. The sorts of systematics from such “template mismatch” are likely to occur in real LSST data due to the difficulty in obtaining representative data.  With the caveat of some expected systematics, let’s look at an example tomographic bin, selecting galaxies based on their photoz_mode value to be between 0.4 and 0.6:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tomocut</span> <span class="o">=</span> <span class="p">((</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">0.6</span><span class="p">))</span>
+<span class="n">tomonzsum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">][</span><span class="n">tomocut</span><span class="p">])</span>
+<span class="n">tomobins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">3.01</span><span class="p">,</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">][</span><span class="n">tomocut</span><span class="p">],</span><span class="n">bins</span><span class="o">=</span><span class="n">tomobins</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;forestgreen&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;true redshifts for tomo bin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zgrid</span><span class="p">,</span><span class="mf">2.</span><span class="o">*</span><span class="n">tomonzsum</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;0.4&lt; zmode &lt;=0.6 sum p(z)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;N(z)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#plt.xlim(0.,1.25)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>we see some differences in the shape of the true N(z) and the summed p(z), but general agreement.  However, if we choose an area more subject to degeneracy, we will see problems.  At low redshifts near z~0.2 the Balmer Break and the Lyman Break can give similar colors in the LSST filters, and we often see confusion with higher redshifts</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tomocut</span> <span class="o">=</span> <span class="p">((</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">0.3</span><span class="p">))</span>
+<span class="n">tomonzsum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">][</span><span class="n">tomocut</span><span class="p">])</span>
+<span class="n">tomobins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">3.01</span><span class="p">,</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">][</span><span class="n">tomocut</span><span class="p">],</span><span class="n">bins</span><span class="o">=</span><span class="n">tomobins</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;forestgreen&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;true redshifts for tomo bin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zgrid</span><span class="p">,</span><span class="mf">2.</span><span class="o">*</span><span class="n">tomonzsum</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;0.1&lt; zmode &lt;=0.3 sum p(z)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;N(z)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>While the main peak of the summed p(z) shows agreement with the true redshifts, we do see a non-insignificant contamination of high redshift objects that have been mistaken for low redshift.  This serves as a reminder that photo-z distributions, especially those with additional tomographic selections, are likely to have some biases that will need to be corrected.  The photo-z group is working on spatial correlation based methods to meaure and correct these biases for the main cosmology cases, though that is beyond the subject of this tutorial.</p>
+<p>As we’ve wrapped up the first part of the demo, let’s delete our pandas dataframe to free up some memory:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">del</span> <span class="n">df</span>
+<span class="k">del</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="flexzboost-machine-learning-photo-z-s">
+<h1>FlexZBoost: Machine Learning photo-z’s<a class="headerlink" href="#flexzboost-machine-learning-photo-z-s" title="Link to this heading">#</a></h1>
+<p>Now, let’s look at photo-z’s computed using a machine learning algorithm, namely a conditional density estimate-based FlexZBoost (see <a class="reference external" href="https://projecteuclid.org/euclid.ejs/1499133755">https://projecteuclid.org/euclid.ejs/1499133755</a> or <a class="reference external" href="https://arxiv.org/abs/2001.03621">https://arxiv.org/abs/2001.03621</a> for more detail on this method).  This method was trained with a complete and representative (and thus unrealistic for real data) subsample of the DC2 data that extended to i&lt;25.0, and provides excellent photo-z’s for the i&lt;25.0 galaxies.  The structure of the catalog is exactly the same as the one for the template-based photo-z’s produced with the BPZ code that was used above.  However, as there are no templates, the <code class="docutils literal notranslate"><span class="pre">photoz_ml_red_chi2</span></code> quantity is not applicable, and has 0.0 in every entry.  Let’s load the catalog and make the same <code class="docutils literal notranslate"><span class="pre">photoz_mode</span></code> and <code class="docutils literal notranslate"><span class="pre">photoz_mean</span></code> plots that we did for the BPZ photo-z’s:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">cat2</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s2">&quot;cosmoDC2_v1.1.4_small_with_photozs_flexzboost_v1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data2</span> <span class="o">=</span> <span class="n">cat2</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;photoz_mask&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_mean&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_odds&#39;</span><span class="p">,</span><span class="s1">&#39;photoz_mode_ml_red_chi2&#39;</span><span class="p">,</span><span class="s1">&#39;mag_i_lsst&#39;</span><span class="p">,</span><span class="s1">&#39;mag_i_photoz&#39;</span><span class="p">,</span><span class="s1">&#39;redshift&#39;</span><span class="p">],</span>
+                           <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;healpix_pixel==9816&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We need to repeat the same masking steps that we performed for the BPZ data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fz_redshift</span> <span class="o">=</span> <span class="n">data2</span><span class="p">[</span><span class="s1">&#39;redshift&#39;</span><span class="p">]</span>
+<span class="n">fz_photoz_mask</span> <span class="o">=</span> <span class="n">data2</span><span class="p">[</span><span class="s1">&#39;photoz_mask&#39;</span><span class="p">]</span>
+<span class="n">fz_photoz_mode</span> <span class="o">=</span> <span class="n">data2</span><span class="p">[</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">]</span>
+<span class="n">fz_mag_i_photoz</span> <span class="o">=</span> <span class="n">data2</span><span class="p">[</span><span class="s1">&#39;mag_i_photoz&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fz_redshift</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fz_photoz_mode</span><span class="p">))</span>
+<span class="n">fz_redshift</span> <span class="o">=</span> <span class="n">fz_redshift</span><span class="p">[</span><span class="n">fz_photoz_mask</span><span class="p">]</span>
+<span class="n">fz_mag_i_photoz</span> <span class="o">=</span> <span class="n">fz_mag_i_photoz</span><span class="p">[</span><span class="n">fz_photoz_mask</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fz_redshift</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And, we see that the numbers are all identical to those from BPZ, which is a good sanity check.  Now, let’s put the data in a dataframe and repeat a couple of the plots:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pzdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;specz&#39;</span><span class="p">:</span><span class="n">fz_redshift</span><span class="p">,</span><span class="s1">&#39;zmode&#39;</span><span class="p">:</span><span class="n">fz_photoz_mode</span><span class="p">,</span><span class="s1">&#39;zmean&#39;</span><span class="p">:</span><span class="n">data2</span><span class="p">[</span><span class="s1">&#39;photoz_mean&#39;</span><span class="p">],</span><span class="s1">&#39;odds&#39;</span><span class="p">:</span><span class="n">data2</span><span class="p">[</span><span class="s1">&#39;photoz_odds&#39;</span><span class="p">],</span><span class="s1">&#39;ml_chi2&#39;</span><span class="p">:</span><span class="n">data2</span><span class="p">[</span><span class="s1">&#39;photoz_mode_ml_red_chi2&#39;</span><span class="p">],</span>
+          <span class="s1">&#39;mag_i_photoz&#39;</span><span class="p">:</span><span class="n">fz_mag_i_photoz</span><span class="p">}</span>
+<span class="n">fz_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pzdict</span><span class="p">)</span>
+<span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">data2</span><span class="p">[</span><span class="s1">&#39;photoz_pdf&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fz_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brightmask</span> <span class="o">=</span> <span class="p">(</span><span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;mag_i_photoz&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="n">magcut</span><span class="p">)</span>
+<span class="n">fz_brightdf</span><span class="o">=</span> <span class="n">fz_df</span><span class="p">[</span><span class="n">brightmask</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;i&lt;26.5&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;i&lt;</span><span class="si">{</span><span class="n">magcut</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;FlexZBoost photoz_mode distribution&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;photoz_mode&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;zmean&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;i&lt;26.5&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;zmean&#39;</span><span class="p">],</span><span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;i&lt;</span><span class="si">{</span><span class="n">magcut</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;FlexZBoost photoz_mean distribution&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;photoz_mean&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The bright sample looks extremely good, with almost no catastrophic outliers, while the faint galaxies extending to i&lt;26.5 show some periodic systematics in the photoz_mode values. This is due to how FlexZBoost parameterizes the PDF as a set of 30 cosine basis functions, and at low S/N objects tend to have peaks at the nodes of these basis functions.  The training data for FlexZBoost extended down to i&lt;25.0, so the combination of lower S/N and lack of training data below i&gt;25.0 combines to give very unreliable photo-z’s for those i&gt;25.0 galaxies.  Another good reminder to not trust machine learning methods in regions where the data must be extrapolated beyond the training data.</p>
+<p>But, things should look good down to i=25.0.  Let’s plot the same 10 PDFs that we did for BPZ. Note that FlexZBoost uses a slightly different redshift grid than BPZ, so we’ll have to grab that:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># NOTE: Need to set `only_use_master_attr` to False to allow accessing add-on attributes.  </span>
+<span class="c1">#This cell is a temporary fix until this is corrected in a future gcr-catalogs version</span>
+<span class="n">cat2</span><span class="o">.</span><span class="n">only_use_master_attr</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">fz_zgrid</span> <span class="o">=</span> <span class="n">cat2</span><span class="o">.</span><span class="n">photoz_pdf_bin_centers</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">pdf</span><span class="p">,</span> <span class="n">z_peak</span><span class="p">,</span> <span class="n">z_mean</span><span class="p">,</span> <span class="n">ax_this</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">][::</span><span class="mi">10000</span><span class="p">],</span> <span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">][::</span><span class="mi">10000</span><span class="p">],</span>
+                                        <span class="n">fz_df</span><span class="p">[</span><span class="s1">&#39;zmean&#39;</span><span class="p">][::</span><span class="mi">10000</span><span class="p">],</span> <span class="n">ax</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">ax_this</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fz_zgrid</span><span class="p">,</span> <span class="n">pdf</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;p(z)&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">z_peak</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_color</span><span class="p">(),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mode&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">z_mean</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;photoz_mean&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;$z$&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$p(z)$&#39;</span><span class="p">);</span>
+    <span class="n">ax_this</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For 9 out of 10 we see nice compact p(z), though one galaxy has a Uniform PDF, meaning that FlexZBoost thinks this galaxy could be at any redshift.</p>
+<p>Now, let’s look at the summed PDFs as an estimate of the redshift distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">nzsum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">])</span>
+<span class="n">szbins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.005</span><span class="p">,</span><span class="mf">3.005</span><span class="p">,</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">],</span><span class="n">bins</span><span class="o">=</span><span class="n">szbins</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;true redshift distribution&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fz_zgrid</span><span class="p">,</span><span class="mf">.05</span><span class="o">*</span><span class="n">nzsum</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;i&lt;</span><span class="si">{</span><span class="n">magcut</span><span class="si">}</span><span class="s2"> sum p(z)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;N(z)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;FlexZBoost N(z) and p(z) sum&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see <em>very</em> good agreement between the summed p(z) and the true N(z)!  Machine learning methods do very well when you give them representative data, so this is not unexpected.  Now, let’s show the tomographic bins:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fztomocut</span> <span class="o">=</span> <span class="p">((</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">0.6</span><span class="p">))</span>
+<span class="n">fz_tomonzsum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">][</span><span class="n">fztomocut</span><span class="p">])</span>
+<span class="n">tomobins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">.005</span><span class="p">,</span><span class="mf">3.005</span><span class="p">,</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">][</span><span class="n">fztomocut</span><span class="p">],</span><span class="n">bins</span><span class="o">=</span><span class="n">tomobins</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;forestgreen&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;true redshifts for tomo bin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fz_zgrid</span><span class="p">,</span><span class="mf">.02</span><span class="o">*</span><span class="n">fz_tomonzsum</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;0.4&lt; zmode &lt;=0.6 sum p(z)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;N(z)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#plt.xlim(0.,1.25)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fztomocut</span> <span class="o">=</span> <span class="p">((</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;zmode&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">0.3</span><span class="p">))</span>
+<span class="n">fz_tomonzsum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;pdf&#39;</span><span class="p">][</span><span class="n">fztomocut</span><span class="p">])</span>
+<span class="n">tomobins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">.005</span><span class="p">,</span><span class="mf">3.005</span><span class="p">,</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">fz_brightdf</span><span class="p">[</span><span class="s1">&#39;specz&#39;</span><span class="p">][</span><span class="n">fztomocut</span><span class="p">],</span><span class="n">bins</span><span class="o">=</span><span class="n">tomobins</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;forestgreen&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;true redshifts for tomo bin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fz_zgrid</span><span class="p">,</span><span class="mf">.02</span><span class="o">*</span><span class="n">fz_tomonzsum</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;0.1&lt; zmode &lt;=0.3 sum p(z)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;redshift&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;N(z)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#plt.xlim(0.,1.25)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;upper right&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that both tomographic bins do a relatively good job at approximating the true redshift distribution, and neither has a significant fraction of outliers.</p>
+<p>So, that is a summary of some simple operations that you can perform with the extragalactic photometric redshift catalogs.  For both sets we recommend not using the photo-z’s for mag_i_photoz &lt; 25.0 due to both lack of training data and low S/N.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "desc-python",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-python'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="extragalactic_gcr_mass_relations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Extragalactic catalogs: mass relations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="extragalactic_gcr_redshift_dist.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Plot N versus z Distributions in the extragalactic catalogs</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">cosmoDC2 extragalactic catalog photometric redshifts</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-catalog">Load the catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photo-z-access-methods">Photo-z access methods</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#flexzboost-machine-learning-photo-z-s">FlexZBoost: Machine Learning photo-z’s</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

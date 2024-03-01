@@ -1,0 +1,871 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/object_gcr_3_challenges';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/object_gcr_3_challenges.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z" href="object_gcr_4_photoz.html" />
+    <link rel="prev" title="DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts" href="object_gcr_2_lensing_cuts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/object_gcr_3_challenges.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/object_gcr_3_challenges.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/object_gcr_3_challenges.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-1-galaxy-counts-in-cells">Challenge 1: Galaxy counts-in-cells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-2-check-if-psf-residuals-are-within-requirements">Challenge 2: Check if PSF residuals are within requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-select-a-clean-sample-of-point-sources">Step 1: Select a clean sample of point sources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-computes-size-and-ellipticity-from-second-moments">Step 2: Computes size and ellipticity from second moments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-extract-sample">Step 3: Extract sample</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-size-and-ellipticity-residuals-as-a-function-of-magnitude-and-seeing">Step 4: Size and ellipticity residuals as a function of magnitude and seeing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-compute-rho-statistics-in-stile">Step 5: Compute <span class="math notranslate nohighlight">\(\rho\)</span>-statistics in Stile</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dc2-object-catalog-run2-2i-gcr-tutorial-part-iii-guided-challenges">
+<h1>DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges<a class="headerlink" href="#dc2-object-catalog-run2-2i-gcr-tutorial-part-iii-guided-challenges" title="Link to this heading">#</a></h1>
+<p>Owners: <strong>Javier Sanchez <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;fjaviersanchez">&#64;fjaviersanchez</a>, Francois Lanusse <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;EiffL">&#64;EiffL</a></strong><br />
+Last Run: <strong>2020-07-02</strong> (by &#64;jrbogart)</p>
+<p>This notebook is the third of four in the Run2.2i object catalog with GCR series (<a class="reference internal" href="object_gcr_1_intro.html"><span class="std std-doc">Part I</span></a>, <a class="reference internal" href="object_gcr_2_lensing_cuts.html"><span class="std std-doc">Part II</span></a>). Here, we propose some challenges for you as science use cases of the object catalogs. We will provide a solution here but you are encouraged to create your own!</p>
+<p><strong>Logistics</strong>: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter-dev.nersc.gov">https://jupyter-dev.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="challenge-1-galaxy-counts-in-cells">
+<h2>Challenge 1: Galaxy counts-in-cells<a class="headerlink" href="#challenge-1-galaxy-counts-in-cells" title="Link to this heading">#</a></h2>
+<p>Blending affects the accuracy of centroid and flux measurements. It can potentially generate a systematic effect in different measurements (for example 2-point statistics).</p>
+<p>The stack returns a very useful value to check (partially) for the presence of these kind of systematics, which is the <code class="docutils literal notranslate"><span class="pre">blendedness</span></code> parameter (more details on Section 4.9.11 of <a class="reference external" href="https://arxiv.org/pdf/1705.06766.pdf">Bosch et al. 2017</a></p>
+<ul class="simple">
+<li><p>Q: Why only partially?</p></li>
+</ul>
+<p>A very simple tool to measure the different statistical moments of galaxies is Counts-in-cells (CiC) <a class="reference external" href="https://press.princeton.edu/titles/724.html">Peebles et al. 1980</a>. Here, we are going to use a simplified version of CiC to check the possible systematic effects due to differences in the <code class="docutils literal notranslate"><span class="pre">blendedness</span></code> measurements.</p>
+<p>So what’s CiC?</p>
+<ol class="arabic simple">
+<li><p>Count the number of galaxies in a cell of a given scale.</p></li>
+<li><p>Measure the density contrast distribution and its moments.</p></li>
+<li><p>Change the scale and repeat.</p></li>
+</ol>
+<p>Note: We are focusing on the galaxy number CiC but it is possible to do with shapes</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils.cic</span> <span class="kn">import</span> <span class="n">cic_analysis</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">healpy</span> <span class="k">as</span> <span class="nn">hp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="kn">from</span> <span class="nn">GCR</span> <span class="kn">import</span> <span class="n">GCRQuery</span>
+<span class="c1"># Load the object catalog</span>
+<span class="n">run</span> <span class="o">=</span> <span class="s1">&#39;run2.2i_dr3&#39;</span>
+<span class="n">tract</span> <span class="o">=</span> <span class="mi">3081</span>    <span class="c1"># has good depth</span>
+<span class="n">tract_s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tract</span><span class="p">)</span>
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dc2_object_</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1">#catalog = GCRCatalogs.load_catalog(&#39;dc2_object_run1.2i_all_columns&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s use almost the same cuts as in the WL sample</span>
+
+<span class="n">cic_cuts_base</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;mag_i_cModel&#39;</span><span class="p">)),</span> <span class="c1"># (from this and below) remove nan entries</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_resolution&#39;</span><span class="p">)),</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_e1&#39;</span><span class="p">)),</span>
+    <span class="n">GCRQuery</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">,</span> <span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_e2&#39;</span><span class="p">)),</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;good&#39;</span><span class="p">),</span> 
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;snr_i_cModel &gt;= 10&#39;</span><span class="p">),</span> <span class="c1"># (from this and below) cut on object properties</span>
+    <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_sigma &lt;= 0.4&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">is_blended</span> <span class="o">=</span> <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;blendedness &gt;= 10**(-0.375)&#39;</span><span class="p">)</span>
+
+<span class="n">cic_cuts_nb</span> <span class="o">=</span> <span class="n">cic_cuts_base</span> <span class="o">+</span> <span class="p">[</span><span class="o">~</span><span class="n">is_blended</span><span class="p">]</span>
+<span class="n">cic_cuts_b</span> <span class="o">=</span> <span class="n">cic_cuts_base</span> <span class="o">+</span> <span class="p">[</span><span class="n">is_blended</span><span class="p">]</span>
+
+<span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span>
+
+<span class="c1"># was tract 4849.  3081 has greater depth for Run2.2i_dr3</span>
+<span class="n">d_nb</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">quantities</span><span class="p">,</span> 
+                              <span class="n">filters</span><span class="o">=</span><span class="n">cic_cuts_nb</span><span class="p">,</span> 
+                              <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;tract == </span><span class="si">{</span><span class="n">tract_s</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+<span class="n">d_b</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">quantities</span><span class="p">,</span> 
+                             <span class="n">filters</span><span class="o">=</span><span class="n">cic_cuts_b</span><span class="p">,</span> 
+                             <span class="n">native_filters</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;tract == </span><span class="si">{</span><span class="n">tract_s</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in the depth map created in the previous tutorial </span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;assets/m10map_</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">tract_s</span><span class="si">}</span><span class="s1">.pklz&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<span class="n">m10map</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">m10map</span><span class="p">)</span>
+<span class="n">mask</span><span class="p">[</span><span class="n">m10map</span> <span class="o">&gt;</span> <span class="mf">23.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hp</span><span class="o">.</span><span class="n">gnomview</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="p">(</span><span class="n">d_nb</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">d_nb</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()),</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Run 2.2i Depth&#39;</span><span class="p">,</span> <span class="n">reso</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;10-$\sigma$ i-band depth&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma_b</span><span class="p">,</span> <span class="n">sigma_err_b</span><span class="p">,</span> <span class="n">skw_b</span><span class="p">,</span> <span class="n">skw_err_b</span><span class="p">,</span> <span class="n">kurtosis_b</span><span class="p">,</span> <span class="n">kurtosis_err_b</span><span class="p">,</span> <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">cic_analysis</span><span class="p">(</span><span class="n">d_b</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">sigma_nb</span><span class="p">,</span> <span class="n">sigma_err_nb</span><span class="p">,</span> <span class="n">skw_nb</span><span class="p">,</span> <span class="n">skw_err_nb</span><span class="p">,</span> <span class="n">kurtosis_nb</span><span class="p">,</span> <span class="n">kurtosis_err_nb</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cic_analysis</span><span class="p">(</span><span class="n">d_nb</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">nboot</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">pixel_scale</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">sigma_b</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">sigma_err_b</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;High blendedness&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">pixel_scale</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">sigma_nb</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">sigma_err_nb</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Low blendedness&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Pixel scale [deg]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma$&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">get_renderer</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There’s definitely something going on with the high blendedness sources!</p>
+</section>
+<section id="challenge-2-check-if-psf-residuals-are-within-requirements">
+<h2>Challenge 2: Check if PSF residuals are within requirements<a class="headerlink" href="#challenge-2-check-if-psf-residuals-are-within-requirements" title="Link to this heading">#</a></h2>
+<p>In this section, we will try to apply all the tools we have covered during this tutorial to test the quality of the DM stack PSF model on run 2.2i_dr3.</p>
+<p>The challenge will be to select a clean sample of stars, compute their size and ellipticity using second moments, and compare those to the PSF model predicted by the DM stack. We will test the one point and two point fuctions of these residuals to make diagnostic plots that would directly go into a weak lensing shape catalog paper.</p>
+<p>See for example Section 3. of <a class="reference external" href="https://arxiv.org/pdf/1708.01533.pdf">(Zuntz et al. 2017)</a>, (and in particular section 3.2) for an introduction to, and real life example of, PSF systematics tests.</p>
+<section id="step-1-select-a-clean-sample-of-point-sources">
+<h3>Step 1: Select a clean sample of point sources<a class="headerlink" href="#step-1-select-a-clean-sample-of-point-sources" title="Link to this heading">#</a></h3>
+<p>We want to restrict our sample to objects that follow these constraints:</p>
+<ul class="simple">
+<li><p>Point sources</p></li>
+<li><p>Not corrupted or with any defects</p></li>
+<li><p>Successful second moment measurements</p></li>
+<li><p>Sufficiently high signal to noise in the i-band, above 50</p></li>
+</ul>
+<p>Remember to use <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs/blob/master/GCRCatalogs/SCHEMA.md#schema-for-dc2-coadd-catalogs">SCHEMA.md</a> as a reference to build your cuts</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="kn">from</span> <span class="nn">GCR</span> <span class="kn">import</span> <span class="n">GCRQuery</span>
+
+<span class="n">catalog</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dc2_object_</span><span class="si">{</span><span class="n">run</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">filters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Add the required filters</span>
+    <span class="c1"># ...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-computes-size-and-ellipticity-from-second-moments">
+<h3>Step 2: Computes size and ellipticity from second moments<a class="headerlink" href="#step-2-computes-size-and-ellipticity-from-second-moments" title="Link to this heading">#</a></h3>
+<p>We will use the following definitions:<br />
+<span class="math notranslate nohighlight">\(g_1 = \frac{I_{xx} - I_{yy}}{I_{xx} + I_{yy}}\)</span><br />
+<span class="math notranslate nohighlight">\(g_2 = \frac{2 I_{xy}}{I_{xx} + I_{yy}}\)</span><br />
+<span class="math notranslate nohighlight">\(\sigma = ( I_{xx} I_{yy} - I_{xy}^2)^{1/4}\)</span></p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">add_derived_quantity</span></code> of the GCR (documented <a class="reference external" href="https://yymao.github.io/generic-catalog-reader/index.html#GCR.BaseGenericCatalog.add_derived_quantity">here</a>), add modifiers to compute these quantities for the sources and the PSF model evaluated at the position of the sources.
+Again the schema is your friend ;-)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here is a template to fill for g1</span>
+<span class="n">g1_modif</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ixx</span><span class="p">,</span><span class="n">iyy</span><span class="p">,</span><span class="n">ixy</span><span class="p">:</span> <span class="p">(</span><span class="n">ixx</span><span class="o">-</span><span class="n">iyy</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ixx</span><span class="o">+</span><span class="n">iyy</span><span class="p">)</span>
+<span class="n">catalog</span><span class="o">.</span><span class="n">add_derived_quantity</span><span class="p">(</span><span class="s1">&#39;g1&#39;</span><span class="p">,</span> <span class="n">g1_modif</span><span class="p">,</span> <span class="s1">&#39;Ixx&#39;</span><span class="p">,</span> <span class="s1">&#39;Iyy&#39;</span><span class="p">,</span> <span class="s1">&#39;Ixy&#39;</span><span class="p">)</span>
+
+<span class="c1"># Define in the same way g2, sigma, psf_g1, psf_g2 psf_sigma</span>
+<span class="c1">#...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-3-extract-sample">
+<h3>Step 3: Extract sample<a class="headerlink" href="#step-3-extract-sample" title="Link to this heading">#</a></h3>
+<p>Now that we have all the pieces, let’s extract the quantities specified below from the catalog:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;mag_i&#39;</span><span class="p">,</span> <span class="s1">&#39;snr_i_cModel&#39;</span><span class="p">,</span> <span class="s1">&#39;psf_fwhm_i&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;g1&#39;</span><span class="p">,</span> <span class="s1">&#39;g2&#39;</span><span class="p">,</span> <span class="s1">&#39;sigma&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;psf_g1&#39;</span><span class="p">,</span> <span class="s1">&#39;psf_g2&#39;</span><span class="p">,</span> <span class="s1">&#39;psf_sigma&#39;</span><span class="p">]</span>
+
+<span class="c1"># Extract these quantities from the catalog into data</span>
+<span class="c1"># data = ...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-4-size-and-ellipticity-residuals-as-a-function-of-magnitude-and-seeing">
+<h3>Step 4: Size and ellipticity residuals as a function of magnitude and seeing<a class="headerlink" href="#step-4-size-and-ellipticity-residuals-as-a-function-of-magnitude-and-seeing" title="Link to this heading">#</a></h3>
+<p>Try to reproduce plots similar to the ones you can find in the PSF section of your favorite experiment’s shape catalog paper (for instance Section 4. of <a class="reference external" href="https://arxiv.org/pdf/1705.06745.pdf">Mandelbaum et al. 2017</a>).</p>
+<p>For instance you can look at the fractional difference in size, as a function of magnitude, or seeing. You can also look at the distribution of ellipticity residuals, make sure they are centered on 0 , and again see if you can spot a dependence on seeing or magnitude.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.figure(figsize=(10,5))</span>
+
+<span class="c1"># plt.subplot(121)</span>
+<span class="c1"># plt.hist2d(data[&#39;mag_i&#39;], (data[&#39;sigma&#39;] - data[&#39;psf_sigma&#39;])/data[&#39;psf_sigma&#39;], 100, range=[[15,23],[-0.02,0.02]]);</span>
+<span class="c1"># plt.xlabel(&#39;i mag&#39;)</span>
+<span class="c1"># plt.ylabel(&#39;$f \delta_\sigma$&#39;)</span>
+<span class="c1"># plt.colorbar(label=&#39;Number of objects&#39;)</span>
+<span class="c1"># plt.subplot(122)</span>
+<span class="c1"># plt.hist2d(data[&#39;psf_fwhm_i&#39;], (data[&#39;sigma&#39;] - data[&#39;psf_sigma&#39;])/data[&#39;psf_sigma&#39;], 100, range=[[0.4,1.0],[-0.02,0.02]]);</span>
+<span class="c1"># plt.xlabel(&#39;seeing FWHM (arcsec)&#39;)</span>
+<span class="c1"># plt.colorbar(label=&#39;Number of objects&#39;);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.figure(figsize=(15,10))</span>
+
+<span class="c1"># plt.subplot(221)</span>
+<span class="c1"># plt.hist2d(data[&#39;mag_i&#39;], (data[&#39;g1&#39;] - data[&#39;psf_g1&#39;]), 100, range=[[15,23],[-0.02,0.02]]);</span>
+<span class="c1"># plt.xlabel(&#39;i mag&#39;)</span>
+<span class="c1"># plt.ylabel(&#39;$g_1 - g_1^{PSF}$&#39;)</span>
+<span class="c1"># plt.colorbar(label=&#39;Number of objects&#39;)</span>
+<span class="c1"># plt.subplot(222)</span>
+<span class="c1"># plt.hist2d(data[&#39;psf_fwhm_i&#39;], (data[&#39;g1&#39;] - data[&#39;psf_g1&#39;]), 100, range=[[0.4,1.0],[-0.02,0.02]]);</span>
+<span class="c1"># plt.xlabel(&#39;seeing FWHM (arcsec)&#39;)</span>
+<span class="c1"># plt.ylabel(&#39;$g_1 - g_1^{PSF}$&#39;)</span>
+<span class="c1"># plt.colorbar(label=&#39;Number of objects&#39;)</span>
+<span class="c1"># plt.subplot(223)</span>
+<span class="c1"># plt.hist((data[&#39;g1&#39;] - data[&#39;psf_g1&#39;]), 100, range=[-0.04,0.04]);</span>
+<span class="c1"># plt.xlabel(&#39;$g_1 - g_1^{PSF}$&#39;)</span>
+<span class="c1"># plt.axvline(0)</span>
+<span class="c1"># plt.subplot(224)</span>
+<span class="c1"># plt.hist((data[&#39;g2&#39;] - data[&#39;psf_g2&#39;]), 100, range=[-0.04,0.04]);</span>
+<span class="c1"># plt.xlabel(&#39;$g_2 - g_2^{PSF}$&#39;)</span>
+<span class="c1"># plt.axvline(0)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-5-compute-rho-statistics-in-stile">
+<h3>Step 5: Compute <span class="math notranslate nohighlight">\(\rho\)</span>-statistics in Stile<a class="headerlink" href="#step-5-compute-rho-statistics-in-stile" title="Link to this heading">#</a></h3>
+<p>No shear catalog paper would be complete without the so-called <span class="math notranslate nohighlight">\(\rho\)</span>-statistics (<a class="reference external" href="https://academic.oup.com/mnras/article/404/1/350/3101560">Rowe 2010</a>, <a class="reference external" href="https://academic.oup.com/mnras/article-abstract/460/2/2245/2609178?redirectedFrom=fulltext">Jarvis et al. 2016</a>), which check the two-point correlations of the PSF residuals. See section 3.4 of Jarvis et al. 2016 for instance to see the definition of these statistics.</p>
+<p>We are going to use the <a class="reference external" href="https://github.com/msimet/Stile">Stile</a> package developed by Melanie Simet <a class="reference external" href="https://github.com/msimet">&#64;msimet</a>, Hironao Miyatake <a class="reference external" href="https://github.com/HironaoMiyatake">&#64;HironaoMiyatake</a>, Rachel Mandelbaum <a class="reference external" href="https://github.com/rmandelb">&#64;rmandelb</a>, and Song Huang <a class="reference external" href="https://github.com/dr-guangtou">&#64;dr-guangtou</a>.</p>
+<p>This is an incredibly useful package which already implements a range of WL related systematics tests, including the <span class="math notranslate nohighlight">\(\rho\)</span> statistics. Checkout the documentation for Stile <a class="reference external" href="http://stile.readthedocs.io/en/latest/index.html">here</a>.</p>
+<p>Uncomment the following cells to try them out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import pandas</span>
+<span class="c1"># import stile</span>
+
+<span class="c1"># # Stile expects numpy structured arrays, here is an easy way to do that:</span>
+<span class="c1"># d = pandas.DataFrame(data)</span>
+<span class="c1"># # We also add a weight column, set to 1</span>
+<span class="c1"># d[&#39;w&#39;] =1</span>
+<span class="c1"># d = d.to_records(index=False)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Here is an example of how to compute the rho1 statistics</span>
+<span class="c1"># stile_args = {&#39;ra_units&#39;: &#39;degrees&#39;, &#39;dec_units&#39;: &#39;degrees&#39;,</span>
+<span class="c1">#               &#39;min_sep&#39;: 0.05, &#39;max_sep&#39;: 1, &#39;sep_units&#39;: &#39;degrees&#39;, &#39;nbins&#39;: 20}</span>
+
+<span class="c1"># rho1 = stile.CorrelationFunctionSysTest(&#39;Rho1&#39;)</span>
+
+<span class="c1"># r1 = rho1(d, config=stile_args)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Have a look at the content of the result array</span>
+<span class="c1"># r1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Stile offers utility functions to generate </span>
+<span class="c1"># f = rho1.plot(r1)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you have reached that point, well done!
+Feel free to explore the other functionalities of Stile, including Histogram plots, Whiskers plots, and some fancy summary statistics (MAD, skewness, and kurtosis). Find Hironao, Rachel, or ping Melanie if you are interested in knowing more.</p>
+<p>And if you have reached this point out of desperation and are looking for answers, <a class="reference download internal" download="" href="../_downloads/dbfaa5a8adb9b5b55f55e6f0f4eead7e/object_gcr_tutorial_part3.py"><span class="xref download myst">here</span></a> they are :-)</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "desc-python",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-python'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="object_gcr_2_lensing_cuts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="object_gcr_4_photoz.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-1-galaxy-counts-in-cells">Challenge 1: Galaxy counts-in-cells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-2-check-if-psf-residuals-are-within-requirements">Challenge 2: Check if PSF residuals are within requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-select-a-clean-sample-of-point-sources">Step 1: Select a clean sample of point sources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-computes-size-and-ellipticity-from-second-moments">Step 2: Computes size and ellipticity from second moments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-extract-sample">Step 3: Extract sample</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-size-and-ellipticity-residuals-as-a-function-of-magnitude-and-seeing">Step 4: Size and ellipticity residuals as a function of magnitude and seeing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-compute-rho-statistics-in-stile">Step 5: Compute <span class="math notranslate nohighlight">\(\rho\)</span>-statistics in Stile</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

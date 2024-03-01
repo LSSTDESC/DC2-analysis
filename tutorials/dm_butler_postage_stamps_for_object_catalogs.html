@@ -1,0 +1,954 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/dm_butler_postage_stamps_for_object_catalogs';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/dm_butler_postage_stamps_for_object_catalogs.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plotting the DC2 Run2.1i skyMap" href="dm_butler_skymap.html" />
+    <link rel="prev" title="DC2: Generate Postage Stamps for set of RA, Dec coordinates" href="dm_butler_postage_stamps.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    DC2 Analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://jupyter.nersc.gov/hub/user-redirect/git-pull?repo=https%3A//github.com/LSSTDESC/DC2-analysis&urlpath=lab/tree/DC2-analysis/tutorials/dm_butler_postage_stamps_for_object_catalogs.ipynb&branch=master" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onJupyterHub"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="btn__text-container">JupyterHub</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/dm_butler_postage_stamps_for_object_catalogs.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/dm_butler_postage_stamps_for_object_catalogs.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistics">Logistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-a-list-of-interesting-objects">Get a list of interesting objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-tracts-and-patches">What are tracts and patches?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-find-tract-patch-for-given-ra-dec">How do I find tract/patch for given RA/Dec?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-coadd-images-using-butler">Load coadd images using butler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-postage-stamp">Make a postage stamp!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-different-way-to-load-cutout-image-by-specifying-a-bbox">A different way to load cutout image by specifying a bbox</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-false-color-rgb-image">Make a false color RGB image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yay-let-s-put-this-all-together-now">Yay! Let’s put this all together now!</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dc2-generate-postage-stamps-cutouts-for-objects-in-the-object-catalog">
+<h1>DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog<a class="headerlink" href="#dc2-generate-postage-stamps-cutouts-for-objects-in-the-object-catalog" title="Link to this heading">#</a></h1>
+<p>Owner: <strong>Yao-Yuan Mao</strong> (<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">&#64;yymao</a>)
+<br>Last Verified to Run: <strong>2020-11-30</strong> (by &#64;yymao)</p>
+<p>This notebook is partly based on the <code class="docutils literal notranslate"><span class="pre">dm_butler_postage_stamps</span></code> notebook by Michael Wood-Vasey and the Stack Club <code class="docutils literal notranslate"><span class="pre">ButlerTutorial</span></code> by Daniel Perrefort.</p>
+<p>In this notebook, we will first obtain a list of RA, Dec positions from the Object catalog using <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs/">GCRCatalogs</a>, and then generate “postage-stamp” cutout images from the coadded images.</p>
+<section id="learning-objectives">
+<h2>Learning Objectives:<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
+<p>After working through and studying this Notebook you should be able to</p>
+<ol class="arabic simple">
+<li><p>Find the corresponding tracts and patches for a given list of RA and Dec</p></li>
+<li><p>Generate a postage stamp from a coadd for your chosen RA, Dec in a chosen filter, using matplotlib</p></li>
+<li><p>Obtain cutout images in two different ways ( <code class="docutils literal notranslate"><span class="pre">.getCutout()</span></code> and <code class="docutils literal notranslate"><span class="pre">butler.get(bbox=..)</span></code> )</p></li>
+<li><p>Generate false color RGB images</p></li>
+</ol>
+</section>
+<section id="logistics">
+<h2>Logistics<a class="headerlink" href="#logistics" title="Link to this heading">#</a></h2>
+<p>This is intended to be runnable at NERSC through the <a class="reference external" href="https://jupyter.nersc.gov">https://jupyter.nersc.gov</a> interface from a local git clone of <a class="github reference external" href="https://github.com/LSSTDESC/DC2-analysis">LSSTDESC/DC2-analysis</a> in your NERSC directory.  But you can also run it wherever, with appropriate adjustment of the ‘repo’ location to point to a place where you have a Butler repo will all of the images.</p>
+<p>This notebook uses the <code class="docutils literal notranslate"><span class="pre">desc-stack-weekly-latest</span></code> kernel. Instructions for setting up the proper DESC python kernel can be found here: <a class="reference external" href="https://confluence.slac.stanford.edu/x/o5DVE">https://confluence.slac.stanford.edu/x/o5DVE</a></p>
+</section>
+<section id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<p>First we will load the needed modules and DC2 DR6 data sets: object catalogs (with <code class="docutils literal notranslate"><span class="pre">GCRCatalogs</span></code>) and DRP products (with <code class="docutils literal notranslate"><span class="pre">desc_dc2_dm_data</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A few common packages</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="c1"># We will use astropy&#39;s WCS and ZScaleInterval for plotting</span>
+<span class="kn">from</span> <span class="nn">astropy.wcs</span> <span class="kn">import</span> <span class="n">WCS</span>
+<span class="kn">from</span> <span class="nn">astropy.visualization</span> <span class="kn">import</span> <span class="n">ZScaleInterval</span>
+
+<span class="c1"># We will use several stack functions</span>
+<span class="kn">import</span> <span class="nn">lsst.geom</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.display</span> <span class="k">as</span> <span class="nn">afwDisplay</span>
+<span class="kn">import</span> <span class="nn">lsst.afw.display.rgb</span> <span class="k">as</span> <span class="nn">rgb</span>
+
+<span class="c1"># And also DESC packages to get the data path</span>
+<span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="kn">from</span> <span class="nn">GCRCatalogs</span> <span class="kn">import</span> <span class="n">GCRQuery</span>
+<span class="kn">import</span> <span class="nn">desc_dc2_dm_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you are on a custom kernel (i.e., not using a DESC kernel), and you do have stack installed, but not those DESC packages.
+You can install them by uncomment and running the following cell.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Uncomment and run this cell *only if* you are on a custom kernel that has stack installed, but not the DESC packages </span>
+
+<span class="c1">#%pip install https://github.com/LSSTDESC/gcr-catalogs/archive/master.zip</span>
+<span class="c1">#%pip install https://github.com/LSSTDESC/desc-dc2-dm-data/archive/master.zip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">desc_dc2_dm_data</span><span class="o">.</span><span class="n">REPOS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will be using the DC2 Run 2.2i DR6 WFD data. Read more about this data set here: <a class="reference external" href="https://arxiv.org/abs/2010.05926">https://arxiv.org/abs/2010.05926</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dc2_data_version</span> <span class="o">=</span> <span class="s2">&quot;2.2i_dr6_wfd&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">get_available_catalogs</span><span class="p">(</span><span class="n">names_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name_contains</span><span class="o">=</span><span class="n">dc2_data_version</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s2">&quot;dc2_object_run&quot;</span><span class="o">+</span><span class="n">dc2_data_version</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">butler</span> <span class="o">=</span> <span class="n">desc_dc2_dm_data</span><span class="o">.</span><span class="n">get_butler</span><span class="p">(</span><span class="n">dc2_data_version</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="get-a-list-of-interesting-objects">
+<h2>Get a list of interesting objects<a class="headerlink" href="#get-a-list-of-interesting-objects" title="Link to this heading">#</a></h2>
+<p>Here we will find some brightest galaxies in the object catalog to make cutout images for them!</p>
+<p>To learn what columns are in the object catalogs, refer to <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs/blob/master/GCRCatalogs/SCHEMA.md#schema-for-dc2-object-catalogs">this schema table</a>. And sometimes it’d be helpful to look at the <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs/blob/master/GCRCatalogs/dc2_object.py#L341">source code</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bright_galaxy_query</span> <span class="o">=</span> <span class="n">GCRQuery</span><span class="p">(</span>
+    <span class="s2">&quot;clean&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;extendedness == 1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mag_r_cModel &lt; 16&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;snr_g_cModel &gt; 10&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;snr_r_cModel &gt; 10&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;snr_i_cModel &gt; 10&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns_to_get</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;objectId&quot;</span><span class="p">,</span> <span class="s2">&quot;ra&quot;</span><span class="p">,</span> <span class="s2">&quot;dec&quot;</span><span class="p">,</span> <span class="s2">&quot;mag_r_cModel&quot;</span><span class="p">,</span> <span class="s2">&quot;tract&quot;</span><span class="p">,</span> <span class="s2">&quot;patch&quot;</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">cat</span><span class="o">.</span><span class="n">has_quantities</span><span class="p">(</span><span class="n">columns_to_get</span><span class="p">)</span>
+
+<span class="c1"># Here we use native_filters to limit to tract == 4639 to save some load time</span>
+
+<span class="n">objects</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">columns_to_get</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">bright_galaxy_query</span><span class="p">,</span> <span class="n">native_filters</span><span class="o">=</span><span class="s2">&quot;tract == 4639&quot;</span><span class="p">)</span>
+<span class="n">objects</span>  <span class="c1"># get_quantities returns an ordinary python dictionary</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make it a pandas data frame for the ease of manipulation</span>
+<span class="n">objects</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
+<span class="n">objects</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that in the object catalog there’s already tract and patch information.</p>
+</section>
+<section id="what-are-tracts-and-patches">
+<h2>What are tracts and patches?<a class="headerlink" href="#what-are-tracts-and-patches" title="Link to this heading">#</a></h2>
+<p>The coadds produced by the DM stack are structured in terms of large <code class="docutils literal notranslate"><span class="pre">tracts</span></code> and smaller <code class="docutils literal notranslate"><span class="pre">patches</span></code>, illustrated here for DC2 Run2.2i (left panel), which covers 300 square degrees and has 165 tracts. The right panel shows a zoom-in version of the upper right corner, where you can see the patch structure.</p>
+<p><img alt="DC2 Run 2 Sky Map" src="../_images/dc2_skymap_run2.png" /></p>
+<section id="how-do-i-find-tract-patch-for-given-ra-dec">
+<h3>How do I find tract/patch for given RA/Dec?<a class="headerlink" href="#how-do-i-find-tract-patch-for-given-ra-dec" title="Link to this heading">#</a></h3>
+<p>What if tract/patch information were not available in the catlaog? We will then need to load the skymap, which stores such information.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skymap</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deepCoadd_skyMap&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find tract and patch for the 0th object: </span>
+
+<span class="n">object_this</span> <span class="o">=</span> <span class="n">objects</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">radec</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">],</span> <span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">],</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+<span class="n">tractInfo</span> <span class="o">=</span> <span class="n">skymap</span><span class="o">.</span><span class="n">findTract</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+<span class="n">patchInfo</span> <span class="o">=</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">findPatch</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;tract =&quot;</span><span class="p">,</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getId</span><span class="p">(),</span> <span class="s2">&quot;; patch =&quot;</span><span class="p">,</span> <span class="n">patchInfo</span><span class="o">.</span><span class="n">getIndex</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now check the tract/patch values for all objects in our table are indeed consistent with what sky map tells us.</p>
+<p>This step is not really necessary.
+However, if you have a list of RA/Dec but not tract and patch information
+(for example, if you want to generate postage stamps for a list of galaxies from cosmoDC2),
+the cell below would be useful!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_tract_patch</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">):</span>
+    <span class="n">radec</span> <span class="o">=</span>  <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>
+    <span class="n">tractInfo</span> <span class="o">=</span> <span class="n">skymap</span><span class="o">.</span><span class="n">findTract</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    <span class="n">patchInfo</span> <span class="o">=</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">findPatch</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tractInfo</span><span class="o">.</span><span class="n">getId</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">patchInfo</span><span class="o">.</span><span class="n">getIndex</span><span class="p">())</span>
+
+
+<span class="n">tract_patch</span> <span class="o">=</span> <span class="n">objects</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">get_tract_patch</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">result_type</span><span class="o">=</span><span class="s1">&#39;expand&#39;</span><span class="p">)</span> \
+                     <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;tract&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;patch&quot;</span><span class="p">})</span>
+
+<span class="k">assert</span> <span class="p">(</span><span class="n">objects</span><span class="p">[</span><span class="s2">&quot;tract&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">tract_patch</span><span class="p">[</span><span class="s2">&quot;tract&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">objects</span><span class="p">[</span><span class="s2">&quot;patch&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">tract_patch</span><span class="p">[</span><span class="s2">&quot;patch&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+<span class="n">tract_patch</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="load-coadd-images-using-butler">
+<h2>Load coadd images using butler<a class="headerlink" href="#load-coadd-images-using-butler" title="Link to this heading">#</a></h2>
+<p>Once we know the tract and patch, we will be able to load coadd images using butler.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">butler</span><span class="o">.</span><span class="n">getKeys</span><span class="p">(</span><span class="s2">&quot;deepCoadd&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataId</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;tract&quot;</span><span class="p">:</span> <span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;tract&quot;</span><span class="p">],</span> <span class="s2">&quot;patch&quot;</span><span class="p">:</span> <span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;patch&quot;</span><span class="p">],</span> <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="s2">&quot;i&quot;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataId</span><span class="p">)</span>
+
+<span class="n">full_patch</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deepCoadd&quot;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s take a look at the full patch first</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># Note that we set frame=1 below to allow afwDisplay to use the figure instance we created</span>
+<span class="n">display</span> <span class="o">=</span> <span class="n">afwDisplay</span><span class="o">.</span><span class="n">Display</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;zscale&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="o">.</span><span class="n">mtv</span><span class="p">(</span><span class="n">full_patch</span><span class="o">.</span><span class="n">getMaskedImage</span><span class="p">()</span><span class="o">.</span><span class="n">getImage</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="make-a-postage-stamp">
+<h3>Make a postage stamp!<a class="headerlink" href="#make-a-postage-stamp" title="Link to this heading">#</a></h3>
+<p>To make a postage stamp, we can simply use the <code class="docutils literal notranslate"><span class="pre">getCutout</span></code> method to obtain the cutout from the full patch data.
+We can also obtain WCS information so that we can show RA/Dec values on teh axes.</p>
+<p>Here we will use plain matplotlib to make our postage stamp, because I assume most people are more familar with matplotlib than <code class="docutils literal notranslate"><span class="pre">afw.display</span></code>!
+However, <code class="docutils literal notranslate"><span class="pre">afw.display</span></code> provides some useful functions and powerful integration with ds9 and others, if you get some time to learn it!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the center and size of our cutout</span>
+<span class="n">radec</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">],</span> <span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">],</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+<span class="n">cutout_size</span> <span class="o">=</span> <span class="mi">300</span>  <span class="c1"># 300 pixels -&gt; about 1 arcmin (we&#39;ll see why in a bit!)</span>
+<span class="n">cutout_extent</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">ExtentI</span><span class="p">(</span><span class="n">cutout_size</span><span class="p">,</span> <span class="n">cutout_size</span><span class="p">)</span>
+
+<span class="c1"># Retrieve cutout</span>
+<span class="n">cutout</span> <span class="o">=</span> <span class="n">full_patch</span><span class="o">.</span><span class="n">getCutout</span><span class="p">(</span><span class="n">radec</span><span class="p">,</span> <span class="n">cutout_extent</span><span class="p">)</span>
+
+<span class="c1"># Retrieve wcs</span>
+<span class="n">wcs</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wcs</span><span class="p">)</span>
+<span class="n">wcs_fits_meta</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">getFitsMetadata</span><span class="p">()</span>
+
+<span class="c1"># Retrieve the image array</span>
+<span class="n">image_arr</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">getMaskedImage</span><span class="p">()</span><span class="o">.</span><span class="n">getImage</span><span class="p">()</span><span class="o">.</span><span class="n">array</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make plot with astropy.wcs and matplotlib</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;projection&#39;</span><span class="p">:</span> <span class="n">WCS</span><span class="p">(</span><span class="n">wcs_fits_meta</span><span class="p">)},</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">ZScaleInterval</span><span class="p">()</span><span class="o">.</span><span class="n">get_limits</span><span class="p">(</span><span class="n">image_arr</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_arr</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;binary_r&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;RA&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Dec&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-different-way-to-load-cutout-image-by-specifying-a-bbox">
+<h3>A different way to load cutout image by specifying a bbox<a class="headerlink" href="#a-different-way-to-load-cutout-image-by-specifying-a-bbox" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">center</span> <span class="o">=</span> <span class="n">skymap</span><span class="o">.</span><span class="n">findTract</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">BoxI</span><span class="p">(</span><span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">Point2I</span><span class="p">((</span><span class="n">center</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">center</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)),</span> <span class="n">cutout_extent</span><span class="p">)</span>
+
+<span class="c1"># Note the postfix `_sub` added to the dataset type!! Note how we skip the `full_patch` step here! </span>
+<span class="n">cutout</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deepCoadd_sub&quot;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+
+<span class="n">wcs_fits_meta</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">getFitsMetadata</span><span class="p">()</span>
+<span class="n">image_arr</span> <span class="o">=</span> <span class="n">cutout</span><span class="o">.</span><span class="n">getMaskedImage</span><span class="p">()</span><span class="o">.</span><span class="n">getImage</span><span class="p">()</span><span class="o">.</span><span class="n">array</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We should obtain the same image as above! </span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;projection&#39;</span><span class="p">:</span> <span class="n">WCS</span><span class="p">(</span><span class="n">wcs_fits_meta</span><span class="p">)},</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">ZScaleInterval</span><span class="p">()</span><span class="o">.</span><span class="n">get_limits</span><span class="p">(</span><span class="n">image_arr</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_arr</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;binary_r&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;RA&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Dec&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the bbox method, we can make the loading time shorter (usually 2-3x speed up).
+This is useful when you need to make many cutouts!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+<span class="n">cutout</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deepCoadd&quot;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">)</span><span class="o">.</span><span class="n">getCutout</span><span class="p">(</span><span class="n">radec</span><span class="p">,</span> <span class="n">cutout_extent</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>it
+<span class="n">cutout</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deepCoadd_sub&quot;</span><span class="p">,</span> <span class="n">dataId</span><span class="o">=</span><span class="n">dataId</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="make-a-false-color-rgb-image">
+<h2>Make a false color RGB image<a class="headerlink" href="#make-a-false-color-rgb-image" title="Link to this heading">#</a></h2>
+<p>Now we have all the tools to make a false color RGB image. We will need to load in images from three bands. Here we will use g, r, and i bands. We then can use <code class="docutils literal notranslate"><span class="pre">lsst.afw.display.rgb.makeRGB</span></code> to generate the false color image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note how we directly supply keyword arguments instead of a single dataId dictionary here</span>
+<span class="c1"># Also note the band ordering. We will use &quot;irg&quot; for &quot;RGB&quot;, respectively. </span>
+<span class="n">cutouts</span> <span class="o">=</span> <span class="p">[</span><span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deepCoadd_sub&quot;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span> <span class="n">tract</span><span class="o">=</span><span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;tract&quot;</span><span class="p">],</span> <span class="n">patch</span><span class="o">=</span><span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;patch&quot;</span><span class="p">],</span> <span class="nb">filter</span><span class="o">=</span><span class="n">band</span><span class="p">)</span> <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="s2">&quot;irg&quot;</span><span class="p">]</span>
+
+<span class="n">wcs_fits_meta</span> <span class="o">=</span> <span class="n">cutouts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">getFitsMetadata</span><span class="p">()</span>
+<span class="n">image_rgb</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">.</span><span class="n">makeRGB</span><span class="p">(</span><span class="o">*</span><span class="n">cutouts</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">cutouts</span>  <span class="c1"># let gc save some memory for us</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;projection&#39;</span><span class="p">:</span> <span class="n">WCS</span><span class="p">(</span><span class="n">wcs_fits_meta</span><span class="p">)},</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_rgb</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;RA&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Dec&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nice image, right? And it appears to be a blended object with a miscentering!</p>
+</section>
+<section id="yay-let-s-put-this-all-together-now">
+<h2>Yay! Let’s put this all together now!<a class="headerlink" href="#yay-let-s-put-this-all-together-now" title="Link to this heading">#</a></h2>
+<p>This final cell is going to take a bit longer (about 50-60 seconds)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">fig</span><span class="p">)</span>
+
+<span class="n">cutout_size</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">cutout_extent</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">ExtentI</span><span class="p">(</span><span class="n">cutout_size</span><span class="p">,</span> <span class="n">cutout_size</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">object_this</span><span class="p">),</span> <span class="n">gs_this</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">objects</span><span class="o">.</span><span class="n">iterrows</span><span class="p">(),</span> <span class="n">gs</span><span class="p">):</span>
+    <span class="n">radec</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">SpherePoint</span><span class="p">(</span><span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;ra&quot;</span><span class="p">],</span> <span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">],</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">degrees</span><span class="p">)</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">skymap</span><span class="o">.</span><span class="n">findTract</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">skyToPixel</span><span class="p">(</span><span class="n">radec</span><span class="p">)</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">BoxI</span><span class="p">(</span><span class="n">lsst</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">Point2I</span><span class="p">((</span><span class="n">center</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">center</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">cutout_size</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)),</span> <span class="n">cutout_extent</span><span class="p">)</span>
+
+    <span class="n">cutouts</span> <span class="o">=</span> <span class="p">[</span><span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deepCoadd_sub&quot;</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span> <span class="n">tract</span><span class="o">=</span><span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;tract&quot;</span><span class="p">],</span> <span class="n">patch</span><span class="o">=</span><span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;patch&quot;</span><span class="p">],</span> <span class="nb">filter</span><span class="o">=</span><span class="n">band</span><span class="p">)</span> <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="s2">&quot;irg&quot;</span><span class="p">]</span>
+    <span class="n">wcs_fits_meta</span> <span class="o">=</span> <span class="n">cutouts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getWcs</span><span class="p">()</span><span class="o">.</span><span class="n">getFitsMetadata</span><span class="p">()</span>
+    <span class="n">image_rgb</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">.</span><span class="n">makeRGB</span><span class="p">(</span><span class="o">*</span><span class="n">cutouts</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">cutouts</span>  <span class="c1"># let gc save some memory for us</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">gs_this</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">WCS</span><span class="p">(</span><span class="n">wcs_fits_meta</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">object_this</span><span class="p">[</span><span class="s2">&quot;objectId&quot;</span><span class="p">]))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_rgb</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">image_rgb</span>  <span class="c1"># let gc save some memory for us</span>
+    
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">coords</span><span class="p">:</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_ticklabel</span><span class="p">(</span><span class="n">exclude_overlapping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">set_axislabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "desc-stack-weekly-latest"
+        },
+        kernelOptions: {
+            name: "desc-stack-weekly-latest",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-stack-weekly-latest'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dm_butler_postage_stamps.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DC2: Generate Postage Stamps for set of RA, Dec coordinates</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="dm_butler_skymap.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Plotting the DC2 Run2.1i skyMap</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning Objectives:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistics">Logistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-a-list-of-interesting-objects">Get a list of interesting objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-tracts-and-patches">What are tracts and patches?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-find-tract-patch-for-given-ra-dec">How do I find tract/patch for given RA/Dec?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-coadd-images-using-butler">Load coadd images using butler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-postage-stamp">Make a postage stamp!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-different-way-to-load-cutout-image-by-specifying-a-bbox">A different way to load cutout image by specifying a bbox</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-a-false-color-rgb-image">Make a false color RGB image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yay-let-s-put-this-all-together-now">Yay! Let’s put this all together now!</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
