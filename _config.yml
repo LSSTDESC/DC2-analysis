@@ -1,0 +1,19 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: LSST DESC DC2 Analysis
+author: LSST DESC
+copyright: "2024"
+logo: logo.png
+exclude_patterns: [".github", ".gitignore", "contributed"]
+
+execute:
+  execute_notebooks: off
+
+html:
+  use_issues_button: true
+  baseurl: https://lsstdesc.github.io/DC2-analysis
+
+repository:
+  url: https://github.com/LSSTDESC/DC2-analysis
+  branch: master
