@@ -5,7 +5,7 @@ title: LSST DESC DC2 Analysis
 author: LSST DESC
 copyright: "2024"
 logo: logo.png
-exclude_patterns: [".github"]
+exclude_patterns: [".github", "contributed/matching_DIA_truth_astropyCoord.ipynb"]
 
 execute:
   execute_notebooks: off
