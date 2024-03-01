@@ -400,7 +400,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="accessing-the-coadd-data-using-the-data-butler">
 <h1>Accessing the Coadd data using the Data Butler<a class="headerlink" href="#accessing-the-coadd-data-using-the-data-butler" title="Link to this heading">#</a></h1>
 <p><br>Owner: <strong>Jim Chiang</strong> (<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;jchiang87">&#64;jchiang87</a>)
-<br>Last Verified to Run: <strong>2018-10-26</strong> (by &#64;yymao)</p>
+<br>Last Verified to Run: <strong>2024-03-01</strong> (by &#64;fjaviersanchez)</p>
 <p>This notebook shows how to read in the coadd catalog data for an entire tract using the LSST Data Management (DM) data butler, and construct a Pandas dataframe with the columns needed to apply the weak lensing cuts used in recent analysis of data from Hyper Suprime Cam <a class="reference external" href="https://arxiv.org/abs/1705.06745">Mandelbaum et al (2018)</a> using cuts given by <a class="reference external" href="https://lsstc.slack.com/archives/C77DDKZHR/p1525197444000687">Francois in Slack</a>.</p>
 <p>We have a <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/master/Notebooks/DC2%20Coadd%20Run1.1p%20GCR%20access%20--%20HSC%20selection.ipynb">notebook that performs a similar analysis using GCR</a>.  See also <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/blob/master/scripts/merge_tract_cat.py">the more general script</a> for extracting the coadd data from a tract into an hdf5 file.</p>
 <section id="learning-objectives">
@@ -432,6 +432,35 @@ document.write(`
 <section id="how-to-read-dm-science-pipelines-coadd-catalogs-into-a-pandas-dataframe">
 <h2>How To Read DM Science Pipelines Coadd Catalogs into a Pandas Dataframe<a class="headerlink" href="#how-to-read-dm-science-pipelines-coadd-catalogs-into-a-pandas-dataframe" title="Link to this heading">#</a></h2>
 <p>Here’s a function to do this: pass it a butler and some information about what you want, and get a pandas df object back. In this example, we’ll get the forced photometry as well as the model measurements - these are stored in different tables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">REPOS</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tract</span> <span class="o">=</span> <span class="n">skymap</span><span class="p">[</span><span class="mi">4851</span><span class="p">]</span>
+<span class="nb">filter</span> <span class="o">=</span> <span class="s1">&#39;i&#39;</span>
+<span class="k">for</span> <span class="n">patch</span> <span class="ow">in</span> <span class="n">tract</span><span class="p">:</span>
+        <span class="n">patchId</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">,</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">patch</span><span class="o">.</span><span class="n">getIndex</span><span class="p">()</span>
+        <span class="n">dataId</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">filter_</span><span class="p">,</span> <span class="n">tract</span><span class="o">=</span><span class="n">tract</span><span class="o">.</span><span class="n">getId</span><span class="p">(),</span> <span class="n">patch</span><span class="o">=</span><span class="n">patchId</span><span class="p">)</span>
+
+        <span class="c1"># Patches for which there is no data will raise a `NoResults` exception when requested</span>
+        <span class="c1"># from the butler.  We catch those exceptions, note the missing data, and </span>
+        <span class="c1"># continue looping over the patches.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">forced</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deepCoadd_forced_src&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="p">)</span>
+            <span class="n">calib</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deepCoadd_calexp_photoCalib&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="p">)</span>
+            <span class="n">merged</span> <span class="o">=</span> <span class="n">butler</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deepCoadd_ref&#39;</span><span class="p">,</span> <span class="n">dataId</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">dp</span><span class="o">.</span><span class="n">NoResults</span> <span class="k">as</span> <span class="n">eobj</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">eobj</span><span class="p">)</span>
+            <span class="k">continue</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">read_tract</span><span class="p">(</span><span class="n">butler</span><span class="p">,</span> <span class="n">tract</span><span class="p">,</span> <span class="n">filter_</span><span class="o">=</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="n">num_patches</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -490,8 +519,10 @@ document.write(`
         <span class="n">data</span><span class="p">[</span><span class="n">filter_</span> <span class="o">+</span> <span class="s1">&#39;_modelfit_CModel_instFluxErr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">forced</span><span class="p">[</span><span class="s1">&#39;modelfit_CModel_instFluxErr&#39;</span><span class="p">]</span>
 
         <span class="c1"># The calib object applies the zero point to get calibrated magnitudes.</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">filter_</span> <span class="o">+</span> <span class="s1">&#39;_mag_CModel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calib</span><span class="o">.</span><span class="n">getMagnitude</span><span class="p">(</span><span class="n">forced</span><span class="p">[</span><span class="s1">&#39;modelfit_CModel_instFlux&#39;</span><span class="p">])</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">filter_</span> <span class="o">+</span> <span class="s1">&#39;_mag_err_CModel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calib</span><span class="o">.</span><span class="n">getMagnitude</span><span class="p">(</span><span class="n">forced</span><span class="p">[</span><span class="s1">&#39;modelfit_CModel_instFluxErr&#39;</span><span class="p">])</span>
+        
+        <span class="n">_aux</span> <span class="o">=</span> <span class="n">calib</span><span class="o">.</span><span class="n">instFluxToMagnitude</span><span class="p">(</span><span class="n">forced</span><span class="p">,</span> <span class="s1">&#39;modelfit_CModel&#39;</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">filter_</span> <span class="o">+</span> <span class="s1">&#39;_mag_CModel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_aux</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">filter_</span> <span class="o">+</span> <span class="s1">&#39;_mag_err_CModel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_aux</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
         <span class="n">data</span><span class="p">[</span><span class="n">filter_</span> <span class="o">+</span> <span class="s1">&#39;_modelfit_CModel_SNR&#39;</span><span class="p">]</span> \
             <span class="o">=</span> <span class="n">forced</span><span class="p">[</span><span class="s1">&#39;modelfit_CModel_instFlux&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">forced</span><span class="p">[</span><span class="s1">&#39;modelfit_CModel_instFluxErr&#39;</span><span class="p">]</span>
         <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_abs_e&#39;</span><span class="p">]</span> \
@@ -515,7 +546,7 @@ document.write(`
 <p>In order to access the DM Science Pipeline Processed outputs, including images and catalog data, we summon a data butler and provide the path to the data repository where the DM Science Pipeline tasks have written their outputs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">butler</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">Butler</span><span class="p">(</span><span class="n">REPOS</span><span class="p">[</span><span class="s1">&#39;1.2i&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">butler</span> <span class="o">=</span> <span class="n">dp</span><span class="o">.</span><span class="n">Butler</span><span class="p">(</span><span class="n">REPOS</span><span class="p">[</span><span class="s1">&#39;2.2i_dr6&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -568,7 +599,7 @@ document.write(`
 <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_abs_e&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2</span>
 <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ext_shapeHSM_HsmShapeRegauss_sigma&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.4</span>
 <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;i_mag_CModel&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">24.5</span> <span class="c1"># !!! Doesnt have exinction correction</span>
-<span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;base_Blendedness_abs_instFlux&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.375</span><span class="p">)</span>
+<span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;base_Blendedness_abs&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.375</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
