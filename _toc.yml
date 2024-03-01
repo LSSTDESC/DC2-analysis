@@ -7,12 +7,12 @@ title: Home
 parts:
 - caption: Tutorials
   chapters:
-  - glob: tutorials/*.ipynb
+  - glob: tutorials/*
 
 - caption: Validation
   chapters:
-  - glob: validation/*.ipynb
+  - glob: validation/*
 
 - caption: Contributed
   chapters:
-  - glob: contributed/*.ipynb
+  - glob: contributed/*
