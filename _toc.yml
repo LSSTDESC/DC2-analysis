@@ -1,0 +1,18 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: README
+title: Home
+parts:
+- caption: Tutorials
+  chapters:
+  - glob: tutorials/*.ipynb
+
+- caption: Validation
+  chapters:
+  - glob: validation/*.ipynb
+
+- caption: Contributed
+  chapters:
+  - glob: contributed/*.ipynb
