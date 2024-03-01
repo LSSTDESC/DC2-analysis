@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>DC2 Analysis &#8212; LSST DESC DC2 Analysis</title>
+    <title>DC2-analysis &#8212; LSST DESC DC2 Analysis</title>
   
   
   
@@ -57,11 +57,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
-    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/index.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'README';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/README.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="DC2 Tutorials" href="tutorials/README.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -141,7 +140,7 @@
 
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -172,8 +171,8 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
                     DC2 Analysis
                 </a>
             </li>
@@ -262,7 +261,7 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Findex.html&body=Your%20issue%20content%20here." target="_blank"
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2FREADME.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button"
    title="Open an issue"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -288,7 +287,7 @@
       
       
       
-      <li><a href="_sources/index.md" target="_blank"
+      <li><a href="_sources/README.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -359,7 +358,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -370,11 +371,23 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>DC2 Analysis</h1>
+    <h1>DC2-analysis</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links">Links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-credit">License, credit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-get-involved">How to get involved</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-review">Notebook review</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions?</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -385,55 +398,42 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="dc2-analysis">
-<h1>DC2 Analysis<a class="headerlink" href="#dc2-analysis" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/README.html">DC2 Tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/extragalactic_gcr_photoz_catalogs.html#flexzboost-machine-learning-photo-z-s">FlexZBoost: Machine Learning photo-z’s</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/object_per_visit_postage_stamp.html#finding-the-visits-that-contain-a-given-position">Finding the Visits that Contain a Given Position</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation/README.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
-<li class="toctree-l1"><a class="reference internal" href="validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-</div>
+<h1>DC2-analysis<a class="headerlink" href="#dc2-analysis" title="Link to this heading">#</a></h1>
+<p>The repository contains general analysis scripts for the DC2 simulated dataset.  Project-specific work can be done in separate repositories, but some analysis tasks will be generally useful, and the relevant scripts and notebooks can be included here for more general consumption.</p>
+<p>:arrow_right: <a class="reference external" href="https://nbviewer.jupyter.org/github/LSSTDESC/DC2-analysis/tree/rendered/">Click here to browse rendered notebooks</a>!</p>
+<section id="links">
+<h2>Links<a class="headerlink" href="#links" title="Link to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://github.com/LSSTDESC/DC2-production">DC2-production repository</a> includes documents, discussion, and scripts related to the production and validation of DC2.  Please go there for more information about DC2.</p>
+<p>If you find some problem or have a question about tutorials and scripts in this repository, please ask by <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues">opening an issue</a>.</p>
+</section>
+<section id="license-credit">
+<h2>License, credit<a class="headerlink" href="#license-credit" title="Link to this heading">#</a></h2>
+<p>This repository has a BSD 3-clause license (see LICENSE).</p>
+<p>The tutorials in the <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/tree/master/tutorials">tutorials directory</a> all indicate at what date they were last verified to run for the specific dataset that is used throughout the tutorial.  Additional contributions to the repository will include similar information, so that the state of a given piece of code can be clearly identified by users.</p>
+<p>If you make use of the notebooks in this repository for your research, please give a link to this repository and an acknowledgement of the author(s) of the notebook.</p>
+</section>
+<section id="how-to-get-involved">
+<h2>How to get involved<a class="headerlink" href="#how-to-get-involved" title="Link to this heading">#</a></h2>
+<p>In the <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/tree/master/tutorials">tutorials directory</a> you can find a set of well-documented tutorials that show how to access and use DC2 data in a variety of ways.  The <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/tree/master/tutorials/README.rst">README</a> in that directory has a table describing the tutorials.</p>
+<p>New scripts and notebooks can be added in the <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/tree/master/contributed">contributed directory</a>.  The <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/tree/master/contributed/README.md">README</a> has a full description of how to do so.</p>
+</section>
+<section id="notebook-review">
+<h2>Notebook review<a class="headerlink" href="#notebook-review" title="Link to this heading">#</a></h2>
+<p>There are two reasons why one might add a notebook to the repository:</p>
+<ol class="arabic simple">
+<li><p>Adding a generally applicable notebook that you think should be added to the master set of notebooks for DC2 analysis (such as a tutorial or a validation notebook; we imagine the DC2 team will be adding most of these). These will be reviewed by another DC2 team member.</p></li>
+<li><p>You have a notebook for your particular science case that you’d like to add (usually under <code class="docutils literal notranslate"><span class="pre">contributed</span></code>; the notebook could combine some tasks from the existing notebooks, or do something totally different etc). For these notebooks, we will engage the analysis teams for input.</p></li>
+</ol>
+<p>Some suggestions for adding new notebooks (e.g. contribution type 2 above). The code should:</p>
+<p>a) run without issues;
+b) have some explanatory text about what the notebook is trying to do;
+c) use recommended packages/instructions whenever possible (e.g., not skipping API to access underlying files) and if not, clearly document their atypical/unrecommended usage; and
+d) follow reasonable coding style/practices (for some examples, see the existing tutorial notebooks; or see the <a class="reference external" href="https://docs.google.com/document/d/1v54bVQI2NejK2UqACDnGXj1t6IGFgY3Uc1R7iV2uLpY/edit?usp=sharing">DESC Coding Guidelines</a>).</p>
+</section>
+<section id="questions">
+<h2>Questions?<a class="headerlink" href="#questions" title="Link to this heading">#</a></h2>
+<p>If the links above don’t do the job, please <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues">open an issue</a> with your question.  Alternatively, the #desc-dc2-users channel on the LSSTC slack is a good place to talk with others who are analyzing DC2 data.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -466,15 +466,6 @@ document.write(`
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
-    <a class="right-next"
-       href="tutorials/README.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">DC2 Tutorials</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -482,7 +473,24 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#links">Links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-credit">License, credit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-get-involved">How to get involved</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebook-review">Notebook review</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#questions">Questions?</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
