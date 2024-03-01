@@ -14,10 +14,6 @@ html:
   use_issues_button: true
   baseurl: https://lsstdesc.github.io/DC2-analysis
 
-launch_buttons:
-  notebook_interface        : jupyterlab
-  jupyterhub_url            : "https://jupyter.nersc.gov"  # The URL of the JupyterHub (e.g., https://datahub.berkeley.edu)
-
 repository:
   url: https://github.com/LSSTDESC/DC2-analysis
   branch: master
