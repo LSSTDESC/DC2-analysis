@@ -397,7 +397,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="plot-n-versus-z-distributions-in-the-extragalactic-catalogs">
 <h1>Plot N versus z Distributions in the extragalactic catalogs<a class="headerlink" href="#plot-n-versus-z-distributions-in-the-extragalactic-catalogs" title="Link to this heading">#</a></h1>
 <p><br>Owner: <strong>Eve Kovacs</strong> (<a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;evevkovacs">&#64;evevkovacs</a>)
-<br>Last Verified to Run: Nov 30, 2018 by &#64;yymao</p>
+<br>Last Verified to Run: March 1, 2024 by &#64;fjaviersanchez</p>
 <p>This notebook demonstrates how to make number-density versus redshift plots from the extragalactic catalog (protoDC2, cosmoDC2).</p>
 <section id="learning-objectives">
 <h2>Learning Objectives:<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
@@ -451,7 +451,7 @@ document.write(`
     <span class="n">filters</span> <span class="o">=</span> <span class="p">[(</span><span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="p">(</span><span class="n">z</span> <span class="o">&gt;</span> <span class="n">zlo</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">z</span> <span class="o">&lt;</span> <span class="n">zhi</span><span class="p">),</span> <span class="n">z</span><span class="p">)]</span>  <span class="c1"># Filter on selected redshift range</span>
     
     <span class="c1"># Initialize arrays for storing histogram sums</span>
-    <span class="n">N_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncolumns</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">zbins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="n">N_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncolumns</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">zbins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
     <span class="n">sumz_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncolumns</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">zbins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
     <span class="c1"># Get catalog data by looping over data iterator (needed for large catalogs) and aggregate histograms</span>
     <span class="k">for</span> <span class="n">catalog_data</span> <span class="ow">in</span> <span class="n">gc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">required_quantities</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="n">return_iterator</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -486,7 +486,7 @@ document.write(`
 <span class="n">mlo</span> <span class="o">=</span> <span class="mi">25</span>
 <span class="n">mhi</span> <span class="o">=</span> <span class="mi">19</span>
 
-<span class="n">mag_lo</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">mhi</span><span class="p">,</span> <span class="n">mlo</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">mag_lo</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">mhi</span><span class="p">,</span> <span class="n">mlo</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 <span class="n">mag_hi</span> <span class="o">=</span> <span class="n">mhi</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mag_lo</span><span class="p">)</span>
 
 <span class="n">ncolumns</span> <span class="o">=</span> <span class="mi">2</span>
