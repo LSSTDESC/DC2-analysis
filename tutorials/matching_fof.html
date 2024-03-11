@@ -398,8 +398,8 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="match-truth-and-object-catalogs-for-dc2-run-2-2i">
 <h1>Match truth and object catalogs for DC2 Run 2.2i<a class="headerlink" href="#match-truth-and-object-catalogs-for-dc2-run-2-2i" title="Link to this heading">#</a></h1>
 <p>Owner: Yao-Yuan Mao, Scott Daniel (with help from Anže Slosar, Bhairav Valera, HyeYun Park) <br>
-Updated by: Javier Sanchez, Yao-Yuan Mao <br>
-Last Verified to Run: 2021-07-01 by Yao-Yuan Mao</p>
+Updated by: Javier Sanchez, Yao-Yuan Mao, Patricia Larsen <br>
+Last Verified to Run: 2024-Mar-11 by Patricia Larsen</p>
 <p><strong>Notes:</strong></p>
 <ul class="simple">
 <li><p>Follow this <a class="reference external" href="https://confluence.slac.stanford.edu/x/Xgg4Dg">step-by-step guide</a> if you don’t know how to run this notebook.</p></li>
@@ -512,7 +512,7 @@ Last Verified to Run: 2021-07-01 by Yao-Yuan Mao</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the stars</span>
-<span class="n">stars_cat</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s2">&quot;dc2_truth_run2.2i_star_truth_summary&quot;</span><span class="p">)</span>
+<span class="n">stars_cat</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s2">&quot;dc2_run2.2i_truth_star_summary&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -550,7 +550,7 @@ Last Verified to Run: 2021-07-01 by Yao-Yuan Mao</p>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">stars_cat</span><span class="o">.</span><span class="n">has_quantity</span><span class="p">(</span><span class="s2">&quot;mag_i&quot;</span><span class="p">):</span>
     <span class="n">stars_cat</span><span class="o">.</span><span class="n">add_derived_quantity</span><span class="p">(</span><span class="s2">&quot;mag_i&quot;</span><span class="p">,</span> <span class="n">flux_to_mag</span><span class="p">,</span> <span class="s2">&quot;flux_i&quot;</span><span class="p">)</span>
-<span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_i&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift&#39;</span><span class="p">]</span>
+<span class="n">quantities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_i&#39;</span><span class="p">]</span>
 <span class="n">stars_data</span> <span class="o">=</span> <span class="n">stars_cat</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">(</span><span class="n">quantities</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="n">pos_filters</span><span class="p">)</span>
 </pre></div>
 </div>

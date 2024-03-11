@@ -383,6 +383,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-catalog">Reading catalog</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#help-for-error-messages">Help for error messages:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-catalog-options">Other catalog options:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-individual-clusters">Plot individual clusters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions">Extensions:</a></li>
 </ul>
@@ -400,17 +401,17 @@ document.write(`
 <h1>Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs<a class="headerlink" href="#plotting-positions-of-galaxy-cluster-members-in-extragalactic-catalogs" title="Link to this heading">#</a></h1>
 <p>In this example script we show how to select for and look at members of individual clusters.</p>
 <p>Owners: <strong>Dan Korytov <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;dkorytov">&#64;dkorytov</a></strong>, <strong>Patricia Larsen</strong></p>
-<p>Last verified run: <strong>Nov 30, 2018</strong> by &#64;yymao</p>
+<p>Last verified run: <strong>March 8, 2024</strong> by &#64;patricialarsen</p>
 <p>This notebook demonstrates how to access the extra galactic catalog through the Generic Catalog Reader (GCR, <a class="github reference external" href="https://github.com/yymao/generic-catalog-reader">yymao/generic-catalog-reader</a>) as well as how filter on galaxy features and cluster membership.</p>
 <p><strong>Objectives</strong>:</p>
 <p>After working through and studying this Notebook you should be able to</p>
 <ol class="arabic simple">
-<li><p>Access extragalactic catalogs (protoDC2, cosmoDC2) through the GCR.</p></li>
+<li><p>Access extragalactic catalogs (cosmoDC2, skysim, roman_rubin) through the GCR.</p></li>
 <li><p>Select galaxy cluster centrals as a proxy for clusters.</p></li>
 <li><p>Select galaxies in individual clusters by using the host_id quantity.</p></li>
 <li><p>Plotting galaxy clustermembers positions on the sky as well as their comoving position in space.</p></li>
 </ol>
-<p><strong>Logistics</strong>: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter-dev.nersc.gov">https://jupyter-dev.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC</a></p>
+<p><strong>Logistics</strong>: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter.nersc.gov">https://jupyter.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
@@ -429,11 +430,30 @@ document.write(`
 </section>
 <section id="help-for-error-messages">
 <h2>Help for error messages:<a class="headerlink" href="#help-for-error-messages" title="Link to this heading">#</a></h2>
-<p>If this fails to find the appropriate quantities, check that the desc-python kernel is being used and if this is not available source the kernels by running the following command on a terminal at nersc: “source /global/common/software/lsst/common/miniconda/setup_current_python.sh”</p>
+<p>If this fails to find the appropriate quantities, check that the desc-python kernel is being used and if this is not available source the kernels by running the following command on a terminal at nersc: “source
+/global/common/software/lsst/common/miniconda/kernels/setup.sh”</p>
 <p>We are loading in a smaller version of the full cosmoDC2 catalog - this contains the same information as the full catalog but with a smaller sky area.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;cosmoDC2_v1.1.4_small&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="other-catalog-options">
+<h2>Other catalog options:<a class="headerlink" href="#other-catalog-options" title="Link to this heading">#</a></h2>
+<p>Some alternate catalogs that you might want to look at include skysim, which is a 5000 square degree extragalactic catalog, and the Roman Rubin catalog which is a smaller extragalactic catalog and image simulation. To load these instead execute one of the two cells below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;skysim5000_v1.1.2_small&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;roman_rubin_2023_v1.1.3_elais&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -450,7 +470,7 @@ document.write(`
 </section>
 <section id="plot-individual-clusters">
 <h2>Plot individual clusters<a class="headerlink" href="#plot-individual-clusters" title="Link to this heading">#</a></h2>
-<p>The cluster_data we loaded selects for central galaxies in clusters of mass higher than 10^14 solar masses/h below redshift 0.2. We will plot three such clusters in the proto-DC2 region.</p>
+<p>The cluster_data we loaded selects for central galaxies in clusters of mass higher than 10^14 solar masses/h below redshift 0.2. We will plot three such clusters in the skysim region.</p>
 <p>For each of these clusters we can match the galaxies by selecting on ‘halo_id’ and make a scatter plot of the projected positions around the central galaxy. Note that the size of the circles corresponds to the r-band magnitude of the galaxies.</p>
 <p>The cluster data is cast into a familiar astropy table.</p>
 <div class="cell docutils container">
@@ -587,6 +607,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-catalog">Reading catalog</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#help-for-error-messages">Help for error messages:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-catalog-options">Other catalog options:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-individual-clusters">Plot individual clusters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions">Extensions:</a></li>
 </ul>

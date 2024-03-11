@@ -383,6 +383,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-catalog-options">Other catalog options:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-catalog">Reading catalog</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#help-for-error-messages">Help for error messages:</a></li>
 </ul>
@@ -399,16 +400,16 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="plotting-galaxy-cluster-member-colors-in-extragalactic-catalogs">
 <h1>Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs<a class="headerlink" href="#plotting-galaxy-cluster-member-colors-in-extragalactic-catalogs" title="Link to this heading">#</a></h1>
 <p>Owners: <strong>Dan Korytov <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;dkorytov">&#64;dkorytov</a></strong></p>
-<p>Last verified run: Nov 30, 2018 (by &#64;yymao)</p>
+<p>Last verified run: Mar 8, 2024 (by &#64;patricialarsen)</p>
 <p>This notebook demonstrates how to access the extra galactic catalog through the Generic Catalog Reader (GCR, <a class="github reference external" href="https://github.com/yymao/generic-catalog-reader">yymao/generic-catalog-reader</a>) as well as how filter on galaxy features and cluster membership.</p>
 <p><strong>Objectives</strong>:</p>
 <p>After working through and studying this Notebook you should be able to</p>
 <ol class="arabic simple">
-<li><p>Access extragalactic catalogs (protoDC2, cosmoDC2) through the GCR</p></li>
+<li><p>Access extragalactic catalogs (cosmoDC2, skysim, roman_rubin) through the GCR</p></li>
 <li><p>Filter on galaxy properties</p></li>
 <li><p>Select and plot cluster members</p></li>
 </ol>
-<p><strong>Logistics</strong>: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter-dev.nersc.gov">https://jupyter-dev.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter-dev+at+NERSC</a></p>
+<p><strong>Logistics</strong>: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter.nersc.gov">https://jupyter.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
@@ -427,6 +428,23 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="other-catalog-options">
+<h2>Other catalog options:<a class="headerlink" href="#other-catalog-options" title="Link to this heading">#</a></h2>
+<p>Some alternate catalogs that you might want to look at include skysim, which is a 5000 square degree extragalactic catalog, and the Roman Rubin catalog which is a smaller extragalactic catalog and image simulation. To load these instead execute one of the two cells below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;skysim5000_v1.1.2_small&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;roman_rubin_2023_v1.1.3_elais&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift&#39;</span><span class="p">,</span>
@@ -436,13 +454,15 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 <section id="reading-catalog">
 <h2>Reading catalog<a class="headerlink" href="#reading-catalog" title="Link to this heading">#</a></h2>
 <p>We load in the catalog with the “load_catalog” command, and then the values with the “get_quantities” command using filters to select sub-samples of the catalog. For this case we only need the magnitudes in several filters and the redshift. Galaxies are filtered on host halo mass to be at least 3e13 h<span class="math notranslate nohighlight">\(^{-1}\)</span>M<span class="math notranslate nohighlight">\(_\odot\)</span>.</p>
 </section>
 <section id="help-for-error-messages">
 <h2>Help for error messages:<a class="headerlink" href="#help-for-error-messages" title="Link to this heading">#</a></h2>
-<p>If this fails to find the appropriate quantities, check that the desc-python kernel is being used and if this is not available source the kernels by running the following command on a terminal at nersc: “source /global/common/software/lsst/common/miniconda/setup_current_python.sh”</p>
+<p>If this fails to find the appropriate quantities, check that the desc-python kernel is being used and if this is not available source the kernels by running the following command on a terminal at nersc: “source
+/global/common/software/lsst/common/miniconda/kernels/setup.sh”</p>
 <p>We are loading in a smaller version of the full cosmoDC2 catalog - this contains the same information as the full catalog but with a smaller sky area.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -482,7 +502,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>After load the catalog and data, we are able to plot the color distribution as a function of redshift for cluster galaxies with very little effort!</p>
+<p>After loading the catalog and data, we are able to plot the color distribution as a function of redshift for cluster galaxies with very little effort!</p>
 </section>
 </section>
 
@@ -550,6 +570,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-catalog-options">Other catalog options:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-catalog">Reading catalog</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#help-for-error-messages">Help for error messages:</a></li>
 </ul>

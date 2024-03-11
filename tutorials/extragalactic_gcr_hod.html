@@ -381,7 +381,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalog-selection">Catalog selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-data">Get the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosmology">Cosmology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-expected-halo-mass-function-from-ccl">Get expected halo mass function from CCL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-expected-number-of-halos">Determine expected number of halos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-halo-occupation-distribution">Plot halo occupation distribution</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -396,13 +404,13 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="halo-occupation-distribution-from-extragalactic-catalogs">
 <h1>Halo Occupation Distribution from extragalactic catalogs<a class="headerlink" href="#halo-occupation-distribution-from-extragalactic-catalogs" title="Link to this heading">#</a></h1>
 <blockquote>
-<div><p>Notebook owner: Yao-Yuan Mao <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">&#64;yymao</a>. Last run: Nov 30, 2018</p>
+<div><p>Notebook owner: Yao-Yuan Mao <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">&#64;yymao</a>. Last run: Mar 8, 2024 by &#64;patricialarsen</p>
 </div></blockquote>
-<p>In this notebook we demostrate how to plot the halo occupation distribution of the protoDC2/cosmoDC2 galaxy catalog.</p>
+<p>In this notebook we demostrate how to plot the halo occupation distribution of the cosmoDC2/skysim/roman_rubin galaxy catalogs.</p>
 <section id="learning-objectives">
 <h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">GCRCatalogs</span></code> to access the protoDC2 or cosmoDC2 catalogs.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">GCRCatalogs</span></code> to access the cosmoDC2, skysim or roman_rubin catalogs.</p></li>
 <li><p>Access cosmology in the extragalactic catalogs.</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">CCL</span></code> to predict Halo Mass Function.</p></li>
 </ul>
@@ -429,9 +437,14 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="catalog-selection">
+<h3>Catalog selection<a class="headerlink" href="#catalog-selection" title="Link to this heading">#</a></h3>
+<p>Uncomment the line corresponding to the catalog you want to inspect</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;cosmoDC2_v1.1.4_small&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#gc = GCRCatalogs.load_catalog(&#39;cosmoDC2_v1.1.4_small&#39;)</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;skysim5000_v1.1.2_small&#39;</span><span class="p">)</span>
+<span class="c1">#gc = GCRCatalogs.load_catalog(&#39;roman_rubin_2023_v1.1.3_elais&#39;)</span>
 </pre></div>
 </div>
 </div>
@@ -445,13 +458,21 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="get-the-data">
+<h3>Get the data<a class="headerlink" href="#get-the-data" title="Link to this heading">#</a></h3>
+<p>Retrieve the data given the maximum redshift value determined above</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;Mag_true_r_lsst_z0&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift&#39;</span><span class="p">],</span> <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;redshift &lt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zmax</span><span class="p">)])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;Mag_true_r_lsst_z0&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift&#39;</span><span class="p">,</span><span class="s1">&#39;halo_id&#39;</span><span class="p">],</span> <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;redshift &lt; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zmax</span><span class="p">)])</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="cosmology">
+<h3>Cosmology<a class="headerlink" href="#cosmology" title="Link to this heading">#</a></h3>
+<p>Retrieve the cosmological parameters and use them to create a ccl cosmology object</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cosmo</span> <span class="o">=</span> <span class="n">ccl</span><span class="o">.</span><span class="n">Cosmology</span><span class="p">(</span>
@@ -466,15 +487,26 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
+<section id="get-expected-halo-mass-function-from-ccl">
+<h3>Get expected halo mass function from CCL<a class="headerlink" href="#get-expected-halo-mass-function-from-ccl" title="Link to this heading">#</a></h3>
+<p>We approximate the hmf by using the mean redshift, create a mass definition and decide which mass function to use</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># approximate hmf using mean redshift</span>
 <span class="n">mean_scale_factor</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;redshift&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<span class="n">hmf_dn_dlogm</span> <span class="o">=</span> <span class="n">ccl</span><span class="o">.</span><span class="n">massfunc</span><span class="p">(</span><span class="n">cosmo</span><span class="p">,</span> <span class="n">mass_center</span><span class="p">,</span> <span class="n">mean_scale_factor</span><span class="p">)</span>
+
+<span class="n">hmd_fof</span> <span class="o">=</span> <span class="n">ccl</span><span class="o">.</span><span class="n">halos</span><span class="o">.</span><span class="n">MassDefFof</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">ccl</span><span class="o">.</span><span class="n">halos</span><span class="o">.</span><span class="n">MassFuncSheth99</span><span class="p">(</span><span class="n">mass_def</span><span class="o">=</span><span class="n">hmd_fof</span><span class="p">)</span>
+<span class="n">hmf_dn_dlogm</span> <span class="o">=</span>  <span class="n">mf</span><span class="p">(</span><span class="n">cosmo</span><span class="p">,</span> <span class="n">mass_center</span><span class="p">,</span> <span class="n">mean_scale_factor</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="determine-expected-number-of-halos">
+<h3>Determine expected number of halos<a class="headerlink" href="#determine-expected-number-of-halos" title="Link to this heading">#</a></h3>
+<p>Use the halo mass function and the volume (given by 4/3 pi * fsky * r^3) to get the total number of halos expected in the volume. We also select on halo ids to get the true number of halos in the volume.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">cosmology</span><span class="o">.</span><span class="n">comoving_distance</span><span class="p">(</span><span class="n">zmax</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;Mpc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
@@ -487,19 +519,32 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dlogm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ediff1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mass_bins</span><span class="p">))</span>
 <span class="n">nhalo_expected</span> <span class="o">=</span> <span class="n">hmf_dn_dlogm</span> <span class="o">*</span> <span class="n">volume</span> <span class="o">*</span> <span class="n">dlogm</span>
+
+<span class="n">hid</span><span class="p">,</span><span class="n">idx</span><span class="p">,</span><span class="n">count</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;halo_id&#39;</span><span class="p">],</span><span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="plot-halo-occupation-distribution">
+<h3>Plot halo occupation distribution<a class="headerlink" href="#plot-halo-occupation-distribution" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">Mr_thres</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="o">-</span><span class="mf">21.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">21</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab20c</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span>
         <span class="n">mass_center</span><span class="p">,</span> 
         <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">][</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Mag_true_r_lsst_z0&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">Mr_thres</span><span class="p">],</span> <span class="n">mass_bins</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">nhalo_expected</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$M_r &lt; </span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Mr_thres</span><span class="p">),</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$CCL:\ M_r &lt; </span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Mr_thres</span><span class="p">),</span>
         <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
     <span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span>
+        <span class="n">mass_center</span><span class="p">,</span> 
+        <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">][</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Mag_true_r_lsst_z0&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">Mr_thres</span><span class="p">],</span> <span class="n">mass_bins</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">],</span> <span class="n">mass_bins</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$M_r &lt; </span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Mr_thres</span><span class="p">),</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span>
+    <span class="p">);</span>
+
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;${\rm M}_h \,/\, {\rm M}_\odot$&#39;</span><span class="p">);</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\langle N_{\rm gal} \,|\, {\rm M}_h \rangle$&#39;</span><span class="p">);</span>
@@ -511,6 +556,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 
@@ -578,7 +624,15 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalog-selection">Catalog selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-the-data">Get the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosmology">Cosmology</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-expected-halo-mass-function-from-ccl">Get expected halo mass function from CCL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-expected-number-of-halos">Determine expected number of halos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-halo-occupation-distribution">Plot halo occupation distribution</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

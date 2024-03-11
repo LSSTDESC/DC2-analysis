@@ -381,7 +381,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncomment-the-line-corresponding-to-the-catalog-you-re-inspecting">Uncomment the line corresponding to the catalog you’re inspecting</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stellar-mass-halo-mass-relation-for-low-z-central-galaxies">stellar mass - halo mass relation for low-z central galaxies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bulge-mass-black-hole-mass-relation-for-low-z-central-galaxies">bulge mass - black hole mass relation for low-z central galaxies</a></li>
 </ul>
@@ -398,13 +401,13 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="extragalactic-catalogs-mass-relations">
 <h1>Extragalactic catalogs: mass relations<a class="headerlink" href="#extragalactic-catalogs-mass-relations" title="Link to this heading">#</a></h1>
 <blockquote>
-<div><p>Notebook owner: Yao-Yuan Mao <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">&#64;yymao</a>. Last run: Nov 30, 2018</p>
+<div><p>Notebook owner: Yao-Yuan Mao <a class="reference external" href="https://github.com/LSSTDESC/DC2-analysis/issues/new?body=&#64;yymao">&#64;yymao</a>. Last run: Mar 8, 2024 by &#64;patricialarsen</p>
 </div></blockquote>
-<p>In this notebook we demostrate how to plot the halo mass-stellar mass relation and also the BH mass-bulge mass relation for the protoDC2/cosmoDC2 galaxy catalog.</p>
+<p>In this notebook we demostrate how to plot the halo mass-stellar mass relation and also the BH mass-bulge mass relation for the cosmoDC2/ skysim/ roman_rubin galaxy catalog.</p>
 <section id="learning-objectives">
 <h2>Learning objectives<a class="headerlink" href="#learning-objectives" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">GCRCatalogs</span></code> to access the protoDC2 or cosmoDC2 catalogs.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">GCRCatalogs</span></code> to access the cosmoDC2, roman_rubin or skysim catalogs.</p></li>
 <li><p>Be able to explore useful quantities using <code class="docutils literal notranslate"><span class="pre">GCRCatalogs</span></code>.</p></li>
 <li><p>Be able to use filters when accessing quantities.</p></li>
 </ul>
@@ -424,9 +427,13 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="uncomment-the-line-corresponding-to-the-catalog-you-re-inspecting">
+<h3>Uncomment the line corresponding to the catalog you’re inspecting<a class="headerlink" href="#uncomment-the-line-corresponding-to-the-catalog-you-re-inspecting" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gc</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;cosmoDC2_v1.1.4_small&#39;</span><span class="p">)</span>
+<span class="c1">#gc = GCRCatalogs.load_catalog(&#39;skysim5000_v1.1.2_small&#39;)</span>
+<span class="c1">#gc = GCRCatalogs.load_catalog(&#39;roman_rubin_2023_v1.1.1_elais&#39;)</span>
 </pre></div>
 </div>
 </div>
@@ -439,6 +446,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="stellar-mass-halo-mass-relation-for-low-z-central-galaxies">
 <h2>stellar mass - halo mass relation for low-z central galaxies<a class="headerlink" href="#stellar-mass-halo-mass-relation-for-low-z-central-galaxies" title="Link to this heading">#</a></h2>
@@ -548,7 +556,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-objectives">Learning objectives</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uncomment-the-line-corresponding-to-the-catalog-you-re-inspecting">Uncomment the line corresponding to the catalog you’re inspecting</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stellar-mass-halo-mass-relation-for-low-z-central-galaxies">stellar mass - halo mass relation for low-z central galaxies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bulge-mass-black-hole-mass-relation-for-low-z-central-galaxies">bulge mass - black hole mass relation for low-z central galaxies</a></li>
 </ul>
