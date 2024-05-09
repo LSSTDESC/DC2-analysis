@@ -1,0 +1,947 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Investigating Halo Quantities in the Skysim and CosmoDC2 Extragalactic Catalogs &#8212; LSST DESC DC2 Analysis</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/extragalactic_halo_quantities';</script>
+    <link rel="canonical" href="https://lsstdesc.github.io/DC2-analysis/tutorials/extragalactic_halo_quantities.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Match truth and object catalogs for DC2 Run 2.2i" href="matching_fof.html" />
+    <link rel="prev" title="Plot N versus z Distributions in the extragalactic catalogs" href="extragalactic_gcr_redshift_dist.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../README.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="LSST DESC DC2 Analysis - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="LSST DESC DC2 Analysis - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    DC2-analysis
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="README.html">DC2 Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_sn_vs_truth.html">DIA Analysis: Supernovae from the Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dia_source_object_stamp.html">DIA Analysis: Source, Object, and Postage Stamps for Run 1.2p Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_lensing_cuts.html">Accessing the Coadd data using the Data Butler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps.html">DC2: Generate Postage Stamps for set of RA, Dec coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_postage_stamps_for_object_catalogs.html">DC2: Generate Postage Stamps (Cutouts) for objects in the Object Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dm_butler_skymap.html">Plotting the DC2 Run2.1i skyMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_colors.html">Plotting Galaxy Cluster Member Colors in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_cluster_members.html">Plotting Positions of Galaxy Cluster Members in Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_hod.html">Halo Occupation Distribution from extragalactic catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_mass_relations.html">Extragalactic catalogs: mass relations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_photoz_catalogs.html">cosmoDC2 extragalactic catalog photometric redshifts</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="extragalactic_gcr_redshift_dist.html">Plot N versus z Distributions in the extragalactic catalogs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Investigating Halo Quantities in the Skysim and CosmoDC2 Extragalactic Catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_fof.html">Match truth and object catalogs for DC2 Run 2.2i</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matching_stack.html">Using the LSST Stack tools to do positional matching on coadd and src catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_1_intro.html">DC2 Object Catalog Run2.2i GCR tutorial – Part I: GCR access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_2_lensing_cuts.html">DC2 Object Catalog Run2.2i GCR tutorial – Part II: Lensing Cuts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_3_challenges.html">DC2 Object Catalog Run2.2i GCR tutorial – Part III: Guided Challenges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_gcr_4_photoz.html">DC2 Object Catalog Run2.2i GCR tutorial – Part IV: accessing photo-z</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_pandas_stellar_locus.html">Looking at the “Object Catalogs”: merged tract-patch catalogs in DC2 Run 1.1p</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_per_visit_postage_stamp.html">DC2 Retrieve Visit-Level Forced Src Photometry and Postage Stamps from Object Catalog.</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="object_spark_1_intro.html">DC2 object Run1.1p Apache Spark tutorial – Part I: Apache Spark access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_forcedsource.html">Accessing DC2 forced source data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_1_intro.html">Accessing DC2 data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_object_2.html">Accessing DC2 data in PostgreSQL at NERSC part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postgres_truth.html">Accessing DC2 truth and simulated observations data in PostgreSQL at NERSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_intro.html">Accessing Truth Catalog Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="truth_gcr_variables.html">Accessing variable and transient objects in the truth catalog</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Validation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../validation/DC2_calexp_src_validation_1p2.html">Validation tests for DC2 1.2i/p single visit catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/Run_1.2p_PSF_tests.html">Validation tests on DC2 <code class="docutils literal notranslate"><span class="pre">calexps</span></code> and <code class="docutils literal notranslate"><span class="pre">src</span></code> catalogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_object_table.html">Inspection of DC2 Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.1i_object_table.html">Inspection of DC2 Run 2.1i Object Table</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../validation/validate_dc2_run2.2i_object_table.html">Inspection of DC2 Run 2.2i DR6 Object Table</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/LSSTDESC/DC2-analysis/issues/new?title=Issue%20on%20page%20%2Ftutorials/extragalactic_halo_quantities.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/tutorials/extragalactic_halo_quantities.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Investigating Halo Quantities in the Skysim and CosmoDC2 Extragalactic Catalogs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-catalogs">Reading the catalogs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-native-quantities">Non-native Quantities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#native-quantities">Native Quantities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skysim">Skysim</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faqs-cosmodc2">FAQs - <em>CosmoDC2</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faqs-skysim">FAQs - <em>Skysim</em></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="investigating-halo-quantities-in-the-skysim-and-cosmodc2-extragalactic-catalogs">
+<h1>Investigating Halo Quantities in the Skysim and CosmoDC2 Extragalactic Catalogs<a class="headerlink" href="#investigating-halo-quantities-in-the-skysim-and-cosmodc2-extragalactic-catalogs" title="Link to this heading">#</a></h1>
+<p>In this example script we show how to access and interpret the additional halo quantities available in the skysim catalog.</p>
+<p>Owner: Patricia Larsen</p>
+<p>Last verified run: April 26, 2024 by &#64;patricialarsen</p>
+<p>This notebook demonstrates how to access the extra galactic catalog through the Generic Catalog Reader (GCR, <a class="github reference external" href="https://github.com/yymao/generic-catalog-reader">yymao/generic-catalog-reader</a>) with a focus on skysim halo quantities. For more assistance with using GCR please see <a class="reference external" href="https://github.com/LSSTDESC/gcr-catalogs/blob/master/examples/GCRCatalogs%20Demo.ipynb">https://github.com/LSSTDESC/gcr-catalogs/blob/master/examples/GCRCatalogs Demo.ipynb</a></p>
+<p><strong>Objectives:</strong></p>
+<p>After working through and studying this Notebook you should be able to</p>
+<ul class="simple">
+<li><p>Access the cosmoDC2 and skysim extragalactic catalogs through the GCR</p></li>
+<li><p>Access cosmoDC2 halo quantities and understand how to use them</p></li>
+<li><p>Access skysim-specific halo quantities and understand how to use them</p></li>
+<li><p>Match cosmoDC2 and skysim galaxies to their host halos from the Outer Rim simulation</p></li>
+<li><p>See FAQs for halo quantities</p></li>
+</ul>
+<p>Logistics: This notebook is intended to be run through the JupyterHub NERSC interface available here: <a class="reference external" href="https://jupyter.nersc.gov">https://jupyter.nersc.gov</a>. To setup your NERSC environment, please follow the instructions available here: <a class="reference external" href="https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC">https://confluence.slac.stanford.edu/display/LSSTDESC/Using+Jupyter+at+NERSC</a></p>
+<p><strong>NOTE: FAQs are listed at the bottom of this page, please look there for known issues before flagging any issues in the halo catalogs</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">GCRCatalogs</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">from</span> <span class="nn">GCR</span> <span class="kn">import</span> <span class="n">GCRQuery</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<section id="reading-the-catalogs">
+<h2>Reading the catalogs<a class="headerlink" href="#reading-the-catalogs" title="Link to this heading">#</a></h2>
+<p>We load in the catalogs with the “load_catalog” command, and then the values with the “get_quantities” command using filters to select sub-samples of the catalog.</p>
+<p><strong>Help for error messages:</strong>
+If this fails to find the appropriate quantities, check that the desc-python kernel is being used and if this is not available source the kernels by running the following command on a terminal at nersc: “source /global/common/software/lsst/common/miniconda/kernels/setup.sh”</p>
+<p>Note that we are loading in a small version of the catalogs using the _small versions  - these contain the same information as the full catalog but with a smaller sky area.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gc_cdc2</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;cosmoDC2_v1.1.4_small&#39;</span><span class="p">)</span>
+<span class="n">gc_sky</span> <span class="o">=</span> <span class="n">GCRCatalogs</span><span class="o">.</span><span class="n">load_catalog</span><span class="p">(</span><span class="s1">&#39;skysim5000_v1.2_small&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="non-native-quantities">
+<h2>Non-native Quantities<a class="headerlink" href="#non-native-quantities" title="Link to this heading">#</a></h2>
+<p>Let’s first discuss the non-native quantities. These are the halo mass (in Msun) and halo ID (note that you can then also access their positions and velocities through looking at the halo’s central galaxies using an “is_central” flag).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">gc_cdc2</span><span class="o">.</span><span class="n">list_all_quantities</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;halo&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="native-quantities">
+<h2>Native Quantities<a class="headerlink" href="#native-quantities" title="Link to this heading">#</a></h2>
+<p>You can access further information from the native_quantities. To understand these we must talk a little about the procedure to add galaxies to the simulation. The base of both Skysim and cosmoDC2 is the Outer Rim simulation, which defines the halo positions on the sky. This Outer Rim halo is referred to in the native quantities as the <strong>target</strong> halo. This is an FOF halo measured with a linking length of b=0.168, with a central position given by the minimum potential point.</p>
+<p>To add galaxies to this simulation, we use a Monte Carlo resampling of galaxies from the Universe Machine simulation. In this, galaxies are assigned to halos from the MultiDark Planck 2 (MDPL2), using the Universe Machine prescription, tuned to observations. This MDPL2 halo is referred to as the <strong>host</strong> halo.</p>
+<p><em>Briefly, for every host
+halo in the Outer Rim, we randomly select a host halo in
+MDPL2 of similar mass, and map the galaxy content of the
+selected MDPL2 halo into the Outer Rim halo, preserving
+the halo-centric positions and velocities of the galaxies.</em></p>
+<p>The <strong>source</strong> halos also pertain to the UMachine catalog, and give the ID and mass values for matching to MDPL2.</p>
+<p>We then add extra properties by running the Galacticus semi-analytic model on the Alpha Quadrant (a smaller analog to Outer Rim), and creating a set of galaxies with properly correlated properties which are used as a library from which we select in color and redshift space to add complexity.</p>
+<p>Generally speaking for halo properties you’ll want to look at those of the <strong>target halo</strong>, however the host halo information for the matching halo from the Universe Machine simulation is retained as well. Please look at <a class="reference external" href="https://arxiv.org/pdf/1907.06530">https://arxiv.org/pdf/1907.06530</a> if this is confusing, especially Figure 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">gc_cdc2</span><span class="o">.</span><span class="n">list_all_native_quantities</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;target_halo&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">gc_cdc2</span><span class="o">.</span><span class="n">list_all_native_quantities</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;host_halo&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">gc_cdc2</span><span class="o">.</span><span class="n">list_all_native_quantities</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;source_halo&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Link to this heading">#</a></h2>
+<p>The target halo information has</p>
+<ul class="simple">
+<li><p>redshift</p></li>
+<li><p>central potential point x,y,z in comoving Mpc/h</p></li>
+<li><p>mean halo velocity vx, vy, vz in km/s</p></li>
+<li><p>halo mass in Msun/h</p></li>
+<li><p>halo ID -&gt; a cosmoDC2-specific halo ID</p></li>
+<li><p>fof halo ID -&gt; the fof halo tag corresponding to the Outer-Rim simulation (note this is only unique per simulation step)</p></li>
+</ul>
+<p>The host halo (where the host-centric galaxy positions come from) information has</p>
+<ul class="simple">
+<li><p>central position in MDPL2 simulation x,y,z in comoving Mpc/h</p></li>
+<li><p>mean halo velocity vx, vy, vz in km/s</p></li>
+<li><p>halo mass in Msun/h</p></li>
+</ul>
+<p>The source halo information has</p>
+<ul class="simple">
+<li><p>source halo id (halo tag from the MDPL2 simulation)</p></li>
+<li><p>halo mass in Msun/h</p></li>
+</ul>
+<p><strong>Notes</strong>: You will occassionally find fill values, this happens in several situations, e.g. synthetic field galaxies added without host halos. These are typically either 0 or -1. While GCR quantities are typically converted to GCR conventions, native quantities are not, so please double check units (especially note that GCR masses are in Msun, native quantities are in Msun/h)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s add some plots to better understand these here</span>
+<span class="c1"># start by asking for a representative set of target halo quantities and normal information for a small set of cluster-mass halos</span>
+<span class="c1"># we set the is_central flag to ensure we only have one galaxy per halo</span>
+
+<span class="n">cluster_data</span> <span class="o">=</span> <span class="n">gc_cdc2</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span><span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;vx&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_id&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/target_halo_mass&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/target_halo_id&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;baseDC2/target_halo_x&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/target_halo_vx&#39;</span><span class="p">,</span> <span class="s1">&#39;baseDC2/target_halo_redshift&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/source_halo_mvir&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;baseDC2/host_halo_mvir&#39;</span><span class="p">],</span> 
+                                 <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;is_central&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_mass &gt; 1e14&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift &lt; 0.2&#39;</span><span class="p">])</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Firstly let’s check that the masses of the host halos match exactly to the source halos, as these should be duplicate data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/host_halo_mvir&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/source_halo_mvir&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can then check that the x positions and velocities from the central galaxies line up with the x positions and velocities of the halos</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_x&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;vx&#39;</span><span class="p">],</span> <span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_vx&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next let’s look at the redshift  - there’s more scatter there because the line-of-sight velocity is also taken into account in the redshift measurement, and the halo redshift is the cosmological redshift (you can get these to match by selecting the cosmological redshift for the galaxies).</p>
+<p>The masses line up <em>only</em> if you take into account the change in units between halo_mass (in Msun) and the target_halo_mass (in Msun/h).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">gc_cdc2</span><span class="o">.</span><span class="n">cosmology</span><span class="o">.</span><span class="n">H0</span><span class="o">.</span><span class="n">value</span><span class="o">/</span><span class="mf">100.</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;redshift&#39;</span><span class="p">],</span> <span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_redshift&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.18</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.18</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.18</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.18</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_mass&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">h</span><span class="p">))</span> <span class="c1"># note h factor here</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mf">15.5</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mf">15.5</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally we can see that the halo id matches with the target halo id (note this likely doesn’t match with the fof halo id as the id convention has been altered to ensure unique identifiers)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">((</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;halo_id&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_id&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="skysim">
+<h3>Skysim<a class="headerlink" href="#skysim" title="Link to this heading">#</a></h3>
+<p>We take this one step farther with skysim by addding access to extra quantities of the target halos. There are two types of labels here, sod_halo quantities which are M200c quantities from the Outer Rim simulation, and target_halo quantities which are later derived quantities</p>
+<ul class="simple">
+<li><p>sod_halo_mass is the M200c value for the halo (Msun/h)</p></li>
+<li><p>sod_halo_radius is the R200c value (Mpc/h comoving)</p></li>
+<li><p>sod_halo_cdelta is the concentration c (unitless)</p></li>
+<li><p>sod_halo_cdelta_error is the error in the concentration measurement</p></li>
+</ul>
+<p>For the target halo quantities we then add further information on their orientation and ellipcitity. Note that these quantities only exist from the simulation above a certain mass limit, which is 10,000 particles or a mass of 10^13 (not the right number, add here) or above. Below this we orient galaxies according to a random draw from a distribution, and the corresponding values are given instead.</p>
+<p>These are</p>
+<ul class="simple">
+<li><p>target_halo_axis_A_x,y,z - direction of the halo major axis (eigenvector of the inertia tensor)</p></li>
+<li><p>target_halo_axis_A,B,C_length - the length of the halo axes in Mpc/h</p></li>
+<li><p>target_halo_axis_ellipticity,prolaticity -&gt; look at the exact axis ratio to e/p conversion in the github here: <a class="github reference external" href="https://github.com/LSSTDESC/cosmodc2/blob/4a41384fa49f29e1a6c9b18d1cbe016c58b3731d/cosmodc2/triaxial_satellite_distributions/axis_ratio_model.py">LSSTDESC/cosmodc2</a></p></li>
+</ul>
+<p>*note these are from I believe the simple inertia tensor of the FOF halo particles</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">gc_sky</span><span class="o">.</span><span class="n">list_all_native_quantities</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gc_cdc2</span><span class="o">.</span><span class="n">list_all_native_quantities</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;target_halo&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">gc_sky</span><span class="o">.</span><span class="n">list_all_native_quantities</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gc_cdc2</span><span class="o">.</span><span class="n">list_all_native_quantities</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;sod_halo&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s plot some skysim data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_data</span> <span class="o">=</span> <span class="n">gc_sky</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span><span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;vx&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_id&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;baseDC2/target_halo_mass&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/sod_halo_mass&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/sod_halo_cdelta&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/sod_halo_radius&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;baseDC2/target_halo_ellipticity&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/target_halo_prolaticity&#39;</span><span class="p">,</span> <span class="s1">&#39;baseDC2/target_halo_axis_A_length&#39;</span><span class="p">,</span>
+                                     <span class="s1">&#39;baseDC2/target_halo_axis_B_length&#39;</span><span class="p">,</span> <span class="s1">&#39;baseDC2/target_halo_axis_C_length&#39;</span><span class="p">],</span> 
+                                 <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;is_central&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_mass &gt; 1e14&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift &lt; 0.2&#39;</span><span class="p">])</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>First let’s look at the standard SOD quantiites - SOD masses should roughly agree with FOF masses, with a fair bit of scatter. The concentrations should roughly have values between 1 and 10 with a large amount of scatter. Fill values for the concentration are -1 for a failed measurement and -101 for a halo which doesn’t have SOD measurements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">gc_sky</span><span class="o">.</span><span class="n">cosmology</span><span class="o">.</span><span class="n">H0</span><span class="o">.</span><span class="n">value</span><span class="o">/</span><span class="mf">100.</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/sod_halo_mass&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">h</span><span class="p">)</span> <span class="c1"># note h here</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mf">15.5</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mf">15.5</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/sod_halo_mass&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">h</span><span class="p">),</span> <span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/sod_halo_cdelta&#39;</span><span class="p">])</span> <span class="c1"># note h here</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s look at the axis length, this should be on the same order of magnitude as the r200 value</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/sod_halo_radius&#39;</span><span class="p">],</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_axis_A_length&#39;</span><span class="p">])</span> <span class="c1"># note check for h-unit and a questions</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally ellipticity and prolaticity should be dependent on the axis ratios - we take the equations exactly from the code to confirm the definitions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculate_ellipticity_prolaticity_from_axis_ratios</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;b must be strictly positive&quot;</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;b cannot exceed unity&quot;</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;c must be strictly positive&quot;</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">b</span> <span class="o">&gt;=</span> <span class="n">c</span><span class="p">),</span> <span class="s2">&quot;c cannot exceed b&quot;</span>
+
+    <span class="n">lam</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">+</span> <span class="n">b</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">denom</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">lam</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="n">denom</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">denom</span>
+    <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">p</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax1</span> <span class="o">=</span> <span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_axis_C_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_axis_A_length&#39;</span><span class="p">]</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_axis_B_length&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_axis_A_length&#39;</span><span class="p">]</span>
+<span class="n">ellip</span><span class="p">,</span><span class="n">prolat</span> <span class="o">=</span> <span class="n">calculate_ellipticity_prolaticity_from_axis_ratios</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">[</span><span class="s1">&#39;baseDC2/target_halo_ellipticity&#39;</span><span class="p">],</span><span class="n">ellip</span><span class="p">)</span> <span class="c1"># note check for h-unit and a questions</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We leave it as an exercise to the reader to use and investigate the properties however you’d like, but before we end this tutorial let’s match up the galaxies to their host halos to put it all together</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first we read in both the galaxy data and the halo data (halo data involves cutting on an is_central flag to keep unique halos</span>
+<span class="c1"># and here we&#39;ve cut on halo mass and redshift as well to match to specific clusters)</span>
+
+<span class="n">galaxy_data</span> <span class="o">=</span> <span class="n">gc_sky</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;mag_r&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_id&#39;</span><span class="p">],</span> <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mag_r &lt; 19&#39;</span><span class="p">,</span><span class="s1">&#39;redshift &lt; 0.25&#39;</span><span class="p">])</span>
+<span class="n">cluster_data</span> <span class="o">=</span> <span class="n">gc_sky</span><span class="o">.</span><span class="n">get_quantities</span><span class="p">([</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span><span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_id&#39;</span><span class="p">,</span> <span class="s1">&#39;baseDC2/sod_halo_mass&#39;</span><span class="p">,</span><span class="s1">&#39;baseDC2/target_halo_ellipticity&#39;</span><span class="p">],</span> 
+                                 <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;is_central&#39;</span><span class="p">,</span> <span class="s1">&#39;halo_mass &gt; 1e14&#39;</span><span class="p">,</span> <span class="s1">&#39;redshift &lt; 0.2&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now plot galaxies in the first three halos, matching using the halo id, as in other tutorials, but this time also printing the sod halo mass</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster_data</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cluster_data</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="k">break</span> <span class="c1"># plot only the first 3</span>
+    <span class="n">members</span> <span class="o">=</span> <span class="n">GCRQuery</span><span class="p">(</span><span class="s1">&#39;halo_id == </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="s1">&#39;halo_id&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxy_data</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">members</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> 
+        <span class="n">members</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> 
+        <span class="n">s</span><span class="o">=</span><span class="p">(</span><span class="mi">19</span><span class="o">-</span><span class="n">members</span><span class="p">[</span><span class="s1">&#39;mag_r&#39;</span><span class="p">])</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span> 
+        <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Galaxy Members [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">members</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">]))</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">],</span> <span class="n">cluster</span><span class="p">[</span><span class="s1">&#39;dec&#39;</span><span class="p">],</span> <span class="s1">&#39;xr&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Cluster Center&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;ra [deg]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;dec [deg]&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Halo ID:  </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Halo Mass:  </span><span class="si">{:.2e}</span><span class="s1"> Msun</span><span class="se">\n</span><span class="s1">SOD halo mass: </span><span class="si">{:.2e}</span><span class="s1"> Msun/h&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="s1">&#39;halo_id&#39;</span><span class="p">],</span> <span class="n">cluster</span><span class="p">[</span><span class="s1">&#39;halo_mass&#39;</span><span class="p">],</span> <span class="n">cluster</span><span class="p">[</span><span class="s1">&#39;baseDC2/sod_halo_mass&#39;</span><span class="p">]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="faqs-cosmodc2">
+<h2>FAQs - <em>CosmoDC2</em><a class="headerlink" href="#faqs-cosmodc2" title="Link to this heading">#</a></h2>
+<p><strong>Known issues/ limitations</strong></p>
+<ul class="simple">
+<li><p>The color distribution has some discreteness?</p>
+<ul>
+<li><p>This is a limitation of the sampling method, causing some redshift-related discreteness. See the paper for more details</p></li>
+</ul>
+</li>
+<li><p>The red sequence looks too strong?</p>
+<ul>
+<li><p>This had to be amplified for redmapper to run successfully. This has complicated selection functions and we couldn’t both maintain full realism and meet the requirement for redmapper to run with the person-power available. If you need more realistic colors please consider using the more recent Roman-Rubin simulations</p></li>
+</ul>
+</li>
+<li><p>I found some odd duplicate clusters?</p>
+<ul>
+<li><p>There was a bug in cosmoDC2 where ranks disagreed as to the ownership of some fragment halos, this led to a very small number of doubled-up halos in the map. Since this exists in the image simulation we chose not to fix this bug in cosmoDC2 for consistency. To find this you could cut on halo mass and then see if you have two halos of the same mass with different IDs in the same location and exclude those from your sample, but the recommended solution if you don’t need images is to use skysim to look at the halo catalog which doesn’t have this issue and has a much larger sky area so more clusters to look at.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>IDS</strong></p>
+<ul class="simple">
+<li><p>Why are there negative target_halo_ids?</p>
+<ul>
+<li><p>Negative target_halo_ids exist when the merger-tree object associated with the halo is a fragment halo, this happens when we want to distinguish fly-by type events from true mergers. You can extract the FOF halo tag from this fragment ID.</p></li>
+<li><p>The target_halo_fof_halo_id value for these fragment objects is assigned to be 0</p></li>
+</ul>
+</li>
+<li><p>Why does the distribution of target_halo_ids look weird?</p>
+<ul>
+<li><p>the fragment IDs use bit masking to combine the FOF halo id with a fragment index, this results in a slightly strange looking distribution for fragment IDs.</p></li>
+</ul>
+</li>
+<li><p>Why is my source_halo_id -1 or 0?</p>
+<ul>
+<li><p>These are fill values, there is no source halo from the Umachine catalog. This could be a synthetic source added to amplify the cluster red sequence, or a background unclustered galaxy added to adjust the number density (in this case target_halo_id may also be -1 or 0).</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Masses</strong></p>
+<ul class="simple">
+<li><p>Why are the halo masses different to the target halo masses?</p>
+<ul>
+<li><p>See above notes on units, the halo mass is in Msun, and the target halo mass is in Msun/h (h=0.71 for this simulation)</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Simulation</strong></p>
+<ul class="simple">
+<li><p>Where can I find information on the cosmology/ other details of the Outer Rim simulation? Or of cosmoDC2?</p>
+<ul>
+<li><p>The best place to look is the cosmoDC2 paper, found here: <a class="reference external" href="https://arxiv.org/pdf/1907.06530">https://arxiv.org/pdf/1907.06530</a></p></li>
+<li><p>More information can be found in the Outer Rim paper: <a class="reference external" href="https://arxiv.org/abs/1904.11970">https://arxiv.org/abs/1904.11970</a></p></li>
+</ul>
+</li>
+<li><p>Can I get the base simulation data?</p>
+<ul>
+<li><p>Yes, a subset of the data can be found here <a class="reference external" href="https://cosmology.alcf.anl.gov/">https://cosmology.alcf.anl.gov/</a> this includes a sample of snapshot data, and lightcone data
+including halo catalogs</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="faqs-skysim">
+<h2>FAQs - <em>Skysim</em><a class="headerlink" href="#faqs-skysim" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>What is the difference between CosmoDC2 and skysim?</p>
+<ul>
+<li><p>Skysim is a more recent and much larger extragalactic catalog, incorporating improvements and bug fixes to cosmoDC2 using the same or similar base methods and simulations. These include higher resolution weak lensing, fixes to the lensing deflection angles, color model improvements, triaxiality, and additional halo information.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>IDS</strong></p>
+<ul class="simple">
+<li><p>Why is the halo catalog slightly different to CosmoDC2?</p>
+<ul>
+<li><p>See above known issue in cosmoDC2 with a very small number of duplicate halos, we also have different cuts on the galaxy magnitudes which result in a different halo sample.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Masses</strong></p>
+<ul class="simple">
+<li><p>My SOD mass/ other quantities are 0 or -1?</p>
+<ul>
+<li><p>This means one of three things, the halo mass might be too low for an SOD measurement, an SOD measurement may have failed, or this could be a synthetic field galaxy which is not associated with a halo.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "desc-python",
+            path: "./tutorials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'desc-python'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="extragalactic_gcr_redshift_dist.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Plot N versus z Distributions in the extragalactic catalogs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="matching_fof.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Match truth and object catalogs for DC2 Run 2.2i</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-the-catalogs">Reading the catalogs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-native-quantities">Non-native Quantities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#native-quantities">Native Quantities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties">Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skysim">Skysim</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faqs-cosmodc2">FAQs - <em>CosmoDC2</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faqs-skysim">FAQs - <em>Skysim</em></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By LSST DESC
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
